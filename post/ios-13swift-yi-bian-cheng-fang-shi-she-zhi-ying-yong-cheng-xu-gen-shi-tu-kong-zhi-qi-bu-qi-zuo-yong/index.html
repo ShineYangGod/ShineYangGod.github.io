@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://shineyanggod.github.io//favicon.ico?v=1600670358104">
+<link rel="shortcut icon" href="https://shineyanggod.github.io//favicon.ico?v=1600670708220">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://shineyanggod.github.io//styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://shineyanggod.github.io/">
-        <img src="https://shineyanggod.github.io//images/avatar.png?v=1600670358104" class="site-logo">
+        <img src="https://shineyanggod.github.io//images/avatar.png?v=1600670708220" class="site-logo">
         <h1 class="site-title">ShineYang</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -97,24 +97,25 @@
             
             <div class="post-content">
               <p>在iOS以后直接使用window?.makeKeyAndVisible()是不起作用的，正确用法是:</p>
-<p>static func redirectToMainNavRVC(currentVC: UIViewController){<br>
-let appDelegate = UIApplication.shared.delegate as! AppDelegate<br>
-let vc = UIStoryboard(name: appDelegate.storyBoardName, bundle: nil).instantiateViewController(withIdentifier: &quot;MainNavigationViewController&quot;) as! MainNavigationViewController<br>
-if #available(iOS 13.0, *){<br>
-if let scene = UIApplication.shared.connectedScenes.first{<br>
-guard let windowScene = (scene as? UIWindowScene) else { return }<br>
-print(&quot;&gt;&gt;&gt; windowScene: (windowScene)&quot;)<br>
-let window: UIWindow = UIWindow(frame: windowScene.coordinateSpace.bounds)<br>
-window.windowScene = windowScene //Make sure to do this<br>
-window.rootViewController = vc<br>
-window.makeKeyAndVisible()<br>
-appDelegate.window = window<br>
-}<br>
-} else {<br>
-appDelegate.window?.rootViewController = vc<br>
-appDelegate.window?.makeKeyAndVisible()<br>
-}<br>
-}</p>
+<pre><code>static func redirectToMainNavRVC(currentVC: UIViewController){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let vc = UIStoryboard(name: appDelegate.storyBoardName, bundle: nil).instantiateViewController(withIdentifier: &quot;MainNavigationViewController&quot;) as! MainNavigationViewController
+    if #available(iOS 13.0, *){
+        if let scene = UIApplication.shared.connectedScenes.first{
+            guard let windowScene = (scene as? UIWindowScene) else { return }
+            print(&quot;&gt;&gt;&gt; windowScene: \(windowScene)&quot;)
+            let window: UIWindow = UIWindow(frame: windowScene.coordinateSpace.bounds)
+            window.windowScene = windowScene //Make sure to do this
+            window.rootViewController = vc
+            window.makeKeyAndVisible()
+            appDelegate.window = window
+        }
+    } else {
+        appDelegate.window?.rootViewController = vc
+        appDelegate.window?.makeKeyAndVisible()
+    }
+}
+</code></pre>
 
             </div>
             

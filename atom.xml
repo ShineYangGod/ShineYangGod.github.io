@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://shineyanggod.github.io/</id>
     <title>ShineYang</title>
-    <updated>2020-09-21T06:39:20.485Z</updated>
+    <updated>2020-09-21T06:45:12.029Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://shineyanggod.github.io/"/>
     <link rel="self" href="https://shineyanggod.github.io/atom.xml"/>
@@ -17,24 +17,25 @@
         </link>
         <updated>2020-09-21T05:54:11.000Z</updated>
         <content type="html"><![CDATA[<p>在iOS以后直接使用window?.makeKeyAndVisible()是不起作用的，正确用法是:</p>
-<p>static func redirectToMainNavRVC(currentVC: UIViewController){<br>
-let appDelegate = UIApplication.shared.delegate as! AppDelegate<br>
-let vc = UIStoryboard(name: appDelegate.storyBoardName, bundle: nil).instantiateViewController(withIdentifier: &quot;MainNavigationViewController&quot;) as! MainNavigationViewController<br>
-if #available(iOS 13.0, *){<br>
-if let scene = UIApplication.shared.connectedScenes.first{<br>
-guard let windowScene = (scene as? UIWindowScene) else { return }<br>
-print(&quot;&gt;&gt;&gt; windowScene: (windowScene)&quot;)<br>
-let window: UIWindow = UIWindow(frame: windowScene.coordinateSpace.bounds)<br>
-window.windowScene = windowScene //Make sure to do this<br>
-window.rootViewController = vc<br>
-window.makeKeyAndVisible()<br>
-appDelegate.window = window<br>
-}<br>
-} else {<br>
-appDelegate.window?.rootViewController = vc<br>
-appDelegate.window?.makeKeyAndVisible()<br>
-}<br>
-}</p>
+<pre><code>static func redirectToMainNavRVC(currentVC: UIViewController){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let vc = UIStoryboard(name: appDelegate.storyBoardName, bundle: nil).instantiateViewController(withIdentifier: &quot;MainNavigationViewController&quot;) as! MainNavigationViewController
+    if #available(iOS 13.0, *){
+        if let scene = UIApplication.shared.connectedScenes.first{
+            guard let windowScene = (scene as? UIWindowScene) else { return }
+            print(&quot;&gt;&gt;&gt; windowScene: \(windowScene)&quot;)
+            let window: UIWindow = UIWindow(frame: windowScene.coordinateSpace.bounds)
+            window.windowScene = windowScene //Make sure to do this
+            window.rootViewController = vc
+            window.makeKeyAndVisible()
+            appDelegate.window = window
+        }
+    } else {
+        appDelegate.window?.rootViewController = vc
+        appDelegate.window?.makeKeyAndVisible()
+    }
+}
+</code></pre>
 ]]></content>
     </entry>
 </feed>
