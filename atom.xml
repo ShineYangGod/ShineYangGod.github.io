@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://shineyanggod.github.io/</id>
     <title>ShineYang</title>
-    <updated>2020-09-25T01:38:13.544Z</updated>
+    <updated>2020-10-15T02:42:02.121Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://shineyanggod.github.io/"/>
     <link rel="self" href="https://shineyanggod.github.io/atom.xml"/>
@@ -10,6 +10,61 @@
     <logo>https://shineyanggod.github.io/images/avatar.png</logo>
     <icon>https://shineyanggod.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ShineYang</rights>
+    <entry>
+        <title type="html"><![CDATA[Go实战项目【一】Golang和Gin框架的安装和使用]]></title>
+        <id>https://shineyanggod.github.io/post/go-shi-zhan-xiang-mu-yi-golang-he-gin-kuang-jia-de-an-zhuang-he-shi-yong/</id>
+        <link href="https://shineyanggod.github.io/post/go-shi-zhan-xiang-mu-yi-golang-he-gin-kuang-jia-de-an-zhuang-he-shi-yong/">
+        </link>
+        <updated>2020-10-15T02:13:27.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="golang的安装">Golang的安装</h3>
+<p>根据所使用的电脑操作系统，下载相对应的版本<a href="https://studygolang.com/dl">Golang</a> 下载<br>
+比如我的电脑是macOS系统，下载的是</p>
+<figure data-type="image" tabindex="1"><img src="https://shineyanggod.github.io//post-images/1602728774979.png" alt="" loading="lazy"></figure>
+<p>安装完毕后配置路径<br>
+打开终端，执行:</p>
+<pre><code>vi ~/.bash_profile 
+</code></pre>
+<p><code>.bash_profile</code> 添加的内容如下：</p>
+<pre><code>#Go
+export GOROOT=/usr/local/go
+export PATH=$PATH:$GOROOT/bin
+</code></pre>
+<p>然后执行</p>
+<pre><code>source ~/.bash_profile 
+</code></pre>
+<p>让配置生效<br>
+执行</p>
+<pre><code>go version
+</code></pre>
+<p>查看Golang是否安装成功，出现以下信息即为安装成功<br>
+<img src="https://shineyanggod.github.io//post-images/1602729021295.png" alt="" loading="lazy"></p>
+<h4 id="初始化项目目录">初始化项目目录</h4>
+<p>选一个你自己喜欢的路径，创建一个文件夹，比如我的是/Users/newmac/Documents/Go-app这个文件夹下</p>
+<pre><code>cd /Users/newmac/Documents/Go-app
+mkdir api &amp;&amp; cd api
+go env -w GO111MODULE=on
+go env -w GOPROXY=https://goproxy.cn,direct
+go mod init api
+</code></pre>
+<p><code>mkdir api &amp;&amp; cd api</code>：创建并进入api文件夹<br>
+<code>go env -w GO111MODULE=on</code>：开启Go modules<br>
+<code>go env -w GOPROXY=https://goproxy.cn,direct</code>：设置 GOPROXY 代理，也可以把GOPROXY写入<code>.bash_profile</code>中<br>
+<code>go mod init [MODULE_PATH]</code>：初始化 Go modules，它将会生成 go.mod 文件，MODULE_PATH 填写的是模块引入路径，如果想要把项目放到Github上，可以填写GitHub的项目路径，这个根据自己情况填写。<br>
+然后就会在api文件夹下出现go.mod文件<br>
+<img src="https://shineyanggod.github.io//post-images/1602729136409.png" alt="" loading="lazy"></p>
+<h4 id="安装gin框架">安装Gin框架</h4>
+<p>在<code>api</code>文件夹下，执行</p>
+<pre><code>go get -u github.com/gin-gonic/gin
+</code></pre>
+<p>安装完毕后，创建一个<code>test.go</code>文件，测试下Gin框架是否能使用<code>test.go</code><br>
+<img src="https://shineyanggod.github.io//post-images/1602729230872.png" alt="" loading="lazy"></p>
+<p><mark>我用的是GoLang开发工具，可以直接在编译器里面执行</mark></p>
+<p>如果用的是VS code，可以在终端运行:<code>go run test.go</code><br>
+在浏览器打开127.0.0.1:8080/ping这个地址，可以看到有返回的数据，代表Gin框架安装和使用成功。<br>
+<img src="https://shineyanggod.github.io//post-images/1602729526136.png" alt="" loading="lazy"></p>
+<h2 id="go相关学习知识"><a href="https://wizardforcel.gitbooks.io/go42/content/content/42_1_install.html">Go相关学习知识</a></h2>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[清理Xcode占用的Mac硬盘空间]]></title>
         <id>https://shineyanggod.github.io/post/qing-li-xcode-zhan-yong-de-mac-ying-pan-kong-jian/</id>

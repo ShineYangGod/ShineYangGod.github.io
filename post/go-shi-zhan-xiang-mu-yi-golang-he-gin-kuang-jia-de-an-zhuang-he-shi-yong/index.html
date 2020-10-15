@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>Go实战项目【一】Golang和Gin框架的安装和使用 | ShineYang</title>
+<meta name="description" content="温故而知新">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://shineyanggod.github.io//favicon.ico?v=1602729709769">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://shineyanggod.github.io//styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://shineyanggod.github.io/">
+        <img src="https://shineyanggod.github.io//images/avatar.png?v=1602729709769" class="site-logo">
+        <h1 class="site-title">ShineYang</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+       | <a class="rss" href="https://shineyanggod.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">Go实战项目【一】Golang和Gin框架的安装和使用</h2>
+            <div class="post-date">2020-10-15</div>
+            
+            <div class="post-content">
+              <h3 id="golang的安装">Golang的安装</h3>
+<p>根据所使用的电脑操作系统，下载相对应的版本<a href="https://studygolang.com/dl">Golang</a> 下载<br>
+比如我的电脑是macOS系统，下载的是</p>
+<figure data-type="image" tabindex="1"><img src="https://shineyanggod.github.io//post-images/1602728774979.png" alt="" loading="lazy"></figure>
+<p>安装完毕后配置路径<br>
+打开终端，执行:</p>
+<pre><code>vi ~/.bash_profile 
+</code></pre>
+<p><code>.bash_profile</code> 添加的内容如下：</p>
+<pre><code>#Go
+export GOROOT=/usr/local/go
+export PATH=$PATH:$GOROOT/bin
+</code></pre>
+<p>然后执行</p>
+<pre><code>source ~/.bash_profile 
+</code></pre>
+<p>让配置生效<br>
+执行</p>
+<pre><code>go version
+</code></pre>
+<p>查看Golang是否安装成功，出现以下信息即为安装成功<br>
+<img src="https://shineyanggod.github.io//post-images/1602729021295.png" alt="" loading="lazy"></p>
+<h4 id="初始化项目目录">初始化项目目录</h4>
+<p>选一个你自己喜欢的路径，创建一个文件夹，比如我的是/Users/newmac/Documents/Go-app这个文件夹下</p>
+<pre><code>cd /Users/newmac/Documents/Go-app
+mkdir api &amp;&amp; cd api
+go env -w GO111MODULE=on
+go env -w GOPROXY=https://goproxy.cn,direct
+go mod init api
+</code></pre>
+<p><code>mkdir api &amp;&amp; cd api</code>：创建并进入api文件夹<br>
+<code>go env -w GO111MODULE=on</code>：开启Go modules<br>
+<code>go env -w GOPROXY=https://goproxy.cn,direct</code>：设置 GOPROXY 代理，也可以把GOPROXY写入<code>.bash_profile</code>中<br>
+<code>go mod init [MODULE_PATH]</code>：初始化 Go modules，它将会生成 go.mod 文件，MODULE_PATH 填写的是模块引入路径，如果想要把项目放到Github上，可以填写GitHub的项目路径，这个根据自己情况填写。<br>
+然后就会在api文件夹下出现go.mod文件<br>
+<img src="https://shineyanggod.github.io//post-images/1602729136409.png" alt="" loading="lazy"></p>
+<h4 id="安装gin框架">安装Gin框架</h4>
+<p>在<code>api</code>文件夹下，执行</p>
+<pre><code>go get -u github.com/gin-gonic/gin
+</code></pre>
+<p>安装完毕后，创建一个<code>test.go</code>文件，测试下Gin框架是否能使用<code>test.go</code><br>
+<img src="https://shineyanggod.github.io//post-images/1602729230872.png" alt="" loading="lazy"></p>
+<p><mark>我用的是GoLang开发工具，可以直接在编译器里面执行</mark></p>
+<p>如果用的是VS code，可以在终端运行:<code>go run test.go</code><br>
+在浏览器打开127.0.0.1:8080/ping这个地址，可以看到有返回的数据，代表Gin框架安装和使用成功。<br>
+<img src="https://shineyanggod.github.io//post-images/1602729526136.png" alt="" loading="lazy"></p>
+<h2 id="go相关学习知识"><a href="https://wizardforcel.gitbooks.io/go42/content/content/42_1_install.html">Go相关学习知识</a></h2>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://shineyanggod.github.io/post/qing-li-xcode-zhan-yong-de-mac-ying-pan-kong-jian/">
+                  <h3 class="post-title">
+                    清理Xcode占用的Mac硬盘空间
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>
