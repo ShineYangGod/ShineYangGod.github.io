@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://shineyanggod.github.io//favicon.ico?v=1602729709769">
+<link rel="shortcut icon" href="https://shineyanggod.github.io//favicon.ico?v=1602730070133">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://shineyanggod.github.io//styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://shineyanggod.github.io/">
-        <img src="https://shineyanggod.github.io//images/avatar.png?v=1602729709769" class="site-logo">
+        <img src="https://shineyanggod.github.io//images/avatar.png?v=1602730070133" class="site-logo">
         <h1 class="site-title">ShineYang</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -98,27 +98,24 @@
             <div class="post-content">
               <p>主要是操作两个目录下的文件 ~/Library/Developer/Xcode 和 ~/Library/Developer/CoreSimulator</p>
 <h3 id="~librarydeveloperxcode">~/Library/Developer/Xcode</h3>
-<!-- more -->
 <h4 id="1-deriveddata">1、DerivedData</h4>
-<blockquote>
-<p>此文件夹内的每个目录是Xcode运行每个APP时生成的缓存文件，删除之后再运行APP会重新生成该APP对应的文件，只是编译时间变长了。<br>
-可保留近期运行的APP相关的文件夹，对于以前运行过近期不再使用的APP，例如网上下载的demo，建议清理。<br>
-Archives<br>
-此文件夹中的内容对应Xcode-&gt;Window-&gt;Organizer-&gt;Archives中列出的打包文件。<br>
-可保留有用的打包文件，其它删除。<br>
-iOS DeviceSupport<br>
-此文件夹存放的是Xcode对你所连接真机的版本支持，每个文件夹几乎都是几个G的大小（我个人的情况是11个目录占了26G空间），手机每升级一个版本，再次连接Xcode时，这里都会生成一个目录。<br>
-建议保留你手机当前版本的文件夹。全部删除也没关系，手机再次连接Xcode时会重新生成。</p>
-</blockquote>
+<pre><code>此文件夹内的每个目录是Xcode运行每个APP时生成的缓存文件，删除之后再运行APP会重新生成该APP对应的文件，只是编译时间变长了。
+可保留近期运行的APP相关的文件夹，对于以前运行过近期不再使用的APP，例如网上下载的demo，建议清理。
+Archives
+此文件夹中的内容对应Xcode-&gt;Window-&gt;Organizer-&gt;Archives中列出的打包文件。
+可保留有用的打包文件，其它删除。
+iOS DeviceSupport
+此文件夹存放的是Xcode对你所连接真机的版本支持，每个文件夹几乎都是几个G的大小（我个人的情况是11个目录占了26G空间），手机每升级一个版本，再次连接Xcode时，这里都会生成一个目录。
+建议保留你手机当前版本的文件夹。全部删除也没关系，手机再次连接Xcode时会重新生成。
+</code></pre>
 <h4 id="2-~librarydevelopercoresimulator">2. ~/Library/Developer/CoreSimulator</h4>
-<blockquote>
-<p>Devices<br>
-此文件夹下的目录是以模拟器的UDID命名的，运行模拟器时每安装一个新的APP，相应的文件夹内容也会增大，就像手机上安装应用会占用手机空间一样。<br>
-可删除全部文件夹。再次运行模拟器，会重新生成。<br>
+<pre><code>Devices
+此文件夹下的目录是以模拟器的UDID命名的，运行模拟器时每安装一个新的APP，相应的文件夹内容也会增大，就像手机上安装应用会占用手机空间一样。
+</code></pre>
+<p>可删除全部文件夹。再次运行模拟器，会重新生成。<br>
 删除后开启Xcode运行模拟器，可能会出现下面的错误，不要惊慌，重启Xcode就好了。<br>
 <img src="https://shineyanggod.github.io//post-images/1600997815748.png" alt="" loading="lazy"></p>
-</blockquote>
-<h1 id="建议在退出xcode后进行清理清理后重启电脑">建议在退出Xcode后进行清理，清理后重启电脑。</h1>
+<p><mark>建议在退出Xcode后进行清理，清理后重启电脑</mark></p>
 
             </div>
             
