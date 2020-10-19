@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>macOS Catalina (macOS 10.15) 已损坏无法打开解决办法 | ShineYang</title>
+<title>Swift 把 1234656转化成 1.23万 或1.23亿 或 1 万 ，1亿 | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyanggod.github.io//favicon.ico?v=1603100720315">
 
@@ -105,31 +105,135 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    macOS Catalina (macOS 10.15) 已损坏无法打开解决办法
+                    Swift 把 1234656转化成 1.23万 或1.23亿 或 1 万 ，1亿
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
                         · 2020-10-19 ·
                     </time>
                     
-                        <a href="https://shineyanggod.github.io/tag/fRADVONCB/" class="post-tags">
-                            # Mac整理
+                        <a href="https://shineyanggod.github.io/tag/3U6sZPuRZ/" class="post-tags">
+                            # Swift
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <p>最近有很多小伙伴更新系统后，提示“已损坏无法打开”的情况，按照以往的方法，在系统的“安全与隐私”中已经允许了“任何来源”，但还是一样打不开，怎么办呢？</p>
-<figure data-type="image" tabindex="1"><img src="https://shineyanggod.github.io//post-images/1603099224846.png" alt="图1" loading="lazy"></figure>
-<p>App 在 macOS Catalina下提示已损坏无法打开解决办法：<br>
-1、在系统的“安全与隐私”中允许“任何来源”，再打开终端。</p>
-<figure data-type="image" tabindex="2"><img src="https://shineyanggod.github.io//post-images/1603099251815.png" alt="图2" loading="lazy"></figure>
-<p>2、输入以下命令:</p>
-<pre><code>    sudo xattr -d com.apple.quarantine /Applications/xxxx.app
+                    <pre><code>extension Float {
+
+    /** 战斗力值转换 */
+    var combatValues: String {
+
+        if (self / 10000) &gt; 1 {
+
+            let temp = self / 10000
+
+            if fmodf(Float(temp), 1) == 0 {
+
+                let str = String.init(format: &quot;%.0f&quot;, temp)
+
+                return str + &quot;万&quot;
+
+            }else if fmodf(Float(temp) * 10, 1) == 0 {
+
+                let str = String.init(format: &quot;%.1f&quot;, temp)
+
+                return str + &quot;万&quot;
+
+            }else{
+
+                let str = String.init(format: &quot;%.2f&quot;, temp)
+                
+                let decimal = str.componentsSeparatedByString(&quot;.&quot;)
+                
+                let arrayString = decimal[1]
+                
+                if arrayString == &quot;00&quot; {
+                    
+                    return decimal[0] + &quot;万&quot;
+                }
+
+                return str + &quot;万&quot;
+
+            }
+
+        }
+
+        if (self / 100000000) &gt; 1 {
+
+            let temp = self / 100000000
+
+            if fmodf(Float(temp), 1) == 0 {
+
+                let str = String.init(format: &quot;%.0f&quot;, temp)
+
+                return str + &quot;亿&quot;
+
+            }else if fmodf(Float(temp) * 10, 1) == 0 {
+
+                let str = String.init(format: &quot;%.1f&quot;, temp)
+
+                return str + &quot;亿&quot;
+
+            }else{
+
+                let str = String.init(format: &quot;%.2f&quot;, temp)
+                
+                let decimal = str.componentsSeparatedByString(&quot;.&quot;)
+                
+                let arrayString = decimal[1]
+                
+                if arrayString == &quot;00&quot; {
+                    
+                    return decimal[0] + &quot;亿&quot;
+                }
+                
+                return str + &quot;亿&quot;
+
+            }
+
+        }
+        
+        let decimal = String.init(self).componentsSeparatedByString(&quot;.&quot;)
+        
+        let arrayString = decimal[1]
+        
+        if arrayString == &quot;0&quot; {
+            
+            return decimal[0]
+        }
+
+        return String.init(self)
+
+    }
+
+}
+
 </code></pre>
-<p><mark>注意：Applications/xxxx.app 换成你的App路径或在sudo xattr -d com.apple.quarantine 后将软件拖进去即可。</mark><br>
-<img src="https://shineyanggod.github.io//post-images/1603099377166.png" alt="图3" loading="lazy"></p>
-<p>3、最后，重启App即可。<br>
-<img src="https://shineyanggod.github.io//post-images/1603099392884.png" alt="图4" loading="lazy"></p>
+<blockquote>
+<p>字符串扩展</p>
+</blockquote>
+<pre><code>extension String {
+    
+    func attributedString(font:CGFloat)-&gt;NSMutableAttributedString{
+    
+        let attributedS = NSMutableAttributedString(string: self)
+        
+        if self.containsString(&quot;万&quot;) || self.containsString(&quot;亿&quot;) {
+            
+            let normalAttributes = [NSFontAttributeName:UIFont.systemFontOfSize(font)]
+            
+            attributedS.addAttributes(normalAttributes, range: NSMakeRange(self.characters.count - 1,1))
+            
+        }
+        
+        return attributedS
+    
+    }
+    
+}
+</code></pre>
+<pre><code>    调用：label.attributedText = Float(number).combatValues
+</code></pre>
 
                 </div>
             </article>
@@ -138,8 +242,8 @@
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyanggod.github.io/post/mac-xia-pei-zhi-go-kai-fa-huan-jing/" class="post-title gt-a-link">
-                    Mac下配置Go开发环境
+                <a href="https://shineyanggod.github.io/post/macos-catalina-macos-1015-yi-sun-pi-wu-fa-da-kai-jie-jue-ban-fa/" class="post-title gt-a-link">
+                    macOS Catalina (macOS 10.15) 已损坏无法打开解决办法
                 </a>
             </div>
         

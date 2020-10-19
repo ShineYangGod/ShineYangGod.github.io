@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://shineyanggod.github.io/</id>
     <title>ShineYang</title>
-    <updated>2020-10-19T09:23:55.643Z</updated>
+    <updated>2020-10-19T09:45:25.581Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://shineyanggod.github.io/"/>
     <link rel="self" href="https://shineyanggod.github.io/atom.xml"/>
@@ -10,6 +10,20 @@
     <logo>https://shineyanggod.github.io/images/avatar.png</logo>
     <icon>https://shineyanggod.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, ShineYang</rights>
+    <entry>
+        <title type="html"><![CDATA[Xcode11 使用终端上传ipa]]></title>
+        <id>https://shineyanggod.github.io/post/xcode11-shi-yong-zhong-duan-shang-chuan-ipa/</id>
+        <link href="https://shineyanggod.github.io/post/xcode11-shi-yong-zhong-duan-shang-chuan-ipa/">
+        </link>
+        <updated>2020-10-19T09:34:31.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Swift 把 1234656转化成 1.23万 或1.23亿 或 1 万 ，1亿]]></title>
+        <id>https://shineyanggod.github.io/post/swift-ba-1234656-zhuan-hua-cheng-123-wan-huo-123-yi-huo-1-wan-1-yi/</id>
+        <link href="https://shineyanggod.github.io/post/swift-ba-1234656-zhuan-hua-cheng-123-wan-huo-123-yi-huo-1-wan-1-yi/">
+        </link>
+        <updated>2020-10-19T09:26:30.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[macOS Catalina (macOS 10.15) 已损坏无法打开解决办法]]></title>
         <id>https://shineyanggod.github.io/post/macos-catalina-macos-1015-yi-sun-pi-wu-fa-da-kai-jie-jue-ban-fa/</id>
