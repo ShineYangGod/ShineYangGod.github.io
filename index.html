@@ -6,7 +6,7 @@
 
 <title>ShineYang</title>
 
-<link rel="shortcut icon" href="https://shineyanggod.github.io//favicon.ico?v=1603098066380">
+<link rel="shortcut icon" href="https://shineyanggod.github.io//favicon.ico?v=1603098411888">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://shineyanggod.github.io//styles/main.css">
@@ -93,7 +93,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1603098066380" action="/search/index.html">
+            <form id="gridea-search-form" style="position: relative" data-update="1603098411888" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
             </form>
@@ -139,69 +139,7 @@
                         </a>
                     </div>
                     <div class="gt-post-content post-abstract gt-c-content-color-second">
-                        <p>废话不多说，直接上代码</p>
-<pre><code>自定义一个SYitemViewLayout，继承UICollectionViewFlowLayout
-</code></pre>
-<pre><code>mport UIKit
-
-//根据需求设置列跟行
-let kEmotionCellNumberOfOneRow = 3
-let kEmotionCellRow = 2
-
-class SYitemViewLayout: UICollectionViewFlowLayout {
-    
-    // 保存所有item
-    fileprivate var attributesArr: [UICollectionViewLayoutAttributes] = []
-    
-    // MARK:- 重新布局
-     override func prepare() {
-         super.prepare()
-         
-         let itemWH: CGFloat = (kScreenWitdh - 30) / CGFloat(kEmotionCellNumberOfOneRow)
-         
-         // 设置itemSize
-         itemSize = CGSize(width: itemWH, height: itemWH - 50)
-         minimumLineSpacing = 0
-         minimumInteritemSpacing = 0
-         scrollDirection = .horizontal
-         
-         // 设置collectionView属性
-         collectionView?.isPagingEnabled = true
-         collectionView?.showsHorizontalScrollIndicator = false
-         collectionView?.showsVerticalScrollIndicator = true
-//         let insertMargin = (collectionView!.bounds.height - 3 * itemWH) * 0.5
-//        collectionView?.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-         
-         var page = 0
-         let itemsCount = collectionView?.numberOfItems(inSection: 0) ?? 0
-         for itemIndex in 0..&lt;itemsCount {
-             let indexPath = IndexPath(item: itemIndex, section: 0)
-             let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-             
-             page = itemIndex / (kEmotionCellNumberOfOneRow * kEmotionCellRow)
-             // 通过一系列计算, 得到x, y值
-             let x = itemSize.width * CGFloat(itemIndex % Int(kEmotionCellNumberOfOneRow)) + (CGFloat(page) * (kScreenWitdh - 30))
-             let y = itemSize.height * CGFloat((itemIndex - page * kEmotionCellRow * kEmotionCellNumberOfOneRow) / kEmotionCellNumberOfOneRow)
-             
-             attributes.frame = CGRect(x: x, y: y, width: itemSize.width, height: itemSize.height)
-             // 把每一个新的属性保存起来
-             attributesArr.append(attributes)
-         }
-         
-     }
-     
-     override func layoutAttributesForElements(in rect: CGRect) -&gt; [UICollectionViewLayoutAttributes]? {
-         var rectAttributes: [UICollectionViewLayoutAttributes] = []
-         _ = attributesArr.map({
-             if rect.contains($0.frame) {
-                 rectAttributes.append($0)
-             }
-         })
-         return rectAttributes
-     }
-}
-</code></pre>
-
+                        
                     </div>
                     <div class="post-info">
                         <time class="post-time gt-c-content-color-first">
@@ -230,93 +168,7 @@ class SYitemViewLayout: UICollectionViewFlowLayout {
                         </a>
                     </div>
                     <div class="gt-post-content post-abstract gt-c-content-color-second">
-                        <p>Swift已成为一种流行的编程语言，并且每天都在发展。<br>
-开发Swift框架具有以下优点。<br>
-隐藏您的代码实现。<br>
-由于.framework文件已经编译，因此将减少重新编译并节省开发时间。<br>
-这就是苹果公司使用的，例如：UIKit.framework。<br>
-那么，您在寻找什么？让我们现在开始开发自己的Swift框架。</p>
-<h3 id="开发swift框架具有以下优点">开发Swift框架具有以下优点。</h3>
-<p>1、隐藏您的代码实现。<br>
-2、由于.framework文件已经编译，因此将减少重新编译并节省开发时间。</p>
-<p>这就是苹果公司使用的，例如：UIKit.framework。<br>
-那么，您在寻找什么？让我们现在开始开发自己的Swift框架。<br>
-使用的工具：XCode 11.6 +，Swift 5.1+<br>
-步骤1：-安装框架项目</p>
-<h5 id="1-创建新的xcode项目">1、创建新的XCode项目。</h5>
-<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/2230644-032c56f68cbd7259.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图1" loading="lazy"></figure>
-<p>#####2、 创建框架</p>
-<figure data-type="image" tabindex="2"><img src="https://upload-images.jianshu.io/upload_images/2230644-b5c2237442f89f46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图2" loading="lazy"></figure>
-<h6 id="为您的项目命名我们使用了类似于alamofire的alamowater名字-请确保选择语言-swift">为您的项目命名，我们使用了类似于Alamofire的AlamoWater名字。 （请确保选择语言-Swift）</h6>
-<figure data-type="image" tabindex="3"><img src="https://upload-images.jianshu.io/upload_images/2230644-310af98148bbebd6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图3" loading="lazy"></figure>
-<h6 id="单击目标内的alamowater文件夹然后按n">单击目标内的AlamoWater文件夹，然后按⌘+N。</h6>
-<p>######选择文件名AlamoWater和以下子类：NSObject</p>
-<figure data-type="image" tabindex="4"><img src="https://upload-images.jianshu.io/upload_images/2230644-9ba7d8e32b55ae48.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图4" loading="lazy"></figure>
-<p>在<strong>AlameWater.swift中</strong>添加以下代码**。**</p>
-<p>**注意：-**确保您的类和方法设置为Public</p>
-<pre><code>import UIKit
-
-public protocol AlamoWaterProtocol {
-    func didCallHello()
-}
-
-open class AlamoWater: NSObject {
-    public static let shared = AlamoWater()
-    
-    public var delegate:AlamoWaterProtocol?
-    
-    open func hello(){
-        debugPrint(&quot;Hello from AlamoWater!&quot;)
-        AlamoWater.shared.delegate?.didCallHello()
-    }
-}
-
-</code></pre>
-<h6 id="要为ios设备和模拟器创建框架请向您的项目添加新的aggregate目标">要为iOS设备和模拟器创建框架，请向您的项目添加新的Aggregate目标。</h6>
-<figure data-type="image" tabindex="5"><img src="https://upload-images.jianshu.io/upload_images/2230644-b618f5794d59501f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图5" loading="lazy"></figure>
-<p><img src="https://upload-images.jianshu.io/upload_images/2230644-4ae67e6fe40d2065.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图6" loading="lazy"><br>
-<img src="https://upload-images.jianshu.io/upload_images/2230644-c19d65eb2e3295f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图7" loading="lazy"></p>
-<figure data-type="image" tabindex="6"><img src="https://upload-images.jianshu.io/upload_images/2230644-29cf3ac7b2152920.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图8" loading="lazy"></figure>
-<p>并添加[<strong>运行脚本</strong>]</p>
-<figure data-type="image" tabindex="7"><img src="https://upload-images.jianshu.io/upload_images/2230644-d718d2788e1d1c54.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图10" loading="lazy"></figure>
-<pre><code>#!/bin/sh
-
-UNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal
-
-# make sure the output directory exists
-mkdir -p &quot;${UNIVERSAL_OUTPUTFOLDER}&quot;
-
-# Step 1. Build Device and Simulator versions
-xcodebuild -target &quot;AlamoWater&quot; ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=&quot;${BUILD_DIR}&quot; BUILD_ROOT=&quot;${BUILD_ROOT}&quot; clean build
-xcodebuild -target &quot;AlamoWater&quot; -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO BUILD_DIR=&quot;${BUILD_DIR}&quot; BUILD_ROOT=&quot;${BUILD_ROOT}&quot; clean build
-
-# Step 2. Copy the framework structure (from iphoneos build) to the universal folder
-cp -R &quot;${BUILD_DIR}/${CONFIGURATION}-iphoneos/AlamoWater.framework&quot; &quot;${UNIVERSAL_OUTPUTFOLDER}/&quot;
-
-# Step 3. Copy Swift modules from iphonesimulator build (if it exists) to the copied framework directory
-SIMULATOR_SWIFT_MODULES_DIR=&quot;${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/AlamoWater.framework/Modules/AlamoWater.swiftmodule/.&quot;
-if [ -d &quot;${SIMULATOR_SWIFT_MODULES_DIR}&quot; ]; then
-cp -R &quot;${SIMULATOR_SWIFT_MODULES_DIR}&quot; &quot;${UNIVERSAL_OUTPUTFOLDER}/AlamoWater.framework/Modules/AlamoWater.swiftmodule&quot;
-fi
-
-# Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory
-lipo -create -output &quot;${UNIVERSAL_OUTPUTFOLDER}/AlamoWater.framework/AlamoWater&quot; &quot;${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/AlamoWater.framework/AlamoWater&quot; &quot;${BUILD_DIR}/${CONFIGURATION}-iphoneos/AlamoWater.framework/AlamoWater&quot;
-
-# Step 5. Convenience step to copy the framework to the project's directory
-cp -R &quot;${UNIVERSAL_OUTPUTFOLDER}/AlamoWater.framework&quot; &quot;${PROJECT_DIR}&quot;
-
-# Step 6. Convenience step to open the project's directory in Finder
-open &quot;${PROJECT_DIR}&quot;
-</code></pre>
-<h3 id="注意alamowater改为自己项目的名字">注意：AlamoWater改为自己项目的名字</h3>
-<p>通过按⌘+ B选择UniversalAlamoWater目标来构建您的第一个框架<br>
-构建完成后，您将看到Finder与其中的Framework一起打开。</p>
-<h3 id="注意-如果出现以下错误">注意：-如果出现以下错误，</h3>
-<p>… Reason: image not found</p>
-<p>确保在嵌入式二进制文件和链接的框架和库中都添加了框架</p>
-<figure data-type="image" tabindex="8"><img src="https://upload-images.jianshu.io/upload_images/2230644-e9ad89e0621eb7aa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图11" loading="lazy"></figure>
-<figure data-type="image" tabindex="9"><img src="https://upload-images.jianshu.io/upload_images/2230644-4c80f0d7077a743c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图12" loading="lazy"></figure>
-
+                        
                     </div>
                     <div class="post-info">
                         <time class="post-time gt-c-content-color-first">
@@ -331,7 +183,7 @@ open &quot;${PROJECT_DIR}&quot;
                 </div>
                 
                     <a href="https://shineyanggod.github.io/post/swift-kuang-jia-zhang-1kai-fa-yi-ge-swift-kuang-jia/" class="post-feature-image"
-                       style="background-image: url('https://upload-images.jianshu.io/upload_images/2230644-032c56f68cbd7259.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240')">
+                       style="background-image: url('https://shineyanggod.github.io//post-images/swift-kuang-jia-zhang-1kai-fa-yi-ge-swift-kuang-jia.png')">
                     </a>
                 
             </div>
