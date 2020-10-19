@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Swift UICollectionView横向分页滚动，cell左右排版 | ShineYang</title>
+<title>Mac下配置Go开发环境 | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyanggod.github.io//favicon.ico?v=1603098980433">
 
@@ -105,81 +105,41 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    Swift UICollectionView横向分页滚动，cell左右排版
+                    Mac下配置Go开发环境
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
                         · 2020-10-19 ·
                     </time>
                     
-                        <a href="https://shineyanggod.github.io/tag/3U6sZPuRZ/" class="post-tags">
-                            # Swift
+                        <a href="https://shineyanggod.github.io/tag/4pLK1CS7A/" class="post-tags">
+                            # Go
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <p>废话不多说，直接上代码</p>
-<pre><code>自定义一个SYitemViewLayout，继承UICollectionViewFlowLayout
+                    <p>Go（又称 Golang）是 Google 开发的一种静态强类型、编译型、并发型，并具有垃圾回收功能的编程语言。Go 的语法接近 C 语言，可以进行网络编程、系统编程、并发编程、分布式编程。</p>
+<p>下面演示如何在 Mac 电脑上搭建 Go 语言开发环境。</p>
+<h5 id="1安装-golang-的-sdk">1，安装 Golang 的 SDK</h5>
+<p>在官网下载对应的开发工具GoLand,地址如下:<a href="https://golang.org/dl/">https://golang.org/dl/</a></p>
+<h5 id="2配置环境变量">2，配置环境变量</h5>
+<p>（1）在终端执行如下命令进入用户主目录：</p>
+<pre><code>     cd ~
 </code></pre>
-<pre><code>mport UIKit
-
-//根据需求设置列跟行
-let kEmotionCellNumberOfOneRow = 3
-let kEmotionCellRow = 2
-
-class SYitemViewLayout: UICollectionViewFlowLayout {
-    
-    // 保存所有item
-    fileprivate var attributesArr: [UICollectionViewLayoutAttributes] = []
-    
-    // MARK:- 重新布局
-     override func prepare() {
-         super.prepare()
-         
-         let itemWH: CGFloat = (kScreenWitdh - 30) / CGFloat(kEmotionCellNumberOfOneRow)
-         
-         // 设置itemSize
-         itemSize = CGSize(width: itemWH, height: itemWH - 50)
-         minimumLineSpacing = 0
-         minimumInteritemSpacing = 0
-         scrollDirection = .horizontal
-         
-         // 设置collectionView属性
-         collectionView?.isPagingEnabled = true
-         collectionView?.showsHorizontalScrollIndicator = false
-         collectionView?.showsVerticalScrollIndicator = true
-//         let insertMargin = (collectionView!.bounds.height - 3 * itemWH) * 0.5
-//        collectionView?.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-         
-         var page = 0
-         let itemsCount = collectionView?.numberOfItems(inSection: 0) ?? 0
-         for itemIndex in 0..&lt;itemsCount {
-             let indexPath = IndexPath(item: itemIndex, section: 0)
-             let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-             
-             page = itemIndex / (kEmotionCellNumberOfOneRow * kEmotionCellRow)
-             // 通过一系列计算, 得到x, y值
-             let x = itemSize.width * CGFloat(itemIndex % Int(kEmotionCellNumberOfOneRow)) + (CGFloat(page) * (kScreenWitdh - 30))
-             let y = itemSize.height * CGFloat((itemIndex - page * kEmotionCellRow * kEmotionCellNumberOfOneRow) / kEmotionCellNumberOfOneRow)
-             
-             attributes.frame = CGRect(x: x, y: y, width: itemSize.width, height: itemSize.height)
-             // 把每一个新的属性保存起来
-             attributesArr.append(attributes)
-         }
-         
-     }
-     
-     override func layoutAttributesForElements(in rect: CGRect) -&gt; [UICollectionViewLayoutAttributes]? {
-         var rectAttributes: [UICollectionViewLayoutAttributes] = []
-         _ = attributesArr.map({
-             if rect.contains($0.frame) {
-                 rectAttributes.append($0)
-             }
-         })
-         return rectAttributes
-     }
-}
+<p>（2）执行如下命令打开 .bash_profile 文件：</p>
+<pre><code>    vim .bash_profile
 </code></pre>
+<p>（3）按下 i 进入编辑模式，在文件末尾添加如下内容（GOPATH地址是自己创建项目的地址，比如我的是在桌面的文件夹下创建的）：</p>
+<pre><code>export GOPATH=/Users/yangchen/Desktop/ReactNatve/Go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
+</code></pre>
+<p>（4）按下 ESC 键，然后输入 :wq 保存并退出编辑。<br>
+（5）接着执行如下命令让配置生效。</p>
+<pre><code>     source ~/.bash_profile
+</code></pre>
+<p>最后我们执行 go env 查看配置结果，可以看到 GO 的环境变量已成功配置了。<br>
+<img src="https://shineyanggod.github.io//post-images/1603098737486.png" alt="图1" loading="lazy"></p>
 
                 </div>
             </article>
@@ -188,8 +148,8 @@ class SYitemViewLayout: UICollectionViewFlowLayout {
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyanggod.github.io/post/swift-kuang-jia-zhang-1kai-fa-yi-ge-swift-kuang-jia/" class="post-title gt-a-link">
-                    Swift框架-章：1、开发一个Swift框架
+                <a href="https://shineyanggod.github.io/post/swift-cong-zi-shi-tu-tiao-zhuan-dao-zhi-ding-tabbar-zhu-jie-mian/" class="post-title gt-a-link">
+                    Swift  从子视图跳转到指定tabBar主界面
                 </a>
             </div>
         
