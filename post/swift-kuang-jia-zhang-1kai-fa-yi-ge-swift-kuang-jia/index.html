@@ -1,10 +1,10 @@
-<html lang="zh">
+<html>
 <head>
     <meta charset="utf-8"/>
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>关于 - ShineYang</title>
+<title>Swift框架-章：1、开发一个Swift框架 | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyanggod.github.io//favicon.ico?v=1603097359385">
 
@@ -25,7 +25,7 @@
 
 
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
 <body>
 <div class="main gt-bg-theme-color-first">
@@ -102,15 +102,125 @@
 </nav>
 
     <div class="post-container">
-        <div class="post-detail">
+        <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
+                <h2 class="post-title">
+                    Swift框架-章：1、开发一个Swift框架
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2020-10-19 ·
+                    </time>
+                    
+                        <a href="https://shineyanggod.github.io/tag/3U6sZPuRZ/" class="post-tags">
+                            # Swift
+                        </a>
+                    
+                </div>
                 <div class="post-content">
-                    <p>本博客主要是用作个人在程序开发中记录一些遇到的问题，如果你也是一名开发者，请时刻关注我</p>
+                    <p>Swift已成为一种流行的编程语言，并且每天都在发展。<br>
+开发Swift框架具有以下优点。<br>
+隐藏您的代码实现。<br>
+由于.framework文件已经编译，因此将减少重新编译并节省开发时间。<br>
+这就是苹果公司使用的，例如：UIKit.framework。<br>
+那么，您在寻找什么？让我们现在开始开发自己的Swift框架。</p>
+<h3 id="开发swift框架具有以下优点">开发Swift框架具有以下优点。</h3>
+<p>1、隐藏您的代码实现。<br>
+2、由于.framework文件已经编译，因此将减少重新编译并节省开发时间。</p>
+<p>这就是苹果公司使用的，例如：UIKit.framework。<br>
+那么，您在寻找什么？让我们现在开始开发自己的Swift框架。<br>
+使用的工具：XCode 11.6 +，Swift 5.1+<br>
+步骤1：-安装框架项目</p>
+<h5 id="1-创建新的xcode项目">1、创建新的XCode项目。</h5>
+<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/2230644-032c56f68cbd7259.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图1" loading="lazy"></figure>
+<p>#####2、 创建框架</p>
+<figure data-type="image" tabindex="2"><img src="https://upload-images.jianshu.io/upload_images/2230644-b5c2237442f89f46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图2" loading="lazy"></figure>
+<h6 id="为您的项目命名我们使用了类似于alamofire的alamowater名字-请确保选择语言-swift">为您的项目命名，我们使用了类似于Alamofire的AlamoWater名字。 （请确保选择语言-Swift）</h6>
+<figure data-type="image" tabindex="3"><img src="https://upload-images.jianshu.io/upload_images/2230644-310af98148bbebd6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图3" loading="lazy"></figure>
+<h6 id="单击目标内的alamowater文件夹然后按n">单击目标内的AlamoWater文件夹，然后按⌘+N。</h6>
+<p>######选择文件名AlamoWater和以下子类：NSObject</p>
+<figure data-type="image" tabindex="4"><img src="https://upload-images.jianshu.io/upload_images/2230644-9ba7d8e32b55ae48.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图4" loading="lazy"></figure>
+<p>在<strong>AlameWater.swift中</strong>添加以下代码**。**</p>
+<p>**注意：-**确保您的类和方法设置为Public</p>
+<pre><code>import UIKit
+
+public protocol AlamoWaterProtocol {
+    func didCallHello()
+}
+
+open class AlamoWater: NSObject {
+    public static let shared = AlamoWater()
+    
+    public var delegate:AlamoWaterProtocol?
+    
+    open func hello(){
+        debugPrint(&quot;Hello from AlamoWater!&quot;)
+        AlamoWater.shared.delegate?.didCallHello()
+    }
+}
+
+</code></pre>
+<h6 id="要为ios设备和模拟器创建框架请向您的项目添加新的aggregate目标">要为iOS设备和模拟器创建框架，请向您的项目添加新的Aggregate目标。</h6>
+<figure data-type="image" tabindex="5"><img src="https://upload-images.jianshu.io/upload_images/2230644-b618f5794d59501f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图5" loading="lazy"></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/2230644-4ae67e6fe40d2065.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图6" loading="lazy"><br>
+<img src="https://upload-images.jianshu.io/upload_images/2230644-c19d65eb2e3295f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图7" loading="lazy"></p>
+<figure data-type="image" tabindex="6"><img src="https://upload-images.jianshu.io/upload_images/2230644-29cf3ac7b2152920.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图8" loading="lazy"></figure>
+<p>并添加[<strong>运行脚本</strong>]</p>
+<figure data-type="image" tabindex="7"><img src="https://upload-images.jianshu.io/upload_images/2230644-d718d2788e1d1c54.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图10" loading="lazy"></figure>
+<pre><code>#!/bin/sh
+
+UNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal
+
+# make sure the output directory exists
+mkdir -p &quot;${UNIVERSAL_OUTPUTFOLDER}&quot;
+
+# Step 1. Build Device and Simulator versions
+xcodebuild -target &quot;AlamoWater&quot; ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=&quot;${BUILD_DIR}&quot; BUILD_ROOT=&quot;${BUILD_ROOT}&quot; clean build
+xcodebuild -target &quot;AlamoWater&quot; -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO BUILD_DIR=&quot;${BUILD_DIR}&quot; BUILD_ROOT=&quot;${BUILD_ROOT}&quot; clean build
+
+# Step 2. Copy the framework structure (from iphoneos build) to the universal folder
+cp -R &quot;${BUILD_DIR}/${CONFIGURATION}-iphoneos/AlamoWater.framework&quot; &quot;${UNIVERSAL_OUTPUTFOLDER}/&quot;
+
+# Step 3. Copy Swift modules from iphonesimulator build (if it exists) to the copied framework directory
+SIMULATOR_SWIFT_MODULES_DIR=&quot;${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/AlamoWater.framework/Modules/AlamoWater.swiftmodule/.&quot;
+if [ -d &quot;${SIMULATOR_SWIFT_MODULES_DIR}&quot; ]; then
+cp -R &quot;${SIMULATOR_SWIFT_MODULES_DIR}&quot; &quot;${UNIVERSAL_OUTPUTFOLDER}/AlamoWater.framework/Modules/AlamoWater.swiftmodule&quot;
+fi
+
+# Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory
+lipo -create -output &quot;${UNIVERSAL_OUTPUTFOLDER}/AlamoWater.framework/AlamoWater&quot; &quot;${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/AlamoWater.framework/AlamoWater&quot; &quot;${BUILD_DIR}/${CONFIGURATION}-iphoneos/AlamoWater.framework/AlamoWater&quot;
+
+# Step 5. Convenience step to copy the framework to the project's directory
+cp -R &quot;${UNIVERSAL_OUTPUTFOLDER}/AlamoWater.framework&quot; &quot;${PROJECT_DIR}&quot;
+
+# Step 6. Convenience step to open the project's directory in Finder
+open &quot;${PROJECT_DIR}&quot;
+</code></pre>
+<h3 id="注意alamowater改为自己项目的名字">注意：AlamoWater改为自己项目的名字</h3>
+<p>通过按⌘+ B选择UniversalAlamoWater目标来构建您的第一个框架<br>
+构建完成后，您将看到Finder与其中的Framework一起打开。</p>
+<h3 id="注意-如果出现以下错误">注意：-如果出现以下错误，</h3>
+<p>… Reason: image not found</p>
+<p>确保在嵌入式二进制文件和链接的框架和库中都添加了框架</p>
+<figure data-type="image" tabindex="8"><img src="https://upload-images.jianshu.io/upload_images/2230644-e9ad89e0621eb7aa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图11" loading="lazy"></figure>
+<figure data-type="image" tabindex="9"><img src="https://upload-images.jianshu.io/upload_images/2230644-4c80f0d7077a743c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图12" loading="lazy"></figure>
+<!-- more -->
 
                 </div>
             </article>
         </div>
-        <br>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shineyanggod.github.io/post/go-shi-zhan-xiang-mu-yi-golang-he-gin-kuang-jia-de-an-zhuang-he-shi-yong/" class="post-title gt-a-link">
+                    Go实战项目【一】Golang和Gin框架的安装和使用
+                </a>
+            </div>
+        
+
+        
+
         
             
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css">
@@ -157,6 +267,7 @@
 </script>
 
             
+
             
         
 
@@ -188,7 +299,6 @@
 </script>
 
         
-
 
         <div class="site-footer gt-c-content-color-first">
     <div class="slogan gt-c-content-color-first"><i>the purpose of living is to change the world<i></div>

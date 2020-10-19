@@ -1,10 +1,10 @@
-<html lang="zh">
+<html>
 <head>
     <meta charset="utf-8"/>
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>关于 - ShineYang</title>
+<title>Swift UICollectionView横向分页滚动，cell左右排版 | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyanggod.github.io//favicon.ico?v=1603097359385">
 
@@ -25,7 +25,7 @@
 
 
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
 <body>
 <div class="main gt-bg-theme-color-first">
@@ -102,15 +102,101 @@
 </nav>
 
     <div class="post-container">
-        <div class="post-detail">
+        <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
+                <h2 class="post-title">
+                    Swift UICollectionView横向分页滚动，cell左右排版
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2020-10-19 ·
+                    </time>
+                    
+                        <a href="https://shineyanggod.github.io/tag/3U6sZPuRZ/" class="post-tags">
+                            # Swift
+                        </a>
+                    
+                </div>
                 <div class="post-content">
-                    <p>本博客主要是用作个人在程序开发中记录一些遇到的问题，如果你也是一名开发者，请时刻关注我</p>
+                    <p>废话不多说，直接上代码</p>
+<pre><code>自定义一个SYitemViewLayout，继承UICollectionViewFlowLayout
+</code></pre>
+<pre><code>mport UIKit
+
+//根据需求设置列跟行
+let kEmotionCellNumberOfOneRow = 3
+let kEmotionCellRow = 2
+
+class SYitemViewLayout: UICollectionViewFlowLayout {
+    
+    // 保存所有item
+    fileprivate var attributesArr: [UICollectionViewLayoutAttributes] = []
+    
+    // MARK:- 重新布局
+     override func prepare() {
+         super.prepare()
+         
+         let itemWH: CGFloat = (kScreenWitdh - 30) / CGFloat(kEmotionCellNumberOfOneRow)
+         
+         // 设置itemSize
+         itemSize = CGSize(width: itemWH, height: itemWH - 50)
+         minimumLineSpacing = 0
+         minimumInteritemSpacing = 0
+         scrollDirection = .horizontal
+         
+         // 设置collectionView属性
+         collectionView?.isPagingEnabled = true
+         collectionView?.showsHorizontalScrollIndicator = false
+         collectionView?.showsVerticalScrollIndicator = true
+//         let insertMargin = (collectionView!.bounds.height - 3 * itemWH) * 0.5
+//        collectionView?.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+         
+         var page = 0
+         let itemsCount = collectionView?.numberOfItems(inSection: 0) ?? 0
+         for itemIndex in 0..&lt;itemsCount {
+             let indexPath = IndexPath(item: itemIndex, section: 0)
+             let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+             
+             page = itemIndex / (kEmotionCellNumberOfOneRow * kEmotionCellRow)
+             // 通过一系列计算, 得到x, y值
+             let x = itemSize.width * CGFloat(itemIndex % Int(kEmotionCellNumberOfOneRow)) + (CGFloat(page) * (kScreenWitdh - 30))
+             let y = itemSize.height * CGFloat((itemIndex - page * kEmotionCellRow * kEmotionCellNumberOfOneRow) / kEmotionCellNumberOfOneRow)
+             
+             attributes.frame = CGRect(x: x, y: y, width: itemSize.width, height: itemSize.height)
+             // 把每一个新的属性保存起来
+             attributesArr.append(attributes)
+         }
+         
+     }
+     
+     override func layoutAttributesForElements(in rect: CGRect) -&gt; [UICollectionViewLayoutAttributes]? {
+         var rectAttributes: [UICollectionViewLayoutAttributes] = []
+         _ = attributesArr.map({
+             if rect.contains($0.frame) {
+                 rectAttributes.append($0)
+             }
+         })
+         return rectAttributes
+     }
+}
+</code></pre>
+<!-- more -->
 
                 </div>
             </article>
         </div>
-        <br>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shineyanggod.github.io/post/swift-kuang-jia-zhang-1kai-fa-yi-ge-swift-kuang-jia/" class="post-title gt-a-link">
+                    Swift框架-章：1、开发一个Swift框架
+                </a>
+            </div>
+        
+
+        
+
         
             
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css">
@@ -157,6 +243,7 @@
 </script>
 
             
+
             
         
 
@@ -188,7 +275,6 @@
 </script>
 
         
-
 
         <div class="site-footer gt-c-content-color-first">
     <div class="slogan gt-c-content-color-first"><i>the purpose of living is to change the world<i></div>

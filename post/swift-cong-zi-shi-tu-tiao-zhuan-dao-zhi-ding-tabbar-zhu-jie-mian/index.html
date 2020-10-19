@@ -1,10 +1,10 @@
-<html lang="zh">
+<html>
 <head>
     <meta charset="utf-8"/>
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>关于 - ShineYang</title>
+<title>Swift  从子视图跳转到指定tabBar主界面 | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyanggod.github.io//favicon.ico?v=1603097359385">
 
@@ -25,7 +25,7 @@
 
 
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
 <body>
 <div class="main gt-bg-theme-color-first">
@@ -102,15 +102,42 @@
 </nav>
 
     <div class="post-container">
-        <div class="post-detail">
+        <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
+                <h2 class="post-title">
+                    Swift  从子视图跳转到指定tabBar主界面
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2020-10-19 ·
+                    </time>
+                    
+                        <a href="https://shineyanggod.github.io/tag/3U6sZPuRZ/" class="post-tags">
+                            # Swift
+                        </a>
+                    
+                </div>
                 <div class="post-content">
-                    <p>本博客主要是用作个人在程序开发中记录一些遇到的问题，如果你也是一名开发者，请时刻关注我</p>
+                    <p>从tabbar的子页面跳转到指定的tabbar主页面,话不多说直接上代码:</p>
+<pre><code>self.navigationController?.tabBarController?.selectedIndex = 0
+self.navigationController?.popViewController(animated: false)
+</code></pre>
 
                 </div>
             </article>
         </div>
-        <br>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shineyanggod.github.io/post/swift-uicollectionview-heng-xiang-fen-ye-gun-dong-cell-zuo-you-pai-ban/" class="post-title gt-a-link">
+                    Swift UICollectionView横向分页滚动，cell左右排版
+                </a>
+            </div>
+        
+
+        
+
         
             
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css">
@@ -157,6 +184,7 @@
 </script>
 
             
+
             
         
 
@@ -188,7 +216,6 @@
 </script>
 
         
-
 
         <div class="site-footer gt-c-content-color-first">
     <div class="slogan gt-c-content-color-first"><i>the purpose of living is to change the world<i></div>
