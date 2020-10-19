@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Swift UICollectionView横向分页滚动，cell左右排版 | ShineYang</title>
+<title>macOS Catalina (macOS 10.15) 已损坏无法打开解决办法 | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyanggod.github.io//favicon.ico?v=1603099428433">
 
@@ -105,81 +105,31 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    Swift UICollectionView横向分页滚动，cell左右排版
+                    macOS Catalina (macOS 10.15) 已损坏无法打开解决办法
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
                         · 2020-10-19 ·
                     </time>
                     
-                        <a href="https://shineyanggod.github.io/tag/3U6sZPuRZ/" class="post-tags">
-                            # Swift
+                        <a href="https://shineyanggod.github.io/tag/fRADVONCB/" class="post-tags">
+                            # Mac整理
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <p>废话不多说，直接上代码</p>
-<pre><code>自定义一个SYitemViewLayout，继承UICollectionViewFlowLayout
+                    <p>最近有很多小伙伴更新系统后，提示“已损坏无法打开”的情况，按照以往的方法，在系统的“安全与隐私”中已经允许了“任何来源”，但还是一样打不开，怎么办呢？</p>
+<figure data-type="image" tabindex="1"><img src="https://shineyanggod.github.io//post-images/1603099224846.png" alt="图1" loading="lazy"></figure>
+<p>App 在 macOS Catalina下提示已损坏无法打开解决办法：<br>
+1、在系统的“安全与隐私”中允许“任何来源”，再打开终端。</p>
+<figure data-type="image" tabindex="2"><img src="https://shineyanggod.github.io//post-images/1603099251815.png" alt="图2" loading="lazy"></figure>
+<p>2、输入以下命令:</p>
+<pre><code>    sudo xattr -d com.apple.quarantine /Applications/xxxx.app
 </code></pre>
-<pre><code>mport UIKit
-
-//根据需求设置列跟行
-let kEmotionCellNumberOfOneRow = 3
-let kEmotionCellRow = 2
-
-class SYitemViewLayout: UICollectionViewFlowLayout {
-    
-    // 保存所有item
-    fileprivate var attributesArr: [UICollectionViewLayoutAttributes] = []
-    
-    // MARK:- 重新布局
-     override func prepare() {
-         super.prepare()
-         
-         let itemWH: CGFloat = (kScreenWitdh - 30) / CGFloat(kEmotionCellNumberOfOneRow)
-         
-         // 设置itemSize
-         itemSize = CGSize(width: itemWH, height: itemWH - 50)
-         minimumLineSpacing = 0
-         minimumInteritemSpacing = 0
-         scrollDirection = .horizontal
-         
-         // 设置collectionView属性
-         collectionView?.isPagingEnabled = true
-         collectionView?.showsHorizontalScrollIndicator = false
-         collectionView?.showsVerticalScrollIndicator = true
-//         let insertMargin = (collectionView!.bounds.height - 3 * itemWH) * 0.5
-//        collectionView?.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-         
-         var page = 0
-         let itemsCount = collectionView?.numberOfItems(inSection: 0) ?? 0
-         for itemIndex in 0..&lt;itemsCount {
-             let indexPath = IndexPath(item: itemIndex, section: 0)
-             let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-             
-             page = itemIndex / (kEmotionCellNumberOfOneRow * kEmotionCellRow)
-             // 通过一系列计算, 得到x, y值
-             let x = itemSize.width * CGFloat(itemIndex % Int(kEmotionCellNumberOfOneRow)) + (CGFloat(page) * (kScreenWitdh - 30))
-             let y = itemSize.height * CGFloat((itemIndex - page * kEmotionCellRow * kEmotionCellNumberOfOneRow) / kEmotionCellNumberOfOneRow)
-             
-             attributes.frame = CGRect(x: x, y: y, width: itemSize.width, height: itemSize.height)
-             // 把每一个新的属性保存起来
-             attributesArr.append(attributes)
-         }
-         
-     }
-     
-     override func layoutAttributesForElements(in rect: CGRect) -&gt; [UICollectionViewLayoutAttributes]? {
-         var rectAttributes: [UICollectionViewLayoutAttributes] = []
-         _ = attributesArr.map({
-             if rect.contains($0.frame) {
-                 rectAttributes.append($0)
-             }
-         })
-         return rectAttributes
-     }
-}
-</code></pre>
+<p><mark>注意：Applications/xxxx.app 换成你的App路径或在sudo xattr -d com.apple.quarantine 后将软件拖进去即可。</mark><br>
+<img src="https://shineyanggod.github.io//post-images/1603099377166.png" alt="图3" loading="lazy"></p>
+<p>3、最后，重启App即可。<br>
+<img src="https://shineyanggod.github.io//post-images/1603099392884.png" alt="图4" loading="lazy"></p>
 
                 </div>
             </article>
@@ -188,8 +138,8 @@ class SYitemViewLayout: UICollectionViewFlowLayout {
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyanggod.github.io/post/swift-kuang-jia-zhang-1kai-fa-yi-ge-swift-kuang-jia/" class="post-title gt-a-link">
-                    Swift框架-章：1、开发一个Swift框架
+                <a href="https://shineyanggod.github.io/post/mac-xia-pei-zhi-go-kai-fa-huan-jing/" class="post-title gt-a-link">
+                    Mac下配置Go开发环境
                 </a>
             </div>
         
