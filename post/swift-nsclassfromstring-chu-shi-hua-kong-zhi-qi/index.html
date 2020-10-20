@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Mac下配置Go开发环境 | ShineYang</title>
+<title>Swift NSClassFromString初始化控制器 | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1603177564394">
 
@@ -105,41 +105,29 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    Mac下配置Go开发环境
+                    Swift NSClassFromString初始化控制器
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2020-10-19 ·
+                        · 2020-10-20 ·
                     </time>
                     
-                        <a href="https://shineyangpro.com/tag/4pLK1CS7A/" class="post-tags">
-                            # Go
+                        <a href="https://shineyangpro.com/tag/RGlMWjcck/" class="post-tags">
+                            # IOS
+                        </a>
+                    
+                        <a href="https://shineyangpro.com/tag/3U6sZPuRZ/" class="post-tags">
+                            # Swift
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <p>Go（又称 Golang）是 Google 开发的一种静态强类型、编译型、并发型，并具有垃圾回收功能的编程语言。Go 的语法接近 C 语言，可以进行网络编程、系统编程、并发编程、分布式编程。</p>
-<p>下面演示如何在 Mac 电脑上搭建 Go 语言开发环境。</p>
-<h5 id="1安装-golang-的-sdk">1，安装 Golang 的 SDK</h5>
-<p>在官网下载对应的开发工具GoLand,地址如下:<a href="https://golang.org/dl/">https://golang.org/dl/</a></p>
-<h5 id="2配置环境变量">2，配置环境变量</h5>
-<p>（1）在终端执行如下命令进入用户主目录：</p>
-<pre><code>     cd ~
+                    <p>在OC中我们反射是这样的：</p>
+<pre><code>[[NSClassFromString(@&quot;Foo&quot;) alloc] init];
 </code></pre>
-<p>（2）执行如下命令打开 .bash_profile 文件：</p>
-<pre><code>    vim .bash_profile
-</code></pre>
-<p>（3）按下 i 进入编辑模式，在文件末尾添加如下内容（GOPATH地址是自己创建项目的地址，比如我的是在桌面的文件夹下创建的）：</p>
-<pre><code>export GOPATH=/Users/yangchen/Desktop/ReactNatve/Go
-export GOBIN=$GOPATH/bin
-export PATH=$PATH:$GOBIN
-</code></pre>
-<p>（4）按下 ESC 键，然后输入 :wq 保存并退出编辑。<br>
-（5）接着执行如下命令让配置生效。</p>
-<pre><code>     source ~/.bash_profile
-</code></pre>
-<p>最后我们执行 go env 查看配置结果，可以看到 GO 的环境变量已成功配置了。<br>
-<img src="https://shineyangpro.com/post-images/1603098737486.png" alt="图1" loading="lazy"></p>
+<p>但是在Swift中这种方式是不可用的，经过查找资料，琢磨，终于找到了方法<br>
+swift中的NSClassFromString是这样的：</p>
+<figure data-type="image" tabindex="1"><img src="https://shineyangpro.com/post-images/1603177514309.png" alt="图1" loading="lazy"></figure>
 
                 </div>
             </article>
@@ -148,8 +136,8 @@ export PATH=$PATH:$GOBIN
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyangpro.com/post/swift-cong-zi-shi-tu-tiao-zhuan-dao-zhi-ding-tabbar-zhu-jie-mian/" class="post-title gt-a-link">
-                    Swift  从子视图跳转到指定tabBar主界面
+                <a href="https://shineyangpro.com/post/mac-xia-shi-yong-visual-studio-code-diao-shi-ckong-zhi-tai-cheng-xu-yi-ji-xiang-guan-de-pei-zhi-2/" class="post-title gt-a-link">
+                    Mac下使用Visual Studio Code调试C#控制台程序以及相关的配置（2）
                 </a>
             </div>
         
