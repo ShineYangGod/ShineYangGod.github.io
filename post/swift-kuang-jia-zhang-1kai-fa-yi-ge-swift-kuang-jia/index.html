@@ -6,7 +6,7 @@
 
 <title>Swift框架-章：1、开发一个Swift框架 | ShineYang</title>
 
-<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1603164753664">
+<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1603174573003">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://shineyangpro.com/styles/main.css">
@@ -93,7 +93,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1603164753664" action="/search/index.html">
+            <form id="gridea-search-form" style="position: relative" data-update="1603174573003" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
             </form>
@@ -132,14 +132,14 @@
 使用的工具：XCode 11.6 +，Swift 5.1+<br>
 步骤1：-安装框架项目</p>
 <h5 id="1-创建新的xcode项目">1、创建新的XCode项目。</h5>
-<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/2230644-032c56f68cbd7259.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图1" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://shineyangpro.com/post-images/1603174124492.png" alt="" loading="lazy"></figure>
 <p>#####2、 创建框架</p>
-<figure data-type="image" tabindex="2"><img src="https://upload-images.jianshu.io/upload_images/2230644-b5c2237442f89f46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图2" loading="lazy"></figure>
+<figure data-type="image" tabindex="2"><img src="https://shineyangpro.com/post-images/1603174141931.png" alt="" loading="lazy"></figure>
 <h6 id="为您的项目命名我们使用了类似于alamofire的alamowater名字-请确保选择语言-swift">为您的项目命名，我们使用了类似于Alamofire的AlamoWater名字。 （请确保选择语言-Swift）</h6>
-<figure data-type="image" tabindex="3"><img src="https://upload-images.jianshu.io/upload_images/2230644-310af98148bbebd6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图3" loading="lazy"></figure>
+<figure data-type="image" tabindex="3"><img src="https://shineyangpro.com/post-images/1603174153099.png" alt="" loading="lazy"></figure>
 <h6 id="单击目标内的alamowater文件夹然后按n">单击目标内的AlamoWater文件夹，然后按⌘+N。</h6>
 <p>######选择文件名AlamoWater和以下子类：NSObject</p>
-<figure data-type="image" tabindex="4"><img src="https://upload-images.jianshu.io/upload_images/2230644-9ba7d8e32b55ae48.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图4" loading="lazy"></figure>
+<figure data-type="image" tabindex="4"><img src="https://shineyangpro.com/post-images/1603174167885.png" alt="" loading="lazy"></figure>
 <p>在<strong>AlameWater.swift中</strong>添加以下代码**。**</p>
 <p>**注意：-**确保您的类和方法设置为Public</p>
 <pre><code>import UIKit
@@ -161,12 +161,12 @@ open class AlamoWater: NSObject {
 
 </code></pre>
 <h6 id="要为ios设备和模拟器创建框架请向您的项目添加新的aggregate目标">要为iOS设备和模拟器创建框架，请向您的项目添加新的Aggregate目标。</h6>
-<figure data-type="image" tabindex="5"><img src="https://upload-images.jianshu.io/upload_images/2230644-b618f5794d59501f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图5" loading="lazy"></figure>
-<p><img src="https://upload-images.jianshu.io/upload_images/2230644-4ae67e6fe40d2065.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图6" loading="lazy"><br>
-<img src="https://upload-images.jianshu.io/upload_images/2230644-c19d65eb2e3295f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图7" loading="lazy"></p>
-<figure data-type="image" tabindex="6"><img src="https://upload-images.jianshu.io/upload_images/2230644-29cf3ac7b2152920.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图8" loading="lazy"></figure>
+<p><img src="https://shineyangpro.com/post-images/1603174188888.png" alt="" loading="lazy"><br>
+<img src="https://shineyangpro.com/post-images/1603174221976.png" alt="" loading="lazy"><br>
+<img src="https://shineyangpro.com/post-images/1603174229211.png" alt="" loading="lazy"><br>
+<img src="https://shineyangpro.com/post-images/1603174241628.png" alt="" loading="lazy"></p>
 <p>并添加[<strong>运行脚本</strong>]</p>
-<figure data-type="image" tabindex="7"><img src="https://upload-images.jianshu.io/upload_images/2230644-d718d2788e1d1c54.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图10" loading="lazy"></figure>
+<figure data-type="image" tabindex="5"><img src="https://shineyangpro.com/post-images/1603174260814.png" alt="" loading="lazy"></figure>
 <pre><code>#!/bin/sh
 
 UNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal
@@ -202,8 +202,8 @@ open &quot;${PROJECT_DIR}&quot;
 <h3 id="注意-如果出现以下错误">注意：-如果出现以下错误，</h3>
 <p>… Reason: image not found</p>
 <p>确保在嵌入式二进制文件和链接的框架和库中都添加了框架</p>
-<figure data-type="image" tabindex="8"><img src="https://upload-images.jianshu.io/upload_images/2230644-e9ad89e0621eb7aa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图11" loading="lazy"></figure>
-<figure data-type="image" tabindex="9"><img src="https://upload-images.jianshu.io/upload_images/2230644-4c80f0d7077a743c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="图12" loading="lazy"></figure>
+<figure data-type="image" tabindex="6"><img src="https://shineyangpro.com/post-images/1603174279051.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="7"><img src="https://shineyangpro.com/post-images/1603174285134.png" alt="" loading="lazy"></figure>
 
                 </div>
             </article>
@@ -303,6 +303,10 @@ open &quot;${PROJECT_DIR}&quot;
     <div class="slogan gt-c-content-color-first"><i>the purpose of living is to change the world<i></div>
     <div class="social-container">
         
+            
+                <a href="https://github.com/ShineYangGod" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
             
         
             

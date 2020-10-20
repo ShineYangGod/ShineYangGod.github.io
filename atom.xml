@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://shineyangpro.com</id>
     <title>ShineYang</title>
-    <updated>2020-10-20T03:32:39.304Z</updated>
+    <updated>2020-10-20T06:16:17.268Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://shineyangpro.com"/>
     <link rel="self" href="https://shineyangpro.com/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://shineyangpro.com/images/avatar.png</logo>
     <icon>https://shineyangpro.com/favicon.ico</icon>
     <rights>All rights reserved 2020, ShineYang</rights>
+    <entry>
+        <title type="html"><![CDATA[Xcode11以后新变化：SceneDelegate]]></title>
+        <id>https://shineyangpro.com/post/xcode11-yi-hou-xin-bian-hua-scenedelegate/</id>
+        <link href="https://shineyangpro.com/post/xcode11-yi-hou-xin-bian-hua-scenedelegate/">
+        </link>
+        <updated>2020-10-20T06:13:26.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[如何修改Mac自带PHP版本，php-v和phpinfo两个不同的版本]]></title>
         <id>https://shineyangpro.com/post/ru-he-xiu-gai-mac-zi-dai-php-ban-ben-php-v-he-phpinfo-liang-ge-bu-tong-de-ban-ben/</id>
@@ -72,12 +79,5 @@
         <link href="https://shineyangpro.com/post/swift-kuang-jia-zhang-1kai-fa-yi-ge-swift-kuang-jia/">
         </link>
         <updated>2020-10-19T08:33:52.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Go实战项目【一】Golang和Gin框架的安装和使用]]></title>
-        <id>https://shineyangpro.com/post/go-shi-zhan-xiang-mu-yi-golang-he-gin-kuang-jia-de-an-zhuang-he-shi-yong/</id>
-        <link href="https://shineyangpro.com/post/go-shi-zhan-xiang-mu-yi-golang-he-gin-kuang-jia-de-an-zhuang-he-shi-yong/">
-        </link>
-        <updated>2020-10-15T02:13:27.000Z</updated>
     </entry>
 </feed>
