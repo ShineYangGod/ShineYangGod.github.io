@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://shineyangpro.com</id>
     <title>ShineYang</title>
-    <updated>2020-10-20T07:53:40.603Z</updated>
+    <updated>2020-10-20T09:31:34.797Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://shineyangpro.com"/>
     <link rel="self" href="https://shineyangpro.com/atom.xml"/>
@@ -12,71 +12,71 @@
     <rights>All rights reserved 2020, ShineYang</rights>
     <entry>
         <title type="html"><![CDATA[Swift NSClassFromString初始化控制器]]></title>
-        <id>https://shineyangpro.com/post/swift-nsclassfromstring-chu-shi-hua-kong-zhi-qi/</id>
-        <link href="https://shineyangpro.com/post/swift-nsclassfromstring-chu-shi-hua-kong-zhi-qi/">
+        <id>https://shineyangpro.com/swift-nsclassfromstring-chu-shi-hua-kong-zhi-qi/</id>
+        <link href="https://shineyangpro.com/swift-nsclassfromstring-chu-shi-hua-kong-zhi-qi/">
         </link>
         <updated>2020-10-20T07:04:10.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Mac下使用Visual Studio Code调试C#控制台程序以及相关的配置（2）]]></title>
-        <id>https://shineyangpro.com/post/mac-xia-shi-yong-visual-studio-code-diao-shi-ckong-zhi-tai-cheng-xu-yi-ji-xiang-guan-de-pei-zhi-2/</id>
-        <link href="https://shineyangpro.com/post/mac-xia-shi-yong-visual-studio-code-diao-shi-ckong-zhi-tai-cheng-xu-yi-ji-xiang-guan-de-pei-zhi-2/">
+        <id>https://shineyangpro.com/mac-xia-shi-yong-visual-studio-code-diao-shi-ckong-zhi-tai-cheng-xu-yi-ji-xiang-guan-de-pei-zhi-2/</id>
+        <link href="https://shineyangpro.com/mac-xia-shi-yong-visual-studio-code-diao-shi-ckong-zhi-tai-cheng-xu-yi-ji-xiang-guan-de-pei-zhi-2/">
         </link>
         <updated>2020-10-20T06:28:33.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[iOS中比较当前日期与指定日期大小]]></title>
-        <id>https://shineyangpro.com/post/ios-zhong-bi-jiao-dang-qian-ri-qi-yu-zhi-ding-ri-qi-da-xiao/</id>
-        <link href="https://shineyangpro.com/post/ios-zhong-bi-jiao-dang-qian-ri-qi-yu-zhi-ding-ri-qi-da-xiao/">
+        <id>https://shineyangpro.com/ios-zhong-bi-jiao-dang-qian-ri-qi-yu-zhi-ding-ri-qi-da-xiao/</id>
+        <link href="https://shineyangpro.com/ios-zhong-bi-jiao-dang-qian-ri-qi-yu-zhi-ding-ri-qi-da-xiao/">
         </link>
         <updated>2020-10-20T06:23:51.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Swift 时间转换成今天、明天、昨天]]></title>
-        <id>https://shineyangpro.com/post/swift-shi-jian-zhuan-huan-cheng-jin-tian-ming-tian-zuo-tian/</id>
-        <link href="https://shineyangpro.com/post/swift-shi-jian-zhuan-huan-cheng-jin-tian-ming-tian-zuo-tian/">
+        <id>https://shineyangpro.com/swift-shi-jian-zhuan-huan-cheng-jin-tian-ming-tian-zuo-tian/</id>
+        <link href="https://shineyangpro.com/swift-shi-jian-zhuan-huan-cheng-jin-tian-ming-tian-zuo-tian/">
         </link>
         <updated>2020-10-20T06:19:57.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Xcode11以后新变化：SceneDelegate]]></title>
-        <id>https://shineyangpro.com/post/xcode11-yi-hou-xin-bian-hua-scenedelegate/</id>
-        <link href="https://shineyangpro.com/post/xcode11-yi-hou-xin-bian-hua-scenedelegate/">
+        <id>https://shineyangpro.com/xcode11-yi-hou-xin-bian-hua-scenedelegate/</id>
+        <link href="https://shineyangpro.com/xcode11-yi-hou-xin-bian-hua-scenedelegate/">
         </link>
         <updated>2020-10-20T06:13:26.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[如何修改Mac自带PHP版本，php-v和phpinfo两个不同的版本]]></title>
-        <id>https://shineyangpro.com/post/ru-he-xiu-gai-mac-zi-dai-php-ban-ben-php-v-he-phpinfo-liang-ge-bu-tong-de-ban-ben/</id>
-        <link href="https://shineyangpro.com/post/ru-he-xiu-gai-mac-zi-dai-php-ban-ben-php-v-he-phpinfo-liang-ge-bu-tong-de-ban-ben/">
+        <id>https://shineyangpro.com/ru-he-xiu-gai-mac-zi-dai-php-ban-ben-php-v-he-phpinfo-liang-ge-bu-tong-de-ban-ben/</id>
+        <link href="https://shineyangpro.com/ru-he-xiu-gai-mac-zi-dai-php-ban-ben-php-v-he-phpinfo-liang-ge-bu-tong-de-ban-ben/">
         </link>
         <updated>2020-10-20T01:47:12.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Apple美区官网购买礼品兑换充值卡（iTunes Gift Card ）]]></title>
-        <id>https://shineyangpro.com/post/apple-mei-qu-guan-wang-gou-mai-li-pin-dui-huan-chong-zhi-qia-itunes-gift-card/</id>
-        <link href="https://shineyangpro.com/post/apple-mei-qu-guan-wang-gou-mai-li-pin-dui-huan-chong-zhi-qia-itunes-gift-card/">
+        <id>https://shineyangpro.com/apple-mei-qu-guan-wang-gou-mai-li-pin-dui-huan-chong-zhi-qia-itunes-gift-card/</id>
+        <link href="https://shineyangpro.com/apple-mei-qu-guan-wang-gou-mai-li-pin-dui-huan-chong-zhi-qia-itunes-gift-card/">
         </link>
         <updated>2020-10-20T01:34:45.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Xcode11 使用终端上传ipa]]></title>
-        <id>https://shineyangpro.com/post/xcode11-shi-yong-zhong-duan-shang-chuan-ipa/</id>
-        <link href="https://shineyangpro.com/post/xcode11-shi-yong-zhong-duan-shang-chuan-ipa/">
+        <id>https://shineyangpro.com/xcode11-shi-yong-zhong-duan-shang-chuan-ipa/</id>
+        <link href="https://shineyangpro.com/xcode11-shi-yong-zhong-duan-shang-chuan-ipa/">
         </link>
         <updated>2020-10-19T09:34:31.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Swift 把 1234656转化成 1.23万 或1.23亿 或 1 万 ，1亿]]></title>
-        <id>https://shineyangpro.com/post/swift-ba-1234656-zhuan-hua-cheng-123-wan-huo-123-yi-huo-1-wan-1-yi/</id>
-        <link href="https://shineyangpro.com/post/swift-ba-1234656-zhuan-hua-cheng-123-wan-huo-123-yi-huo-1-wan-1-yi/">
+        <id>https://shineyangpro.com/swift-ba-1234656-zhuan-hua-cheng-123-wan-huo-123-yi-huo-1-wan-1-yi/</id>
+        <link href="https://shineyangpro.com/swift-ba-1234656-zhuan-hua-cheng-123-wan-huo-123-yi-huo-1-wan-1-yi/">
         </link>
         <updated>2020-10-19T09:26:30.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[macOS Catalina (macOS 10.15) 已损坏无法打开解决办法]]></title>
-        <id>https://shineyangpro.com/post/macos-catalina-macos-1015-yi-sun-pi-wu-fa-da-kai-jie-jue-ban-fa/</id>
-        <link href="https://shineyangpro.com/post/macos-catalina-macos-1015-yi-sun-pi-wu-fa-da-kai-jie-jue-ban-fa/">
+        <id>https://shineyangpro.com/macos-catalina-macos-1015-yi-sun-pi-wu-fa-da-kai-jie-jue-ban-fa/</id>
+        <link href="https://shineyangpro.com/macos-catalina-macos-1015-yi-sun-pi-wu-fa-da-kai-jie-jue-ban-fa/">
         </link>
         <updated>2020-10-19T09:19:57.000Z</updated>
     </entry>

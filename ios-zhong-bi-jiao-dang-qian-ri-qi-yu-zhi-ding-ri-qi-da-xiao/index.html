@@ -1,10 +1,10 @@
-<html lang="zh">
+<html>
 <head>
     <meta charset="utf-8"/>
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>关于 - ShineYang</title>
+<title>iOS中比较当前日期与指定日期大小 | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1603186203337">
 
@@ -25,7 +25,7 @@
 
 
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
 <body>
 <div class="main gt-bg-theme-color-first">
@@ -94,19 +94,80 @@
 </nav>
 
     <div class="post-container">
-        <div class="post-detail">
+        <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
+                <h2 class="post-title">
+                    iOS中比较当前日期与指定日期大小
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2020-10-20 ·
+                    </time>
+                    
+                </div>
                 <div class="post-content">
-                    <blockquote>
-<p>欢迎来到我的博客，很高兴遇见你！🤝</p>
-</blockquote>
-<h2 id="联系我">联系我</h2>
-<p>邮箱：yangchen_993@outlook.com</p>
+                    <h3 id="1-首先获取当前日期nsdate形式指定一个日期格式">1、首先获取当前日期NSDate形式，指定一个日期格式</h3>
+<pre><code>#pragma mark -得到当前时间  
++(NSDate *)getCurrentTime{  
+    NSDateFormatter *formatter=[[NSDateFormatter alloc]init];  
+    [formatter setDateFormat:@&quot;dd-MM-yyyy-HHmmss&quot;];  
+    NSString *dateTime=[formatter stringFromDate:[NSDate date]];  
+    NSDate *date = [formatter dateFromString:dateTime];  
+      
+    NSLog(@&quot;---------- currentDate == %@&quot;,date);  
+    return date;  
+}  
+</code></pre>
+<h3 id="2-然后将指定日期此处以2016-09-30-00点为例转换为同样日期格式返回nsdate形式">2、然后将指定日期（此处以2016-09-30-00点为例）转换为同样日期格式，返回NSDate形式</h3>
+<pre><code>
+ NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];  
+ [dateFormatter setDateFormat:@&quot;dd-MM-yyyy-HHmmss&quot;];  
+ NSDate *date = [dateFormatter dateFromString:@&quot;30-09-2016-000000&quot;];  
+
+</code></pre>
+<h3 id="3-最后进行比较将现在的时间与指定时间比较如果没达到指定日期返回-1刚好是这一时间返回0否则返回1">3、最后进行比较，将现在的时间与指定时间比较，如果没达到指定日期，返回-1，刚好是这一时间，返回0，否则返回1</h3>
+<pre><code>+(int)compareOneDay:(NSDate *)oneDay withAnotherDay:(NSDate *)anotherDay  
+{  
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];  
+    [dateFormatter setDateFormat:@&quot;dd-MM-yyyy-HHmmss&quot;];  
+    NSString *oneDayStr = [dateFormatter stringFromDate:oneDay];  
+    NSString *anotherDayStr = [dateFormatter stringFromDate:anotherDay];  
+    NSDate *dateA = [dateFormatter dateFromString:oneDayStr];  
+    NSDate *dateB = [dateFormatter dateFromString:anotherDayStr];  
+    NSComparisonResult result = [dateA compare:dateB];  
+    NSLog(@&quot;date1 : %@, date2 : %@&quot;, oneDay, anotherDay);  
+    if (result == NSOrderedDescending) {  
+        //NSLog(@&quot;Date1  is in the future&quot;);  
+        return 1;  
+    }  
+    else if (result == NSOrderedAscending){  
+        //NSLog(@&quot;Date1 is in the past&quot;);  
+        return -1;  
+    }  
+    //NSLog(@&quot;Both dates are the same&quot;);  
+    return 0;  
+      
+}  
+</code></pre>
+<h3 id="4-调用">4、调用</h3>
+<pre><code>[self compareOneDay:[self getCurrentTime] withAnotherDay:date]  
+</code></pre>
 
                 </div>
             </article>
         </div>
-        <br>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shineyangpro.com/swift-shi-jian-zhuan-huan-cheng-jin-tian-ming-tian-zuo-tian/" class="post-title gt-a-link">
+                    Swift 时间转换成今天、明天、昨天
+                </a>
+            </div>
+        
+
+        
+
         
             
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css">
@@ -153,11 +214,11 @@
 </script>
 
             
+
             
         
 
         
-
 
         <div class="site-footer gt-c-content-color-first">
     <div class="slogan gt-c-content-color-first"><i>the purpose of living is to change the world<i></div>

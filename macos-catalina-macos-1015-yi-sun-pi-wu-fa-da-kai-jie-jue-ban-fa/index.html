@@ -1,10 +1,10 @@
-<html lang="zh">
+<html>
 <head>
     <meta charset="utf-8"/>
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>关于 - ShineYang</title>
+<title>macOS Catalina (macOS 10.15) 已损坏无法打开解决办法 | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1603186203337">
 
@@ -25,7 +25,7 @@
 
 
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
 <body>
 <div class="main gt-bg-theme-color-first">
@@ -94,19 +94,50 @@
 </nav>
 
     <div class="post-container">
-        <div class="post-detail">
+        <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
+                <h2 class="post-title">
+                    macOS Catalina (macOS 10.15) 已损坏无法打开解决办法
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2020-10-19 ·
+                    </time>
+                    
+                        <a href="https://shineyangpro.com/fRADVONCB/" class="post-tags">
+                            # Mac整理
+                        </a>
+                    
+                </div>
                 <div class="post-content">
-                    <blockquote>
-<p>欢迎来到我的博客，很高兴遇见你！🤝</p>
-</blockquote>
-<h2 id="联系我">联系我</h2>
-<p>邮箱：yangchen_993@outlook.com</p>
+                    <p>最近有很多小伙伴更新系统后，提示“已损坏无法打开”的情况，按照以往的方法，在系统的“安全与隐私”中已经允许了“任何来源”，但还是一样打不开，怎么办呢？</p>
+<figure data-type="image" tabindex="1"><img src="https://shineyangpro.com/post-images/1603099224846.png" alt="图1" loading="lazy"></figure>
+<p>App 在 macOS Catalina下提示已损坏无法打开解决办法：<br>
+1、在系统的“安全与隐私”中允许“任何来源”，再打开终端。</p>
+<figure data-type="image" tabindex="2"><img src="https://shineyangpro.com/post-images/1603099251815.png" alt="图2" loading="lazy"></figure>
+<p>2、输入以下命令:</p>
+<pre><code>    sudo xattr -d com.apple.quarantine /Applications/xxxx.app
+</code></pre>
+<p><mark>注意：Applications/xxxx.app 换成你的App路径或在sudo xattr -d com.apple.quarantine 后将软件拖进去即可。</mark><br>
+<img src="https://shineyangpro.com/post-images/1603099377166.png" alt="图3" loading="lazy"></p>
+<p>3、最后，重启App即可。<br>
+<img src="https://shineyangpro.com/post-images/1603099392884.png" alt="图4" loading="lazy"></p>
 
                 </div>
             </article>
         </div>
-        <br>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shineyangpro.com/mac-xia-pei-zhi-go-kai-fa-huan-jing/" class="post-title gt-a-link">
+                    Mac下配置Go开发环境
+                </a>
+            </div>
+        
+
+        
+
         
             
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css">
@@ -153,11 +184,11 @@
 </script>
 
             
+
             
         
 
         
-
 
         <div class="site-footer gt-c-content-color-first">
     <div class="slogan gt-c-content-color-first"><i>the purpose of living is to change the world<i></div>

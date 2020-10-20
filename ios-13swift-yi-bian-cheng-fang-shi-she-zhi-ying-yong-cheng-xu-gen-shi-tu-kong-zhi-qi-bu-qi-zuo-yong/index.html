@@ -1,10 +1,10 @@
-<html lang="zh">
+<html>
 <head>
     <meta charset="utf-8"/>
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>关于 - ShineYang</title>
+<title>iOS 13：Swift以编程方式设置应用程序根视图控制器不起作用 | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1603186203337">
 
@@ -25,7 +25,7 @@
 
 
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
 <body>
 <div class="main gt-bg-theme-color-first">
@@ -94,19 +94,51 @@
 </nav>
 
     <div class="post-container">
-        <div class="post-detail">
+        <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
+                <h2 class="post-title">
+                    iOS 13：Swift以编程方式设置应用程序根视图控制器不起作用
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2020-09-21 ·
+                    </time>
+                    
+                        <a href="https://shineyangpro.com/3U6sZPuRZ/" class="post-tags">
+                            # Swift
+                        </a>
+                    
+                </div>
                 <div class="post-content">
-                    <blockquote>
-<p>欢迎来到我的博客，很高兴遇见你！🤝</p>
-</blockquote>
-<h2 id="联系我">联系我</h2>
-<p>邮箱：yangchen_993@outlook.com</p>
+                    <p>在iOS以后直接使用window?.makeKeyAndVisible()是不起作用的，正确用法是:</p>
+<pre><code>static func redirectToMainNavRVC(currentVC: UIViewController){
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let vc = UIStoryboard(name: appDelegate.storyBoardName, bundle: nil).instantiateViewController(withIdentifier: &quot;MainNavigationViewController&quot;) as! MainNavigationViewController
+    if #available(iOS 13.0, *){
+        if let scene = UIApplication.shared.connectedScenes.first{
+            guard let windowScene = (scene as? UIWindowScene) else { return }
+            print(&quot;&gt;&gt;&gt; windowScene: \(windowScene)&quot;)
+            let window: UIWindow = UIWindow(frame: windowScene.coordinateSpace.bounds)
+            window.windowScene = windowScene //Make sure to do this
+            window.rootViewController = vc
+            window.makeKeyAndVisible()
+            appDelegate.window = window
+        }
+    } else {
+        appDelegate.window?.rootViewController = vc
+        appDelegate.window?.makeKeyAndVisible()
+    }
+}
+</code></pre>
 
                 </div>
             </article>
         </div>
-        <br>
+
+        
+
+        
+
         
             
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css">
@@ -153,11 +185,11 @@
 </script>
 
             
+
             
         
 
         
-
 
         <div class="site-footer gt-c-content-color-first">
     <div class="slogan gt-c-content-color-first"><i>the purpose of living is to change the world<i></div>

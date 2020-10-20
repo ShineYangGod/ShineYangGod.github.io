@@ -1,10 +1,10 @@
-<html lang="zh">
+<html>
 <head>
     <meta charset="utf-8"/>
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>关于 - ShineYang</title>
+<title>Swift 时间转换成今天、明天、昨天 | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1603186203337">
 
@@ -25,7 +25,7 @@
 
 
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
 <body>
 <div class="main gt-bg-theme-color-first">
@@ -94,19 +94,55 @@
 </nav>
 
     <div class="post-container">
-        <div class="post-detail">
+        <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
+                <h2 class="post-title">
+                    Swift 时间转换成今天、明天、昨天
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2020-10-20 ·
+                    </time>
+                    
+                        <a href="https://shineyangpro.com/3U6sZPuRZ/" class="post-tags">
+                            # Swift
+                        </a>
+                    
+                </div>
                 <div class="post-content">
-                    <blockquote>
-<p>欢迎来到我的博客，很高兴遇见你！🤝</p>
-</blockquote>
-<h2 id="联系我">联系我</h2>
-<p>邮箱：yangchen_993@outlook.com</p>
+                    <pre><code>func dayDifference(from interval : TimeInterval) -&gt; String
+{
+    let calendar = NSCalendar.current
+    let date = Date(timeIntervalSince1970: interval)
+    if calendar.isDateInYesterday(date) { return &quot;Yesterday&quot; }
+    else if calendar.isDateInToday(date) { return &quot;Today&quot; }
+    else if calendar.isDateInTomorrow(date) { return &quot;Tomorrow&quot; }
+    else {
+        let startOfNow = calendar.startOfDay(for: Date())
+        let startOfTimeStamp = calendar.startOfDay(for: date)
+        let components = calendar.dateComponents([.day], from: startOfNow, to: startOfTimeStamp)
+        let day = components.day!
+        if day &lt; 1 { return &quot;\(abs(day)) days ago&quot; }
+        else { return &quot;In \(day) days&quot; }
+    }
+}
+</code></pre>
 
                 </div>
             </article>
         </div>
-        <br>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shineyangpro.com/xcode11-yi-hou-xin-bian-hua-scenedelegate/" class="post-title gt-a-link">
+                    Xcode11以后新变化：SceneDelegate
+                </a>
+            </div>
+        
+
+        
+
         
             
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css">
@@ -153,11 +189,11 @@
 </script>
 
             
+
             
         
 
         
-
 
         <div class="site-footer gt-c-content-color-first">
     <div class="slogan gt-c-content-color-first"><i>the purpose of living is to change the world<i></div>

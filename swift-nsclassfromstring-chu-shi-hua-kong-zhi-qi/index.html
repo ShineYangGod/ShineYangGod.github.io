@@ -1,10 +1,10 @@
-<html lang="zh">
+<html>
 <head>
     <meta charset="utf-8"/>
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>关于 - ShineYang</title>
+<title>Swift NSClassFromString初始化控制器 | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1603186203337">
 
@@ -25,7 +25,7 @@
 
 
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
 <body>
 <div class="main gt-bg-theme-color-first">
@@ -94,19 +94,48 @@
 </nav>
 
     <div class="post-container">
-        <div class="post-detail">
+        <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
+                <h2 class="post-title">
+                    Swift NSClassFromString初始化控制器
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2020-10-20 ·
+                    </time>
+                    
+                        <a href="https://shineyangpro.com/RGlMWjcck/" class="post-tags">
+                            # IOS
+                        </a>
+                    
+                        <a href="https://shineyangpro.com/3U6sZPuRZ/" class="post-tags">
+                            # Swift
+                        </a>
+                    
+                </div>
                 <div class="post-content">
-                    <blockquote>
-<p>欢迎来到我的博客，很高兴遇见你！🤝</p>
-</blockquote>
-<h2 id="联系我">联系我</h2>
-<p>邮箱：yangchen_993@outlook.com</p>
+                    <p>在OC中我们反射是这样的：</p>
+<pre><code>[[NSClassFromString(@&quot;Foo&quot;) alloc] init];
+</code></pre>
+<p>但是在Swift中这种方式是不可用的，经过查找资料，琢磨，终于找到了方法<br>
+swift中的NSClassFromString是这样的：</p>
+<figure data-type="image" tabindex="1"><img src="https://shineyangpro.com/post-images/1603177514309.png" alt="图1" loading="lazy"></figure>
 
                 </div>
             </article>
         </div>
-        <br>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shineyangpro.com/mac-xia-shi-yong-visual-studio-code-diao-shi-ckong-zhi-tai-cheng-xu-yi-ji-xiang-guan-de-pei-zhi-2/" class="post-title gt-a-link">
+                    Mac下使用Visual Studio Code调试C#控制台程序以及相关的配置（2）
+                </a>
+            </div>
+        
+
+        
+
         
             
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css">
@@ -153,11 +182,11 @@
 </script>
 
             
+
             
         
 
         
-
 
         <div class="site-footer gt-c-content-color-first">
     <div class="slogan gt-c-content-color-first"><i>the purpose of living is to change the world<i></div>

@@ -1,10 +1,10 @@
-<html lang="zh">
+<html>
 <head>
     <meta charset="utf-8"/>
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>关于 - ShineYang</title>
+<title>Xcode11以后新变化：SceneDelegate | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1603186203337">
 
@@ -25,7 +25,7 @@
 
 
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
 </head>
 <body>
 <div class="main gt-bg-theme-color-first">
@@ -94,19 +94,58 @@
 </nav>
 
     <div class="post-container">
-        <div class="post-detail">
+        <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
+                <h2 class="post-title">
+                    Xcode11以后新变化：SceneDelegate
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2020-10-20 ·
+                    </time>
+                    
+                        <a href="https://shineyangpro.com/yLOpF5SUY/" class="post-tags">
+                            # Xcode
+                        </a>
+                    
+                </div>
                 <div class="post-content">
-                    <blockquote>
-<p>欢迎来到我的博客，很高兴遇见你！🤝</p>
-</blockquote>
-<h2 id="联系我">联系我</h2>
-<p>邮箱：yangchen_993@outlook.com</p>
+                    <p>Xcode11后，运行旧项目，相安无事，心里捏了一把汗，终于没有跟往年那样一更新就给你一大堆报错了。刚才突发奇想，使用Xcode11新建iOS项目时,如果你跟往常一样在Appdelegate的- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions方法中创建根控制器，会崩溃报错：<br>
+<img src="https://shineyangpro.com/post-images/1603174442195.png" alt="" loading="lazy"><br>
+<mark>Appdelegate找不到设置window的方法。</mark></p>
+<p>然后发现Xcode自动新增了一个<code>SceneDelegate</code>文件，查找了一下官方文档<a href="https://developer.apple.com/videos/play/wwdc2019/423/">WWDC2019：Optimizing App Launch</a> 发现，iOS13中appdelegate的职责发现了改变： iOS13之前，Appdelegate的职责全权处理App生命周期和UI生命周期； iOS13之后，Appdelegate的职责是： 1、处理 App 生命周期 2、新的 Scene Session 生命周期 那UI的生命周期呢？交给新增的Scene Delegate处理 用图表示就是： iOS13之前：<br>
+<img src="https://shineyangpro.com/post-images/1603174489134.png" alt="" loading="lazy"><br>
+这种模式完全没问题，因为只有一个进程，只有一个与这个进程对应的用户界面<br>
+但是iOS13之后，Appdelegate不在负责UI生命周期，所有UI生命周期交给SceneDelegate处理：<br>
+<img src="https://shineyangpro.com/post-images/1603174496324.png" alt="" loading="lazy"><br>
+<img src="https://shineyangpro.com/post-images/1603174509521.png" alt="" loading="lazy"></p>
+<p>因此初始化window方法需要改变：<br>
+现在不再Appdelegate的- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions进行初始化，转交给SceneDelegate的willConnectToSession:方法进行根控制器设置：</p>
+<pre><code>- (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session options:(UISceneConnectionOptions *)connectionOptions {
+
+    UIWindowScene *windowScene = (UIWindowScene *)scene;
+    self.window = [[UIWindow alloc] initWithWindowScene:windowScene];
+    self.window.frame = windowScene.coordinateSpace.bounds;
+    self.window.rootViewController = [UITabBarController new];
+    [self.window makeKeyAndVisible];
+}
+</code></pre>
 
                 </div>
             </article>
         </div>
-        <br>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shineyangpro.com/ru-he-xiu-gai-mac-zi-dai-php-ban-ben-php-v-he-phpinfo-liang-ge-bu-tong-de-ban-ben/" class="post-title gt-a-link">
+                    如何修改Mac自带PHP版本，php-v和phpinfo两个不同的版本
+                </a>
+            </div>
+        
+
+        
+
         
             
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css">
@@ -153,11 +192,11 @@
 </script>
 
             
+
             
         
 
         
-
 
         <div class="site-footer gt-c-content-color-first">
     <div class="slogan gt-c-content-color-first"><i>the purpose of living is to change the world<i></div>
