@@ -1,82 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://shineyanggod.github.io/</id>
+    <id>https://shineyangpro.com</id>
     <title>ShineYang</title>
-    <updated>2020-10-20T02:46:49.111Z</updated>
+    <updated>2020-10-20T03:32:39.304Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://shineyanggod.github.io/"/>
-    <link rel="self" href="https://shineyanggod.github.io/atom.xml"/>
+    <link rel="alternate" href="https://shineyangpro.com"/>
+    <link rel="self" href="https://shineyangpro.com/atom.xml"/>
     <subtitle>&lt;i&gt;the purpose of living is to change the world&lt;i&gt;</subtitle>
-    <logo>https://shineyanggod.github.io/images/avatar.png</logo>
-    <icon>https://shineyanggod.github.io/favicon.ico</icon>
+    <logo>https://shineyangpro.com/images/avatar.png</logo>
+    <icon>https://shineyangpro.com/favicon.ico</icon>
     <rights>All rights reserved 2020, ShineYang</rights>
     <entry>
         <title type="html"><![CDATA[如何修改Mac自带PHP版本，php-v和phpinfo两个不同的版本]]></title>
-        <id>https://shineyanggod.github.io/post/ru-he-xiu-gai-mac-zi-dai-php-ban-ben-php-v-he-phpinfo-liang-ge-bu-tong-de-ban-ben/</id>
-        <link href="https://shineyanggod.github.io/post/ru-he-xiu-gai-mac-zi-dai-php-ban-ben-php-v-he-phpinfo-liang-ge-bu-tong-de-ban-ben/">
+        <id>https://shineyangpro.com/post/ru-he-xiu-gai-mac-zi-dai-php-ban-ben-php-v-he-phpinfo-liang-ge-bu-tong-de-ban-ben/</id>
+        <link href="https://shineyangpro.com/post/ru-he-xiu-gai-mac-zi-dai-php-ban-ben-php-v-he-phpinfo-liang-ge-bu-tong-de-ban-ben/">
         </link>
         <updated>2020-10-20T01:47:12.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Apple美区官网购买礼品兑换充值卡（iTunes Gift Card ）]]></title>
-        <id>https://shineyanggod.github.io/post/apple-mei-qu-guan-wang-gou-mai-li-pin-dui-huan-chong-zhi-qia-itunes-gift-card/</id>
-        <link href="https://shineyanggod.github.io/post/apple-mei-qu-guan-wang-gou-mai-li-pin-dui-huan-chong-zhi-qia-itunes-gift-card/">
+        <id>https://shineyangpro.com/post/apple-mei-qu-guan-wang-gou-mai-li-pin-dui-huan-chong-zhi-qia-itunes-gift-card/</id>
+        <link href="https://shineyangpro.com/post/apple-mei-qu-guan-wang-gou-mai-li-pin-dui-huan-chong-zhi-qia-itunes-gift-card/">
         </link>
         <updated>2020-10-20T01:34:45.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Xcode11 使用终端上传ipa]]></title>
-        <id>https://shineyanggod.github.io/post/xcode11-shi-yong-zhong-duan-shang-chuan-ipa/</id>
-        <link href="https://shineyanggod.github.io/post/xcode11-shi-yong-zhong-duan-shang-chuan-ipa/">
+        <id>https://shineyangpro.com/post/xcode11-shi-yong-zhong-duan-shang-chuan-ipa/</id>
+        <link href="https://shineyangpro.com/post/xcode11-shi-yong-zhong-duan-shang-chuan-ipa/">
         </link>
         <updated>2020-10-19T09:34:31.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Swift 把 1234656转化成 1.23万 或1.23亿 或 1 万 ，1亿]]></title>
-        <id>https://shineyanggod.github.io/post/swift-ba-1234656-zhuan-hua-cheng-123-wan-huo-123-yi-huo-1-wan-1-yi/</id>
-        <link href="https://shineyanggod.github.io/post/swift-ba-1234656-zhuan-hua-cheng-123-wan-huo-123-yi-huo-1-wan-1-yi/">
+        <id>https://shineyangpro.com/post/swift-ba-1234656-zhuan-hua-cheng-123-wan-huo-123-yi-huo-1-wan-1-yi/</id>
+        <link href="https://shineyangpro.com/post/swift-ba-1234656-zhuan-hua-cheng-123-wan-huo-123-yi-huo-1-wan-1-yi/">
         </link>
         <updated>2020-10-19T09:26:30.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[macOS Catalina (macOS 10.15) 已损坏无法打开解决办法]]></title>
-        <id>https://shineyanggod.github.io/post/macos-catalina-macos-1015-yi-sun-pi-wu-fa-da-kai-jie-jue-ban-fa/</id>
-        <link href="https://shineyanggod.github.io/post/macos-catalina-macos-1015-yi-sun-pi-wu-fa-da-kai-jie-jue-ban-fa/">
+        <id>https://shineyangpro.com/post/macos-catalina-macos-1015-yi-sun-pi-wu-fa-da-kai-jie-jue-ban-fa/</id>
+        <link href="https://shineyangpro.com/post/macos-catalina-macos-1015-yi-sun-pi-wu-fa-da-kai-jie-jue-ban-fa/">
         </link>
         <updated>2020-10-19T09:19:57.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Mac下配置Go开发环境]]></title>
-        <id>https://shineyanggod.github.io/post/mac-xia-pei-zhi-go-kai-fa-huan-jing/</id>
-        <link href="https://shineyanggod.github.io/post/mac-xia-pei-zhi-go-kai-fa-huan-jing/">
+        <id>https://shineyangpro.com/post/mac-xia-pei-zhi-go-kai-fa-huan-jing/</id>
+        <link href="https://shineyangpro.com/post/mac-xia-pei-zhi-go-kai-fa-huan-jing/">
         </link>
         <updated>2020-10-19T09:10:32.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Swift  从子视图跳转到指定tabBar主界面]]></title>
-        <id>https://shineyanggod.github.io/post/swift-cong-zi-shi-tu-tiao-zhuan-dao-zhi-ding-tabbar-zhu-jie-mian/</id>
-        <link href="https://shineyanggod.github.io/post/swift-cong-zi-shi-tu-tiao-zhuan-dao-zhi-ding-tabbar-zhu-jie-mian/">
+        <id>https://shineyangpro.com/post/swift-cong-zi-shi-tu-tiao-zhuan-dao-zhi-ding-tabbar-zhu-jie-mian/</id>
+        <link href="https://shineyangpro.com/post/swift-cong-zi-shi-tu-tiao-zhuan-dao-zhi-ding-tabbar-zhu-jie-mian/">
         </link>
         <updated>2020-10-19T08:48:21.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Swift UICollectionView横向分页滚动，cell左右排版]]></title>
-        <id>https://shineyanggod.github.io/post/swift-uicollectionview-heng-xiang-fen-ye-gun-dong-cell-zuo-you-pai-ban/</id>
-        <link href="https://shineyanggod.github.io/post/swift-uicollectionview-heng-xiang-fen-ye-gun-dong-cell-zuo-you-pai-ban/">
+        <id>https://shineyangpro.com/post/swift-uicollectionview-heng-xiang-fen-ye-gun-dong-cell-zuo-you-pai-ban/</id>
+        <link href="https://shineyangpro.com/post/swift-uicollectionview-heng-xiang-fen-ye-gun-dong-cell-zuo-you-pai-ban/">
         </link>
         <updated>2020-10-19T08:40:53.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Swift框架-章：1、开发一个Swift框架]]></title>
-        <id>https://shineyanggod.github.io/post/swift-kuang-jia-zhang-1kai-fa-yi-ge-swift-kuang-jia/</id>
-        <link href="https://shineyanggod.github.io/post/swift-kuang-jia-zhang-1kai-fa-yi-ge-swift-kuang-jia/">
+        <id>https://shineyangpro.com/post/swift-kuang-jia-zhang-1kai-fa-yi-ge-swift-kuang-jia/</id>
+        <link href="https://shineyangpro.com/post/swift-kuang-jia-zhang-1kai-fa-yi-ge-swift-kuang-jia/">
         </link>
         <updated>2020-10-19T08:33:52.000Z</updated>
     </entry>
     <entry>
         <title type="html"><![CDATA[Go实战项目【一】Golang和Gin框架的安装和使用]]></title>
-        <id>https://shineyanggod.github.io/post/go-shi-zhan-xiang-mu-yi-golang-he-gin-kuang-jia-de-an-zhuang-he-shi-yong/</id>
-        <link href="https://shineyanggod.github.io/post/go-shi-zhan-xiang-mu-yi-golang-he-gin-kuang-jia-de-an-zhuang-he-shi-yong/">
+        <id>https://shineyangpro.com/post/go-shi-zhan-xiang-mu-yi-golang-he-gin-kuang-jia-de-an-zhuang-he-shi-yong/</id>
+        <link href="https://shineyangpro.com/post/go-shi-zhan-xiang-mu-yi-golang-he-gin-kuang-jia-de-an-zhuang-he-shi-yong/">
         </link>
         <updated>2020-10-15T02:13:27.000Z</updated>
     </entry>
