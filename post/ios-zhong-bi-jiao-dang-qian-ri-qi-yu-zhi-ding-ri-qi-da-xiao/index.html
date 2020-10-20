@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>如何修改Mac自带PHP版本，php-v和phpinfo两个不同的版本 | ShineYang</title>
+<title>iOS中比较当前日期与指定日期大小 | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1603175890485">
 
@@ -105,42 +105,61 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    如何修改Mac自带PHP版本，php-v和phpinfo两个不同的版本
+                    iOS中比较当前日期与指定日期大小
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
                         · 2020-10-20 ·
                     </time>
                     
-                        <a href="https://shineyangpro.com/tag/FFgC-zxg5/" class="post-tags">
-                            # PHP
-                        </a>
-                    
                 </div>
                 <div class="post-content">
-                    <p>find / -name php.ini<br>
-得出两个ini<br>
-/usr/local/php/etc/php.ini<br>
-/etc/php.ini</p>
-<p>php -i | grep php.ini<br>
-查看PHP加载的是哪个配置文件,这个获取的是系统内的php.ini 的位置。不是网页apache加载的php.ini文件</p>
-<p>查找一下系统里的PHP目录相关的东西<br>
-find / -name php</p>
-<p>/usr/bin/php -v</p>
-<p>再环境变量里加上要使用的PHP的路径<br>
-vim /etc/profile<br>
-在文档最后，添加:<br>
-export PATH=&quot;/usr/local/php/bin:$PATH&quot;<br>
-保存，退出，然后运行：<br>
-source /etc/profile<br>
-如果profile这里添加成功后不能退出，请执行这个命令：<br>
-:w !sudo tee %<br>
-解释：<br>
-:w – write<br>
-!sudo – call shell sudo command<br>
-tee – the output of write (:w) command is redirected using tee<br>
-% – current file name<br>
-参考文章https://stackoverflow.com/questions/28635647/how-can-i-save-a-file-i-opened-in-vim-as-the-wrong-user</p>
+                    <h3 id="1-首先获取当前日期nsdate形式指定一个日期格式">1、首先获取当前日期NSDate形式，指定一个日期格式</h3>
+<pre><code>#pragma mark -得到当前时间  
++(NSDate *)getCurrentTime{  
+    NSDateFormatter *formatter=[[NSDateFormatter alloc]init];  
+    [formatter setDateFormat:@&quot;dd-MM-yyyy-HHmmss&quot;];  
+    NSString *dateTime=[formatter stringFromDate:[NSDate date]];  
+    NSDate *date = [formatter dateFromString:dateTime];  
+      
+    NSLog(@&quot;---------- currentDate == %@&quot;,date);  
+    return date;  
+}  
+</code></pre>
+<h3 id="2-然后将指定日期此处以2016-09-30-00点为例转换为同样日期格式返回nsdate形式">2、然后将指定日期（此处以2016-09-30-00点为例）转换为同样日期格式，返回NSDate形式</h3>
+<pre><code>
+ NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];  
+ [dateFormatter setDateFormat:@&quot;dd-MM-yyyy-HHmmss&quot;];  
+ NSDate *date = [dateFormatter dateFromString:@&quot;30-09-2016-000000&quot;];  
+
+</code></pre>
+<h3 id="3-最后进行比较将现在的时间与指定时间比较如果没达到指定日期返回-1刚好是这一时间返回0否则返回1">3、最后进行比较，将现在的时间与指定时间比较，如果没达到指定日期，返回-1，刚好是这一时间，返回0，否则返回1</h3>
+<pre><code>+(int)compareOneDay:(NSDate *)oneDay withAnotherDay:(NSDate *)anotherDay  
+{  
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];  
+    [dateFormatter setDateFormat:@&quot;dd-MM-yyyy-HHmmss&quot;];  
+    NSString *oneDayStr = [dateFormatter stringFromDate:oneDay];  
+    NSString *anotherDayStr = [dateFormatter stringFromDate:anotherDay];  
+    NSDate *dateA = [dateFormatter dateFromString:oneDayStr];  
+    NSDate *dateB = [dateFormatter dateFromString:anotherDayStr];  
+    NSComparisonResult result = [dateA compare:dateB];  
+    NSLog(@&quot;date1 : %@, date2 : %@&quot;, oneDay, anotherDay);  
+    if (result == NSOrderedDescending) {  
+        //NSLog(@&quot;Date1  is in the future&quot;);  
+        return 1;  
+    }  
+    else if (result == NSOrderedAscending){  
+        //NSLog(@&quot;Date1 is in the past&quot;);  
+        return -1;  
+    }  
+    //NSLog(@&quot;Both dates are the same&quot;);  
+    return 0;  
+      
+}  
+</code></pre>
+<h3 id="4-调用">4、调用</h3>
+<pre><code>[self compareOneDay:[self getCurrentTime] withAnotherDay:date]  
+</code></pre>
 
                 </div>
             </article>
@@ -149,8 +168,8 @@ tee – the output of write (:w) command is redirected using tee<br>
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyangpro.com/post/apple-mei-qu-guan-wang-gou-mai-li-pin-dui-huan-chong-zhi-qia-itunes-gift-card/" class="post-title gt-a-link">
-                    Apple美区官网购买礼品兑换充值卡（iTunes Gift Card ）
+                <a href="https://shineyangpro.com/post/swift-shi-jian-zhuan-huan-cheng-jin-tian-ming-tian-zuo-tian/" class="post-title gt-a-link">
+                    Swift 时间转换成今天、明天、昨天
                 </a>
             </div>
         
