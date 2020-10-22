@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://shineyangpro.com</id>
     <title>ShineYang</title>
-    <updated>2020-10-22T01:08:41.151Z</updated>
+    <updated>2020-10-22T01:25:50.852Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://shineyangpro.com"/>
     <link rel="self" href="https://shineyangpro.com/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://shineyangpro.com/images/avatar.png</logo>
     <icon>https://shineyangpro.com/favicon.ico</icon>
     <rights>All rights reserved 2020, ShineYang</rights>
+    <entry>
+        <title type="html"><![CDATA[Swift-如何实现Cell可收起和展开]]></title>
+        <id>https://shineyangpro.com/swift-ru-he-shi-xian-cell-ke-shou-qi-he-zhan-kai/</id>
+        <link href="https://shineyangpro.com/swift-ru-he-shi-xian-cell-ke-shou-qi-he-zhan-kai/">
+        </link>
+        <updated>2020-10-22T01:10:10.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[构建更好的iOS App动画]]></title>
         <id>https://shineyangpro.com/gou-jian-geng-hao-de-ios-app-dong-hua/</id>
@@ -72,12 +79,5 @@
         <link href="https://shineyangpro.com/apple-mei-qu-guan-wang-gou-mai-li-pin-dui-huan-chong-zhi-qia-itunes-gift-card/">
         </link>
         <updated>2020-10-20T01:34:45.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Xcode11 使用终端上传ipa]]></title>
-        <id>https://shineyangpro.com/xcode11-shi-yong-zhong-duan-shang-chuan-ipa/</id>
-        <link href="https://shineyangpro.com/xcode11-shi-yong-zhong-duan-shang-chuan-ipa/">
-        </link>
-        <updated>2020-10-19T09:34:31.000Z</updated>
     </entry>
 </feed>
