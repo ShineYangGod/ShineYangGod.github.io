@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Xcode11以后新变化：SceneDelegate | ShineYang</title>
+<title>JQuery 如何ul动态添加li标签 | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1605073287538">
 
@@ -97,39 +97,63 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    Xcode11以后新变化：SceneDelegate
+                    JQuery 如何ul动态添加li标签
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2020-10-20 ·
+                        · 2020-11-11 ·
                     </time>
                     
-                        <a href="https://shineyangpro.com/yLOpF5SUY/" class="post-tags">
-                            # Xcode
+                        <a href="https://shineyangpro.com/dCqGH482v/" class="post-tags">
+                            # HTML
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <p>Xcode11后，运行旧项目，相安无事，心里捏了一把汗，终于没有跟往年那样一更新就给你一大堆报错了。刚才突发奇想，使用Xcode11新建iOS项目时,如果你跟往常一样在Appdelegate的- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions方法中创建根控制器，会崩溃报错：<br>
-<img src="https://shineyangpro.com/post-images/1603174442195.png" alt="" loading="lazy"><br>
-<mark>Appdelegate找不到设置window的方法。</mark></p>
-<p>然后发现Xcode自动新增了一个<code>SceneDelegate</code>文件，查找了一下官方文档<a href="https://developer.apple.com/videos/play/wwdc2019/423/">WWDC2019：Optimizing App Launch</a> 发现，iOS13中appdelegate的职责发现了改变： iOS13之前，Appdelegate的职责全权处理App生命周期和UI生命周期； iOS13之后，Appdelegate的职责是： 1、处理 App 生命周期 2、新的 Scene Session 生命周期 那UI的生命周期呢？交给新增的Scene Delegate处理 用图表示就是： iOS13之前：<br>
-<img src="https://shineyangpro.com/post-images/1603174489134.png" alt="" loading="lazy"><br>
-这种模式完全没问题，因为只有一个进程，只有一个与这个进程对应的用户界面<br>
-但是iOS13之后，Appdelegate不在负责UI生命周期，所有UI生命周期交给SceneDelegate处理：<br>
-<img src="https://shineyangpro.com/post-images/1603174496324.png" alt="" loading="lazy"><br>
-<img src="https://shineyangpro.com/post-images/1603174509521.png" alt="" loading="lazy"></p>
-<p>因此初始化window方法需要改变：<br>
-现在不再Appdelegate的- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions进行初始化，转交给SceneDelegate的willConnectToSession:方法进行根控制器设置：</p>
-<pre><code>- (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session options:(UISceneConnectionOptions *)connectionOptions {
+                    <h3 id="首先在html页面中找到相应的ul标签对">首先在html页面中找到相应的ul标签对。</h3>
+<p>如下图：</p>
+<pre><code>&lt;ul id=&quot;ulPlayPist&quot;&gt;
+    &lt;li class=&quot;li_style&quot;&gt;
+        &lt;div id=&quot;divItem1&quot; class=&quot;div_item_v_style&quot;&gt;
+            &lt;img id=&quot;img_item_1&quot; src=&quot;../img/Icon_Movie.png&quot; class=&quot;img_v_style&quot;/&gt;
+            &lt;input id=&quot;listItem_1&quot; type=&quot;button&quot; value=&quot;暂无&quot; class=&quot;btn_list_item_v_style&quot; onclick=&quot;Item_Click(1);&quot;/&gt;
+        &lt;/div&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<p>上面是一个html文件内ul标签的一个范例，并且li标签内含有div 等子标签。这个就不多说了，如果不懂建议先学习一下html基础。</p>
+<h3 id="二-需要在js函数内找到ul标签控件">二、需要在js函数内找到ul标签控件。</h3>
+<p>要获取ul对象可以通过id来进行查找。不过jQuery提供了一些简单的方法。<br>
+如下图：</p>
+<pre><code>//通过id=lPlayPist查找ul标签控件
+$('#ulPlayPist').append(&quot;&quot;);
+</code></pre>
+<p>上面代码已经包含查找一阶添加。</p>
+<h3 id="三-动态添加">三、动态添加。</h3>
+<p>组织需要添加标签String。如下</p>
+<pre><code>    var li_str = '&lt;li class=&quot;li_style&quot;&gt;';
+    li_str += '&lt;div id=&quot;divItem'+(i+1).toString()+'&quot; class=&quot;div_item_v_style&quot;&gt;';
+    li_str += '&lt;img id=&quot;img_item_' + (i + 1).toString() + '&quot; src=&quot;../img/Icon_Movie.png&quot; class=&quot;img_v_style&quot;/&gt;';
+    li_str += '&lt;input id=&quot;listItem_' + (i + 1).toString() + '&quot; type=&quot;button&quot; value=&quot;' + dict_data[&quot;List&quot;][i] + '&quot; class=&quot;btn_list_item_v_style&quot; οnclick=&quot;Item_Click(' + (i + 1).toString() + ');&quot;/&gt;';
+    li_str += '&lt;/div&gt;&lt;/li&gt;';
 
-    UIWindowScene *windowScene = (UIWindowScene *)scene;
-    self.window = [[UIWindow alloc] initWithWindowScene:windowScene];
-    self.window.frame = windowScene.coordinateSpace.bounds;
-    self.window.rootViewController = [UITabBarController new];
-    [self.window makeKeyAndVisible];
+</code></pre>
+<p>然后通过append这个语句，添加进去。</p>
+<pre><code>//添加数据到UL
+function AddListToUl(dict_data) {
+    var list_count = parseInt(dict_data[&quot;Count&quot;]);
+    $(&quot;#ulPlayPist&quot;).find(&quot;li&quot;).remove();
+    for (var i = 0; i &lt; list_count; i++) {
+        var li_str = '&lt;li class=&quot;li_style&quot;&gt;';
+        li_str += '&lt;div id=&quot;divItem'+(i+1).toString()+'&quot; class=&quot;div_item_v_style&quot;&gt;';
+        li_str += '&lt;img id=&quot;img_item_' + (i + 1).toString() + '&quot; src=&quot;../img/Icon_Movie.png&quot; class=&quot;img_v_style&quot;/&gt;';
+        li_str += '&lt;input id=&quot;listItem_' + (i + 1).toString() + '&quot; type=&quot;button&quot; value=&quot;' + dict_data[&quot;List&quot;][i] + '&quot; class=&quot;btn_list_item_v_style&quot; οnclick=&quot;Item_Click(' + (i + 1).toString() + ');&quot;/&gt;';
+        li_str += '&lt;/div&gt;&lt;/li&gt;';
+        $('#ulPlayPist').append(li_str);
+    }
 }
 </code></pre>
+<p>以上就是基本代码</p>
 
                 </div>
             </article>
@@ -138,8 +162,8 @@
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyangpro.com/ru-he-xiu-gai-mac-zi-dai-php-ban-ben-php-v-he-phpinfo-liang-ge-bu-tong-de-ban-ben/" class="post-title gt-a-link">
-                    如何修改Mac自带PHP版本，php-v和phpinfo两个不同的版本
+                <a href="https://shineyangpro.com/gin-kuang-jia-jie-shao-ji-shi-yong/" class="post-title gt-a-link">
+                    Gin框架介绍及使用
                 </a>
             </div>
         
