@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://shineyangpro.com</id>
     <title>ShineYang</title>
-    <updated>2020-11-18T01:04:33.633Z</updated>
+    <updated>2020-11-22T04:41:33.077Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://shineyangpro.com"/>
     <link rel="self" href="https://shineyangpro.com/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://shineyangpro.com/images/avatar.png</logo>
     <icon>https://shineyangpro.com/favicon.ico</icon>
     <rights>All rights reserved 2020, ShineYang</rights>
+    <entry>
+        <title type="html"><![CDATA[Go框架-Gin里获取http请求的参数]]></title>
+        <id>https://shineyangpro.com/go-kuang-jia-gin-li-huo-qu-http-qing-qiu-de-can-shu/</id>
+        <link href="https://shineyangpro.com/go-kuang-jia-gin-li-huo-qu-http-qing-qiu-de-can-shu/">
+        </link>
+        <updated>2020-11-22T04:28:52.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[使用editor.md作为后台富文本编辑器以及前台Markdown文档展示]]></title>
         <id>https://shineyangpro.com/shi-yong-editormd-zuo-wei-hou-tai-fu-wen-ben-bian-ji-qi-yi-ji-qian-tai-markdown-wen-dang-zhan-shi/</id>
@@ -72,12 +79,5 @@
         <link href="https://shineyangpro.com/gou-jian-geng-hao-de-ios-app-dong-hua/">
         </link>
         <updated>2020-10-22T00:48:49.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[ThinkPHP5.0路径中去除index.php入口文件方式]]></title>
-        <id>https://shineyangpro.com/thinkphp50-lu-jing-zhong-qu-chu-indexphp-ru-kou-wen-jian-fang-shi/</id>
-        <link href="https://shineyangpro.com/thinkphp50-lu-jing-zhong-qu-chu-indexphp-ru-kou-wen-jian-fang-shi/">
-        </link>
-        <updated>2020-10-22T00:42:29.000Z</updated>
     </entry>
 </feed>
