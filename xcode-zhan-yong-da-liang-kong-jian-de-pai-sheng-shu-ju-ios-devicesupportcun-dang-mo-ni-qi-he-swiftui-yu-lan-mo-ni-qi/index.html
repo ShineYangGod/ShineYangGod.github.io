@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>macOS Catalina (macOS 10.15) 已损坏无法打开解决办法 | ShineYang</title>
+<title>Xcode占用大量空间的派生数据， iOS DeviceSupport，存档，模拟器和SwiftUI预览模拟器 | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1607062253927">
 
@@ -97,11 +97,11 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    macOS Catalina (macOS 10.15) 已损坏无法打开解决办法
+                    Xcode占用大量空间的派生数据， iOS DeviceSupport，存档，模拟器和SwiftUI预览模拟器
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2020-10-19 ·
+                        · 2020-12-04 ·
                     </time>
                     
                         <a href="https://shineyangpro.com/fRADVONCB/" class="post-tags">
@@ -110,18 +110,44 @@
                     
                 </div>
                 <div class="post-content">
-                    <p>最近有很多小伙伴更新系统后，提示“已损坏无法打开”的情况，按照以往的方法，在系统的“安全与隐私”中已经允许了“任何来源”，但还是一样打不开，怎么办呢？</p>
-<figure data-type="image" tabindex="1"><img src="https://shineyangpro.com/post-images/1603099224846.png" alt="图1" loading="lazy"></figure>
-<p>App 在 macOS Catalina下提示已损坏无法打开解决办法：<br>
-1、在系统的“安全与隐私”中允许“任何来源”，再打开终端。</p>
-<figure data-type="image" tabindex="2"><img src="https://shineyangpro.com/post-images/1603099251815.png" alt="图2" loading="lazy"></figure>
-<p>2、输入以下命令:</p>
-<pre><code>    sudo xattr -d com.apple.quarantine /Applications/xxxx.app
+                    <p>我们使用Xcode开发App时将产生派生数据，iOS DeviceSupport，存档，Simulator和SwiftUI预览模拟器，随着时间的累积，它们的空间将十分可观，甚至可以超过几十GB的规模。因此，接下来就让我们学习清除它们的小技巧，以备Mac空间不足时派上用场。下面给大家介绍三种清理方式:</p>
+<h3 id="1-为xcode使用app-devcleaner">1、为Xcode使用App DevCleaner</h3>
+<p><a href="https://apps.apple.com/us/app/devcleaner-for-xcode/id1388020431?mt=12">App DevCleaner下载</a><br>
+使用大大开发的免费的Xcode App DevCleaner是其中最简单的方法，打开App后，可以自动帮我们找到可以删除的内容。<br>
+<img src="https://shineyangpro.com/post-images/1607061628337.jpeg" alt="" loading="lazy"><br>
+<img src="https://shineyangpro.com/post-images/1607061634679.jpeg" alt="" loading="lazy"></p>
+<p>清除想要删除的档案后，按右下角的Clean开始删除。</p>
+<h3 id="2-使用app-xcode清洁程序">2、使用App Xcode清洁程序</h3>
+<p>Xcode的清理程序将帮助我们发现Xcode占用大量空间的档案，点选X可以一键删除。<br>
+<img src="https://shineyangpro.com/post-images/1607061670787.jpeg" alt="" loading="lazy"><br>
+<a href="https://apps.apple.com/tw/app/cleaner-for-xcode/id1296084683?l=en&amp;mt=12">官网下载</a></p>
+<h3 id="3-手动删除衍生数据">3、手动删除衍生数据</h3>
+<p>1、点选Xcode-&gt;首选项，打开首选项窗口。<br>
+<img src="https://shineyangpro.com/post-images/1607061820169.jpeg" alt="" loading="lazy"><br>
+2.切换到位置分页，点选派生数据向下勾引着我们，路径旁边指向右边的箭头。<br>
+<img src="https://shineyangpro.com/post-images/1607061850391.jpeg" alt="" loading="lazy"><br>
+点选箭头后将打开Finder视窗，显示派生数据资料夹。<br>
+<img src="https://shineyangpro.com/post-images/1607061868244.jpeg" alt="" loading="lazy"><br>
+3.双击派生的数据资料夹，显示其中的资料夹。单击cmd + a全选这些资料夹后，从快捷方式选择单点选移至垃圾桶，将其杀得一干二净，丢到垃圾桶。<br>
+<img src="https://shineyangpro.com/post-images/1607061886458.jpeg" alt="" loading="lazy"><br>
+4.点选Finder-&gt; Empty Trash，清空垃圾桶里的资料。<br>
+<img src="https://shineyangpro.com/post-images/1607061914605.jpeg" alt="" loading="lazy"></p>
+<p>从Finder视窗，可观察到空间从原本的16.64GB，瞬间成长到31.36GB，足足多了15G之多！<br>
+<img src="https://shineyangpro.com/post-images/1607061929087.jpeg" alt="" loading="lazy"></p>
+<h3 id="4-手动删除ios-devicesupport">4、手动删除iOS DeviceSupport</h3>
+<p>删除〜/ Library / Developer / Xcode / iOS DeviceSupport里的资料。iOSDeviceSupport包含了Mac接过装置的iOS支援挡，接过愈多装置，占用愈多空间。<br>
+<img src="https://shineyangpro.com/post-images/1607061966584.jpeg" alt="" loading="lazy"></p>
+<h4 id="手动删除">手动删除</h4>
+<p>删除〜/ Library / Developer / Xcode / Archives里的资料。<br>
+<img src="https://shineyangpro.com/post-images/1607061986695.jpeg" alt="" loading="lazy"><br>
+Archives资料夹里是我们曾经使用Xcode&gt; Archive制作的App。<br>
+<img src="https://shineyangpro.com/post-images/1607062006294.jpeg" alt="" loading="lazy"></p>
+<h3 id="5-清除用不到的模拟器">5、清除用不到的模拟器</h3>
+<p>Xcode的模拟器十分占空间，而且采用iOS版本的持续更新，Mac里可能存着很多我们用不到的旧版模拟器，比方以下CleanMyMac X列出目前用不到的模拟器占了38 GB的空间。</p>
+<p><img src="https://shineyangpro.com/post-images/1607062100454.jpeg" alt="" loading="lazy"><br>
+将这些不可用的模拟器通通清除很简单，只要在终端输入以下指令：</p>
+<pre><code>xcrun simctl delete unavailable
 </code></pre>
-<p><mark>注意：Applications/xxxx.app 换成你的App路径或在sudo xattr -d com.apple.quarantine 后将软件拖进去即可。</mark><br>
-<img src="https://shineyangpro.com/post-images/1603099377166.png" alt="图3" loading="lazy"></p>
-<p>3、最后，重启App即可。<br>
-<img src="https://shineyangpro.com/post-images/1603099392884.png" alt="图4" loading="lazy"></p>
 
                 </div>
             </article>
@@ -130,8 +156,8 @@
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyangpro.com/mac-xia-pei-zhi-go-kai-fa-huan-jing/" class="post-title gt-a-link">
-                    Mac下配置Go开发环境
+                <a href="https://shineyangpro.com/go-kuang-jia-gin-li-huo-qu-http-qing-qiu-de-can-shu/" class="post-title gt-a-link">
+                    Go框架-Gin里获取http请求的参数
                 </a>
             </div>
         
