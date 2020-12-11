@@ -1,0 +1,434 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>iOS面试总结(2020-12-11)，持续更新。。。 | ShineYang</title>
+
+<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1607669482232">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shineyangpro.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            ShineYang
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/friends" class="menu gt-a-link">
+                            友链
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1607669482232" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    iOS面试总结(2020-12-11)，持续更新。。。
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2020-12-11 ·
+                    </time>
+                    
+                        <a href="https://shineyangpro.com/It5jHhk-w/" class="post-tags">
+                            # iOS
+                        </a>
+                    
+                        <a href="https://shineyangpro.com/dgtOLpiFv1/" class="post-tags">
+                            # 面试
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h3 id="网络的七层协议">网络的七层协议</h3>
+<figure data-type="image" tabindex="1"><img src="https://shineyangpro.com/post-images/1607656727553.png" alt="" loading="lazy"></figure>
+<h3 id="tcp跟udp的区别">TCP跟UDP的区别</h3>
+<p>UDP:</p>
+<ul>
+<li>面向无连接</li>
+<li>有单播，多播，广播的功能</li>
+<li>UDP是面向报文的</li>
+<li>不可靠性</li>
+<li>头部开销小，传输数据报文时是很高效的。<br>
+TCP：</li>
+<li>TCP连接过程(需要三次握手)</li>
+<li>TCP协议的特点(面向连接,仅支持单播传输,面向字节流,可靠传输,提供拥塞控制,TCP提供全双工通信)</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="https://shineyangpro.com/post-images/1607657266294.png" alt="" loading="lazy"></figure>
+<h3 id="tcp是如何连接的答三次握手连接-追问有没有四次连接">TCP是如何连接的？(答：三次握手连接;  追问:有没有四次连接?)</h3>
+<p>建立起一个TCP连接需要经过“三次握手”：</p>
+<p>第一次握手：客户端发送syn包(syn=j)到服务器，并进入SYN_SEND状态，等待服务器确认；</p>
+<p>第二次握手：服务器收到syn包，必须确认客户的SYN（ack=j+1），同时自己也发送一个SYN包（syn=k），即SYN+ACK包，此时服务器进入SYN_RECV状态；</p>
+<p>第三次握手：客户端收到服务器的SYN＋ACK包，向服务器发送确认包ACK(ack=k+1)，此包发送完毕，客户端和服务器进入ESTABLISHED状态，完成三次握手。</p>
+<p>握手过程中传送的包里不包含数据，三次握手完毕后，客户端与服务器才正式开始传送数据。理想状态下，TCP连接一旦建立，在通信双方中的任何一方主动关闭连接之前，TCP 连接都将被一直保持下去。断开连接时服务器和客户端均可以主动发起断开TCP连接的请求，<code>断开过程需要经过“四次握手”</code>（过程就不细写了，就是服务器和客户端交互，最终确定断开）</p>
+<h3 id="http是如何连接的">HTTP是如何连接的？</h3>
+<ul>
+<li>
+<p>客户端打包请求,包括url，端口啊，你的账号密码等等。账号密码登陆应该用的是Post方式，所以相关的用户信息会被加载到body里面。这个请求应该包含三个方面：网络地址，协议，资源路径。注意，这里是HTTPS，就是HTTP + SSL / TLS，在HTTP上又加了一层处理加密信息的模块（相当于是个锁）。这个过程相当于是客户端请求钥匙。</p>
+</li>
+<li>
+<p>服务器接受请求。一般客户端的请求会先发送到DNS服务器。 DNS服务器负责将你的网络地址解析成IP地址，这个IP地址对应网上一台机器。这其中可能发生Hosts Hijack和ISP failure的问题。过了DNS这一关，信息就到了服务器端，此时客户端会和服务器的端口之间建立一个socket连接，socket一般都是以file descriptor的方式解析请求。这个过程相当于是服务器端分析是否要向客户端发送钥匙模板。</p>
+</li>
+<li>
+<p>服务器端返回数字证书。服务器端会有一套数字证书（相当于是个钥匙模板），这个证书会先发送给客户端。这个过程相当于是服务器端向客户端发送钥匙模板。</p>
+</li>
+<li>
+<p>客户端生成加密信息。根据收到的数字证书（钥匙模板），客户端会生成钥匙，并把内容锁上，此时信息已经加密。这个过程相当于客户端生成钥匙并锁上请求。</p>
+</li>
+<li>
+<p>客户端发送加密信息。服务器端会收到由自己发送出去的数字证书加锁的信息。 这个时候生成的钥匙也一并被发送到服务器端。这个过程是相当于客户端发送请求。</p>
+</li>
+</ul>
+<p>服务器端解锁加密信息。服务器端收到加密信息后，会根据得到的钥匙进行解密，并把要返回的数据进行对称加密。这个过程相当于服务器端解锁请求、生成、加锁回应信息。</p>
+<p>服务器端向客户端返回信息。客户端会收到相应的加密信息。这个过程相当于服务器端向客户端发送回应。</p>
+<p>客户端解锁返回信息。客户端会用刚刚生成的钥匙进行解密，将内容显示在浏览器上。</p>
+<h3 id="dns服务器是如何将你的网络地址解析成ip地址如果让你设计一个dns服务器你会怎么做">DNS服务器是如何将你的网络地址解析成IP地址?如果让你设计一个DNS服务器，你会怎么做？</h3>
+<p><mark>个人理解其实跟字典的原理是差不多的，网络地址相当于key,ip相当于value</mark></p>
+<p>网络客户端就是我们平常使用的电脑，打开浏览器，输入一个域名。比如输入www.163.com，这时，你使用的电脑会发出一个DNS请求到本地DNS服务器。本地DNS服务器一般都是你的网络接入服务器商提供，比如中国电信，中国移动。</p>
+<p>查询www.163.com的DNS请求到达本地DNS服务器之后，本地DNS服务器会首先查询它的缓存记录，如果缓存中有此条记录，就可以直接返回结果。如果没有，本地DNS服务器还要向DNS根服务器进行查询。</p>
+<p>根DNS服务器没有记录具体的域名和IP地址的对应关系，而是告诉本地DNS服务器，你可以到域服务器上去继续查询，并给出域服务器的地址。</p>
+<p>本地DNS服务器继续向域服务器发出请求，在这个例子中，请求的对象是.com域服务器。.com域服务器收到请求之后，也不会直接返回域名和IP地址的对应关系，而是告诉本地DNS服务器，你的域名的解析服务器的地址。</p>
+<p>最后，本地DNS服务器向域名的解析服务器发出请求，这时就能收到一个域名和IP地址对应关系，本地DNS服务器不仅要把IP地址返回给用户电脑，还要把这个对应关系保存在缓存中，以备下次别的用户查询时，可以直接返回结果，加快网络访问。</p>
+<p><a href="http://www.ruanyifeng.com/blog/2016/06/dns.html">参考资料</a></p>
+<h3 id="给一个数组例如0203253439-用哪种排序比较快你知道哪几种排序口述可能还会问排序是如何实现的">给一个数组，例如[0,20,3,25,34,39]、用哪种排序比较快？你知道哪几种排序(口述)(可能还会问排序是如何实现的?)</h3>
+<p><code>参考《十大排序算法》</code></p>
+<h3 id="直播实现流程">直播实现流程</h3>
+<p>1.采集、2.滤镜处理、3.编码、4.推流、5.CDN分发、6.拉流、7.解码、8.播放、9.聊天互动</p>
+<h3 id="追问你都知道哪些流媒体传输协议">追问：你都知道哪些流媒体传输协议</h3>
+<p>RTMP HTTP-FLV  HLS<br>
+<img src="https://shineyangpro.com/post-images/1607658428806.png" alt="" loading="lazy"></p>
+<h3 id="hls与rtmp的区别是什么">HLS与RTMP的区别是什么？</h3>
+<p>HLS主要是延时比较大，RTMP主要优势在于延时低<br>
+HLS协议的小切片方式会生成大量的文件，存储或处理这些文件会造成大量资源浪费<br>
+相比使用RTSP协议的好处在于，一旦切分完成，之后的分发过程完全不需要额外使用任何专门软件，普通的网络服务器即可，大大降低了CDN边缘服务器的配置要求，可以使用任何现成的CDN,而一般服务器很少支持RTSP。</p>
+<h3 id="说一下你对kvo的理解有没有用过kvo">说一下你对KVO的理解？有没有用过KVO?</h3>
+<p>当一个对象使用了KVO监听，iOS系统会修改这个对象的isa指针，改为指向一个全新的通过Runtime动态创建的子类，子类拥有自己的set方法实现，set方法实现内部会顺序调用willChangeValueForKey方法、原来的setter方法实现、didChangeValueForKey方法，而didChangeValueForKey方法内部又会调用监听器的observeValueForKeyPath:ofObject:change:context:监听方法。</p>
+<h3 id="你对kvc的理解是什么原理是什么">你对KVC的理解是什么？原理是什么？</h3>
+<p>KVC的全称是Key-Value Coding，俗称“键值编码”，可以通过一个key来访问某个属性<br>
+调用 setValue:forKey:</p>
+<ul>
+<li>setKey,_setKey -&gt;找到了则进行赋值,未找到调用 accessInstanceVarlableDirctly 是否运行 修改值,返回YES</li>
+<li>调用_key, _isKey, key, isKey 进行赋值</li>
+</ul>
+<h3 id="kvo-跟notification的区别">KVO 跟Notification的区别</h3>
+<p>Notification优势：<br>
+1.不需要编写多少代码，实现比较简单；<br>
+2.对于一个发出的通知，多个对象能够做出反应，即1对多的方式实现简单<br>
+3.controller能够传递context对象（dictionary），context对象携带了关于发送通知的自定义的信息<br>
+缺点：<br>
+1.在编译期不会检查通知是否能够被观察者正确的处理；<br>
+2.在释放注册的对象时，需要在通知中心取消注册；<br>
+3.在调试的时候应用的工作以及控制过程难跟踪；<br>
+4.需要第三方对喜爱那个来管理controller与观察者对象之间的联系；<br>
+5.controller和观察者需要提前知道通知名称、UserInfo dictionary keys。如果这些没有在工作区间定义，那么会出现不同步的情况；<br>
+6.通知发出后，controller不能从观察者获得任何的反馈信息</p>
+<p>KVO优势:<br>
+1.能够提供一种简单的方法实现两个对象间的同步。例如：model和view之间同步；<br>
+2.能够对非我们创建的对象，即内部对象的状态改变作出响应，而且不需要改变内部对象（SKD对象）的实现；<br>
+3.能够提供观察的属性的最新值以及先前值；<br>
+4.用key paths来观察属性，因此也可以观察嵌套对象；<br>
+5.完成了对观察对象的抽象，因为不需要额外的代码来允许观察值能够被观察<br>
+缺点：<br>
+1.我们观察的属性必须使用strings来定义。因此在编译器不会出现警告以及检查；<br>
+2.对属性重构将导致我们的观察代码不再可用；<br>
+3.复杂的“IF”语句要求对象正在观察多个值。这是因为所有的观察代码通过一个方法来指向；<br>
+4.当释放观察者时不需要移除观察者。</p>
+<h3 id="block的属性修饰词为什么是copy">block的属性修饰词为什么是copy？</h3>
+<p>block 一旦没有进行copy操作，就不会在堆上</p>
+<h3 id="追问那栈上会不会有blockblock有几种形式">追问:那栈上会不会有block?block有几种形式？</h3>
+<p><a href="ios-block-zai-zhan-shang-huan-shi-dui-shang">参考本文章</a></p>
+<h3 id="知道runtime吗什么是runtime">知道Runtime吗？什么是Runtime？</h3>
+<p>Objective-C runtime是一个运行时库，它为Objective-C语言的动态特性提供支持，我们所写的OC代码在运行时都转成了runtime相关的代码，类转换成C语言对应的结构体，方法转化为C语言对应的函数，发消息转成了C语言对应的函数调用。通过了解runtime以及源码,可以更加深入的了解OC其特性和原理</p>
+<ul>
+<li>OC是一门动态性比较强的编程语言，允许很多操作推迟到程序运行时再进行</li>
+<li>OC的动态性就是由Runtime来支撑和实现的，Runtime是一套C语言的API，封装了很多动态性相关的函数</li>
+<li>平时编写的OC代码，底层都是转换成了Runtime API进行调用</li>
+</ul>
+<h3 id="runtime可以做什么呢">runtime可以做什么呢？</h3>
+<ul>
+<li>利用关联对象（AssociatedObject）给分类添加属性</li>
+<li>遍历类的所有成员变量（修改textfield的占位文字颜色、字典转模型、自动归档解档）</li>
+<li>交换方法实现（交换系统的方法）</li>
+<li>利用消息转发机制解决方法找不到的异常问题</li>
+</ul>
+<h3 id="assgin和week有什么区别">assgin和week有什么区别？</h3>
+<p>weak和之间的唯一区别是，如果weak释放了属性所指向的对象，则weak指针的值将设置为nil，这样就永远不会报错。如果使用assign，对象被释放后，将会访问野指针，会报错。</p>
+<h3 id="讲一下进程与线程的区别">讲一下进程与线程的区别?</h3>
+<p>进程和线程的主要差别在于它们是不同的操作系统资源管理方式。</p>
+<ul>
+<li>进程有独立的地址空间，一个进程崩溃后，在保护模式下不会对其它进程产生影响，而线程只是一个进程中的不同执行路径。</li>
+<li>线程有自己的堆栈和局部变量，但线程之间没有单独的地址空间，一个线程死掉就等于整个进程死掉，所以多进程的程序要比多线程的程序健壮，但在进程切换时，耗费资源较大，效率要差一些。但对于一些要求同时进行并且又要共享某些变量的并发操作，只能用线程，不能用进程。</li>
+<li>一个程序至少有一个进程,一个进程至少有一个线程</li>
+<li>进程在执行过程中拥有独立的内存单元，而多个线程共享内存，从而极大地提高了程序的运行效率。</li>
+<li>线程在执行过程中与进程还是有区别的。每个独立的线程有一个程序运行的入口、顺序执行序列和程序的出口。但是线程不能够独立执行，必须依存在应用程序中，由应用程序提供多个线程执行控制。</li>
+<li>多线程的意义在于一个应用程序中，有多个执行部分可以同时执行。但操作系统并没有将多个线程看做多个独立的应用，来实现进程的调度和管理以及资源分配</li>
+</ul>
+<h3 id="一个oc对象占用多少内存">一个OC对象占用多少内存?</h3>
+<p>系统分配了16个字节给NSObject对象（通过malloc_size函数获得）。<br>
+但NSObject对象内部只使用了8个字节的空间（64bit环境下，可以通过class_getInstanceSize函数获得）。</p>
+<ul>
+<li>OC对象 最少占用 16 个字节内存 .</li>
+<li>当对象中包含属性, 会按属性占用内存开辟空间. 在结构体内存分配原则下自动偏移和补齐 .</li>
+<li>对象最终满足 16 字节对齐标准 .</li>
+<li>属性最终满足 8 字节对齐标准 .</li>
+<li>可以通过 #pragma pack() 自定义对齐方式 .</li>
+</ul>
+<h3 id="如何正确释放定时器timer定时器释放不掉是因为什么原因包括在dealloc不会被调用">如何正确释放定时器Timer？定时器释放不掉是因为什么原因？（包括在dealloc不会被调用）</h3>
+<p>NSTimer不释放原因是: Timer 添加到 Runloop 的时候，会被 Runloop 强引用；然后 Timer 又会有一个对 Target 的强引用（也就是 self ）</p>
+<p>注意target参数的描述：<br>
+The object to which to send the message specified by aSelector when the timer fires. The timer maintains a strong reference to target until it (the timer) is invalidated.<br>
+注意：文档中写的很清楚，timer对target会有一个强引用，直到timer is invalidated。也就是说，在timer调用 invalidate方法之前，timer对target一直都有一个强引用。这也是为什么控制器的dealloc 方法不会被调用的原因。<br>
+方法的文档介绍：<br>
+The receiver retains aTimer. To remove a timer from all run loop modes on which it is installed, send an invalidate message to the timer.<br>
+也就是说，runLoop会对timer有强引用，因此，timer修饰符是weak，timer还是不能释放，timer的target也就不能释放。</p>
+<p>解决办法：<br>
+<code>viewWillDisappear</code>或<code>viewDidDisappear</code>中 invalidate<br>
+这种方式是可以释放掉的</p>
+<pre><code>- (void)viewWillDisappear:(BOOL)animated
+- (void)viewDidDisappear:(BOOL)animated
+</code></pre>
+<h3 id="除了nstimer你还知道哪些定时器有什么注意事项">除了NSTimer,你还知道哪些定时器？有什么注意事项？</h3>
+<p>还有<code>CADisplayLink</code><br>
+CADisplayLink 保证调用频率和刷帧频率一直,60FPS, 不用设置时间间隔,每秒钟60次<br>
+可以使用 proxy 代理解决循环引用<br>
+CADisplayLink、NSTimer会对target产生强引用，如果target又对它们产生强引用，那么就会引发循环引用<br>
+<a href="https://medium.com/flawless-app-stories/nstimer-vs-cadisplaylink-cc6aa8509115#id_token=eyJhbGciOiJSUzI1NiIsImtpZCI6ImQ0Y2JhMjVlNTYzNjYwYTkwMDlkODIwYTFjMDIwMjIwNzA1NzRlODIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJuYmYiOjE2MDc2NjgzOTgsImF1ZCI6IjIxNjI5NjAzNTgzNC1rMWs2cWUwNjBzMnRwMmEyamFtNGxqZGNtczAwc3R0Zy5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsInN1YiI6IjEwMDM3MzIyMjEzNDY2MDk0Mzc4OSIsImVtYWlsIjoieWFuZ2NoZW45MzEyMjZAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF6cCI6IjIxNjI5NjAzNTgzNC1rMWs2cWUwNjBzMnRwMmEyamFtNGxqZGNtczAwc3R0Zy5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbSIsIm5hbWUiOiJTaGluZSBZYW5nIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hLS9BT2gxNEdqazQ5V1hiM2VHWWlMbVI2MVVoYVhaV0dRcWhXN2o2aTJmUndmbj1zOTYtYyIsImdpdmVuX25hbWUiOiJTaGluZSIsImZhbWlseV9uYW1lIjoiWWFuZyIsImlhdCI6MTYwNzY2ODY5OCwiZXhwIjoxNjA3NjcyMjk4LCJqdGkiOiIxMTlkYjY5MWI1OGUzYjUwNmY2Y2FhMjllYjU1YWIyM2Y2NGNjZGU2In0.TMZt_HWs06RQX5Q4Byfo5NMbIVRgwN3nS9WdzhLGsQJ4QUxY_SiA0RGjX7zcIG8hSRy5YDrtZmjCdpTeCG6S1rotSVduLRamwWMQ_gg12kNk8VMpHHVHc6EAAOR2f-JQDR_XpJOPFQerW3nucdDJoRLbQuE_NQ6mYWoKcYNkuGeIm9RCcFMLewhaCBo735RqFB0ByOF8uiMBtFZO_y4C0esjwNkCpEzlwGHw79kZtk-7sbjZnL6bGzoLhEzRCKvnUlAbfAE_X9cFAk_wZMEE8CDnklfvmvmNJX-KoCGK-hR63RsBWnZ55lPEYDDKEBCA4FhqM3Sg4F9UnU7O6PQNnw">详情参考</a></p>
+<h3 id="你知道哪些数据结构ios中常见的数据结构有哪些">你知道哪些数据结构？iOS中常见的数据结构有哪些？</h3>
+<ul>
+<li>集合结构</li>
+<li>线性结构(栈、队列)</li>
+<li>树形结构(堆)</li>
+<li>圆形结构</li>
+</ul>
+<p>iOS中最常见的三种数据结构是<code>数组</code>，<code>字典</code>和<code>集合</code><br>
+具体参考<a href="https://www.raywenderlich.com/1172-collection-data-structures-in-swift">详细讲解数据结构</a></p>
+<h3 id="你有了解过ios的内存吗">你有了解过iOS的内存吗？</h3>
+<p>代码段: 编译之后的代码<br>
+数据段: 字符串常量,已经初始化的全局变量,或者静态变量,未初始化的全局变量,静态变量<br>
+堆 (低&gt;高) 通过 alloc malloc calloc 动态分配的内存<br>
+栈 (高地址 从 低地址) 函数调用开销()</p>
+<h3 id="追问讲一下对内存管理的理解">追问：讲一下对内存管理的理解？</h3>
+<p>在iOS中，使用引用计数来管理OC对象的内存</p>
+<ul>
+<li>一个新创建的OC对象引用计数默认是1，当引用计数减为0，OC对象就会销毁，释放其占用的内存空间<br>
+调用retain会让OC对象的引用计数+1，调用release会让OC对象的引用计数-1</li>
+<li>内存管理的经验总结<br>
+当调用alloc、new、copy、mutableCopy方法返回了一个对象，在不需要这个对象时，要调用release或者autorelease来释放它</li>
+<li>想拥有某个对象，就让它的引用计数+1；不想再拥有某个对象，就让它的引用计数-1</li>
+</ul>
+<h3 id="在开发中如何防止内存泄露">在开发中，如何防止内存泄露？</h3>
+<ul>
+<li>可以使用静态分析以及instruments的leaks 分析</li>
+<li>注意 NStimer 以及 block ,delegate 等的使用,避免循环引用</li>
+</ul>
+<h3 id="你知道锁都有哪些吗">你知道锁都有哪些吗？</h3>
+<p>os_unfair_lock ios10 开始<br>
+OSSpinLock ios10 废弃<br>
+dispatch_semaphore 建议使用,性能也比较好<br>
+dispatch_mutex<br>
+dispatch_queue 串行<br>
+NSLock 对 mutex 封装<br>
+@synchronized 性能最差</p>
+<h3 id="追问你有用过自旋和互斥锁吗他们有什么区别">追问：你有用过自旋和互斥锁吗？他们有什么区别？</h3>
+<p>什么情况使用自旋锁比较划算？</p>
+<p>预计线程等待锁的时间很短<br>
+加锁的代码（临界区）经常被调用，但竞争情况很少发生<br>
+CPU资源不紧张<br>
+多核处理器<br>
+什么情况使用互斥锁比较划算？</p>
+<p>预计线程等待锁的时间较长<br>
+单核处理器<br>
+临界区有IO操作<br>
+临界区代码复杂或者循环量大<br>
+临界区竞争非常激烈</p>
+<h3 id="继续追问两种锁的加锁原理描述一下">继续追问:两种锁的加锁原理描述一下？</h3>
+<p>两种锁的加锁原理：<br>
+<code>互斥锁：</code>线程会从sleep（加锁）——&gt;running（解锁），过程中有上下文的切换，cpu的抢占，信号的发送等开销。<br>
+<code>自旋锁：</code>线程一直是running(加锁——&gt;解锁)，死循环检测锁的标志位</p>
+<h3 id="nsstring什么时候用copy什么时候用strong有什么不同">NSString什么时候用copy，什么时候用strong，有什么不同？</h3>
+<ul>
+<li>一般情况下，我们不希望字串的值跟着变化，所以我们一般用copy来设置string的属性。</li>
+<li>如果希望字串的值跟着赋值的字串的值变化，可以使用strong，retain。</li>
+<li>retain仅仅是指针引用，增加了引用计数器，这样源头改变的时候，用这种retain方式声明的变量（无论被赋值的变量是可变的还是不可变的），它也会跟着改变;而copy声明的变量，它不会跟着源头改变，它实际上是深拷贝</li>
+</ul>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shineyangpro.com/shi-da-pai-xu-suan-fa/" class="post-title gt-a-link">
+                    十大排序算法
+                </a>
+            </div>
+        
+
+        
+
+        
+            
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+<script>
+    // md5.min.js
+    !function(n){
+        "use strict";
+        function d(n,t){var r=(65535&n)+(65535&t);return(n>>16)+(t>>16)+(r>>16)<<16|65535&r}
+        function f(n,t,r,e,o,u){return d((c=d(d(t,n),d(e,u)))<<(f=o)|c>>>32-f,r);var c,f}
+        function l(n,t,r,e,o,u,c){return f(t&r|~t&e,n,t,o,u,c)}
+        function v(n,t,r,e,o,u,c){return f(t&e|r&~e,n,t,o,u,c)}
+        function g(n,t,r,e,o,u,c){return f(t^r^e,n,t,o,u,c)}
+        function m(n,t,r,e,o,u,c){return f(r^(t|~e),n,t,o,u,c)}
+        function i(n,t){var r,e,o,u,c;n[t>>5]|=128<<t%32,n[14+(t+64>>>9<<4)]=t;var f=1732584193,i=-271733879,a=-1732584194,h=271733878;for(r=0;r<n.length;r+=16)f=l(e=f,o=i,u=a,c=h,n[r],7,-680876936),h=l(h,f,i,a,n[r+1],12,-389564586),a=l(a,h,f,i,n[r+2],17,606105819),i=l(i,a,h,f,n[r+3],22,-1044525330),f=l(f,i,a,h,n[r+4],7,-176418897),h=l(h,f,i,a,n[r+5],12,1200080426),a=l(a,h,f,i,n[r+6],17,-1473231341),i=l(i,a,h,f,n[r+7],22,-45705983),f=l(f,i,a,h,n[r+8],7,1770035416),h=l(h,f,i,a,n[r+9],12,-1958414417),a=l(a,h,f,i,n[r+10],17,-42063),i=l(i,a,h,f,n[r+11],22,-1990404162),f=l(f,i,a,h,n[r+12],7,1804603682),h=l(h,f,i,a,n[r+13],12,-40341101),a=l(a,h,f,i,n[r+14],17,-1502002290),f=v(f,i=l(i,a,h,f,n[r+15],22,1236535329),a,h,n[r+1],5,-165796510),h=v(h,f,i,a,n[r+6],9,-1069501632),a=v(a,h,f,i,n[r+11],14,643717713),i=v(i,a,h,f,n[r],20,-373897302),f=v(f,i,a,h,n[r+5],5,-701558691),h=v(h,f,i,a,n[r+10],9,38016083),a=v(a,h,f,i,n[r+15],14,-660478335),i=v(i,a,h,f,n[r+4],20,-405537848),f=v(f,i,a,h,n[r+9],5,568446438),h=v(h,f,i,a,n[r+14],9,-1019803690),a=v(a,h,f,i,n[r+3],14,-187363961),i=v(i,a,h,f,n[r+8],20,1163531501),f=v(f,i,a,h,n[r+13],5,-1444681467),h=v(h,f,i,a,n[r+2],9,-51403784),a=v(a,h,f,i,n[r+7],14,1735328473),f=g(f,i=v(i,a,h,f,n[r+12],20,-1926607734),a,h,n[r+5],4,-378558),h=g(h,f,i,a,n[r+8],11,-2022574463),a=g(a,h,f,i,n[r+11],16,1839030562),i=g(i,a,h,f,n[r+14],23,-35309556),f=g(f,i,a,h,n[r+1],4,-1530992060),h=g(h,f,i,a,n[r+4],11,1272893353),a=g(a,h,f,i,n[r+7],16,-155497632),i=g(i,a,h,f,n[r+10],23,-1094730640),f=g(f,i,a,h,n[r+13],4,681279174),h=g(h,f,i,a,n[r],11,-358537222),a=g(a,h,f,i,n[r+3],16,-722521979),i=g(i,a,h,f,n[r+6],23,76029189),f=g(f,i,a,h,n[r+9],4,-640364487),h=g(h,f,i,a,n[r+12],11,-421815835),a=g(a,h,f,i,n[r+15],16,530742520),f=m(f,i=g(i,a,h,f,n[r+2],23,-995338651),a,h,n[r],6,-198630844),h=m(h,f,i,a,n[r+7],10,1126891415),a=m(a,h,f,i,n[r+14],15,-1416354905),i=m(i,a,h,f,n[r+5],21,-57434055),f=m(f,i,a,h,n[r+12],6,1700485571),h=m(h,f,i,a,n[r+3],10,-1894986606),a=m(a,h,f,i,n[r+10],15,-1051523),i=m(i,a,h,f,n[r+1],21,-2054922799),f=m(f,i,a,h,n[r+8],6,1873313359),h=m(h,f,i,a,n[r+15],10,-30611744),a=m(a,h,f,i,n[r+6],15,-1560198380),i=m(i,a,h,f,n[r+13],21,1309151649),f=m(f,i,a,h,n[r+4],6,-145523070),h=m(h,f,i,a,n[r+11],10,-1120210379),a=m(a,h,f,i,n[r+2],15,718787259),i=m(i,a,h,f,n[r+9],21,-343485551),f=d(f,e),i=d(i,o),a=d(a,u),h=d(h,c);return[f,i,a,h]}
+        function a(n){var t,r="",e=32*n.length;for(t=0;t<e;t+=8)r+=String.fromCharCode(n[t>>5]>>>t%32&255);return r}
+        function h(n){var t,r=[];for(r[(n.length>>2)-1]=void 0,t=0;t<r.length;t+=1)r[t]=0;var e=8*n.length;for(t=0;t<e;t+=8)r[t>>5]|=(255&n.charCodeAt(t/8))<<t%32;return r}
+        function e(n){var t,r,e="0123456789abcdef",o="";for(r=0;r<n.length;r+=1)t=n.charCodeAt(r),o+=e.charAt(t>>>4&15)+e.charAt(15&t);return o}
+        function r(n){return unescape(encodeURIComponent(n))}
+        function o(n){return a(i(h(t=r(n)),8*t.length));var t}
+        function u(n,t){return function(n,t){var r,e,o=h(n),u=[],c=[];for(u[15]=c[15]=void 0,16<o.length&&(o=i(o,8*n.length)),r=0;r<16;r+=1)u[r]=909522486^o[r],c[r]=1549556828^o[r];return e=i(u.concat(h(t)),512+8*t.length),a(i(c.concat(e),640))}(r(n),r(t))}
+        function t(n,t,r){return t?r?u(t,n):e(u(t,n)):r?o(n):e(o(n))}
+        "function"==typeof define&&define.amd?define(function(){return t}):"object"==typeof module&&module.exports?module.exports=t:n.md5=t;
+    }(this);
+</script>
+
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '195888eb6f21583b91e3',
+    clientSecret: '7b8d5bd89ce3c23d844751f2cec4e8eb92411d0c',
+    repo: 'ShineYangGod.github.io',
+    owner: 'ShineYangGod',
+    admin: ['ShineYangGod'],
+    id: md5(location.pathname),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false       // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+            
+
+            
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first"><i>the purpose of living is to change the world<i></div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/ShineYangGod" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Copyright 2020 &copy <a href="https://twitter.com/mei_samson" target="_blank">
+<span style="color:blue">ShineYang</span></a><br><br>
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shineyangpro.com/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,687 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>十大排序算法 | ShineYang</title>
+
+<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1607669482232">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shineyangpro.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            ShineYang
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/friends" class="menu gt-a-link">
+                            友链
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1607669482232" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    十大排序算法
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2020-12-11 ·
+                    </time>
+                    
+                        <a href="https://shineyangpro.com/bkojXfw-h/" class="post-tags">
+                            # 算法
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h2 id="算法概述">算法概述</h2>
+<h4 id="算法分类">算法分类</h4>
+<p>十种常见排序算法可以分为两大类：</p>
+<p><code>比较类排序</code>：通过比较来决定元素间的相对次序，由于其时间复杂度不能突破O(nlogn)，因此也称为非线性时间比较类排序。<br>
+<code>非比较类排序</code>：不通过比较来决定元素间的相对次序，它可以突破基于比较排序的时间下界，以线性时间运行，因此也称为线性时间非比较类排序。</p>
+<figure data-type="image" tabindex="1"><img src="https://shineyangpro.com/post-images/1607647224299.png" alt="" loading="lazy"></figure>
+<h4 id="算法复杂度">算法复杂度</h4>
+<figure data-type="image" tabindex="2"><img src="https://shineyangpro.com/post-images/1607647256451.png" alt="" loading="lazy"></figure>
+<p><mark>相关概念</mark></p>
+<ul>
+<li>稳定：如果a原本在b前面，而a=b，排序之后a仍然在b的前面。</li>
+<li>不稳定：如果a原本在b的前面，而a=b，排序之后 a 可能会出现在 b 的后面。</li>
+<li>时间复杂度：对排序数据的总的操作次数。反映当n变化时，操作次数呈现什么规律。</li>
+<li>空间复杂度：是指算法在计算机<br>
+内执行时所需存储空间的度量，它也是数据规模n的函数。</li>
+</ul>
+<h3 id="1-冒泡排序bubble-sort">1、冒泡排序（Bubble Sort）</h3>
+<p>冒泡排序是一种简单的排序算法。它重复地走访过要排序的数列，一次比较两个元素，如果它们的顺序错误就把它们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。这个算法的名字由来是因为越小的元素会经由交换慢慢“浮”到数列的顶端。</p>
+<h4 id="11-算法描述">1.1 算法描述</h4>
+<p>比较相邻的元素。如果第一个比第二个大，就交换它们两个；<br>
+对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对，这样在最后的元素应该会是最大的数；<br>
+针对所有的元素重复以上的步骤，除了最后一个；<br>
+重复步骤1~3，直到排序完成。</p>
+<h4 id="12-动图演示">1.2 动图演示</h4>
+<figure data-type="image" tabindex="3"><img src="https://shineyangpro.com/post-images/1607647378795.gif" alt="" loading="lazy"></figure>
+<h4 id="13-代码实现">1.3 代码实现</h4>
+<pre><code>function bubbleSort(arr) {
+    var len = arr.length;
+    for(vari = 0; i &lt; len - 1; i++) {
+        for(varj = 0; j &lt; len - 1 - i; j++) {
+            if(arr[j] &gt; arr[j+1]) {       // 相邻元素两两对比
+                var temp = arr[j+1];       // 元素交换
+                arr[j+1] = arr[j];
+                arr[j] = temp;
+            }
+        }
+    }
+    return arr;
+}
+</code></pre>
+<p>Swift</p>
+<pre><code>func bubbleSort(arr:[Int]){
+    var soreArray = arr
+    var len = soreArray.count
+    for i in 1 ... len - 1 {
+        for j in 0 ... len - 1 - i {
+            if soreArray[j] &gt; soreArray[j + 1] {
+                var temp = soreArray[j+1]
+                soreArray[j+1] = soreArray[j]
+                soreArray[j] = temp
+            }
+        }
+    }
+    print(&quot;冒泡排序输出的是：\(soreArray)&quot;)
+}
+</code></pre>
+<p><mark>个人比较常用冒泡排序</mark></p>
+<h3 id="2-选择排序selection-sort">2、选择排序（Selection Sort）</h3>
+<p>选择排序(Selection-sort)是一种简单直观的排序算法。它的工作原理：首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕。</p>
+<h4 id="21-算法描述">2.1 算法描述</h4>
+<p>n个记录的直接选择排序可经过n-1趟直接选择排序得到有序结果。具体算法描述如下：</p>
+<ul>
+<li>初始状态：无序区为R[1..n]，有序区为空；</li>
+<li>第i趟排序(i=1,2,3…n-1)开始时，当前有序区和无序区分别为R[1..i-1]和R(i..n）。该趟排序从当前+ 无序区中-选出关键字最小的记录 R[k]，将它与无序区的第1个记录R交换，使R[1..i]和R[i+1..n)分别+ 变为记录个数增加1个的新有序区和记录个数减少1个的新无序区；</li>
+<li>n-1趟结束，数组有序化了。</li>
+</ul>
+<h4 id="22-动图演示">2.2 动图演示</h4>
+<figure data-type="image" tabindex="4"><img src="https://shineyangpro.com/post-images/1607647535780.gif" alt="" loading="lazy"></figure>
+<h4 id="23-代码实现">2.3 代码实现</h4>
+<pre><code>function selectionSort(arr) {
+    var len = arr.length;
+    var minIndex, temp;
+    for(var i = 0; i &lt; len - 1; i++) {
+        minIndex = i;
+        for(var j = i + 1; j &lt; len; j++) {
+            if(arr[j] &lt; arr[minIndex]) {    // 寻找最小的数
+                minIndex = j;                // 将最小数的索引保存
+            }
+        }
+        temp = arr[i];
+        arr[i] = arr[minIndex];
+        arr[minIndex] = temp;
+    }
+    return arr;
+} 
+</code></pre>
+<p>Switf</p>
+<pre><code>func selectSort(arr:[Int]) {
+    var selectArray = arr
+    var len = selectArray.count
+    var minIndex:Int;
+    var temp:Int;
+    for i in 0..&lt;len - 1 {
+        minIndex = i
+        for j in i+1..&lt;len {
+            if selectArray[j] &lt; selectArray[minIndex] {
+                minIndex = j
+            }
+        }
+        temp = selectArray[i]
+        selectArray[i] = selectArray[minIndex]
+        selectArray[minIndex] = temp
+    }
+    print(&quot;快速排序算法的:\(selectArray)&quot;)
+}
+</code></pre>
+<h4 id="24-算法分析">2.4 算法分析</h4>
+<p>表现最稳定的排序算法之一，因为无论什么数据进去都是O(n2)的时间复杂度，所以用到它的时候，数据规模越小越好。唯一的好处可能就是不占用额外的内存空间了吧。理论上讲，选择排序可能也是平时排序一般人想到的最多的排序方法了吧。</p>
+<h3 id="3-插入排序insertion-sort">3、插入排序（Insertion Sort）</h3>
+<p>插入排序（Insertion-Sort）的算法描述是一种简单直观的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。</p>
+<h4 id="31-算法描述">3.1 算法描述</h4>
+<p>一般来说，插入排序都采用in-place在数组上实现。具体算法描述如下：</p>
+<ul>
+<li>从第一个元素开始，该元素可以认为已经被排序；</li>
+<li>取出下一个元素，在已经排序的元素序列中从后向前扫描；</li>
+<li>如果该元素（已排序）大于新元素，将该元素移到下一位置；</li>
+<li>重复步骤3，直到找到已排序的元素小于或者等于新元素的位置；</li>
+<li>将新元素插入到该位置后；</li>
+<li>重复步骤2~5。</li>
+</ul>
+<h4 id="32-动图演示">3.2 动图演示</h4>
+<figure data-type="image" tabindex="5"><img src="https://shineyangpro.com/post-images/1607647746729.gif" alt="" loading="lazy"></figure>
+<h4 id="33-代码实现">3.3 代码实现</h4>
+<pre><code>function insertionSort(arr) {
+    var len = arr.length;
+    var preIndex, current;
+    for(vari = 1; i &lt; len; i++) {
+        preIndex = i - 1;
+        current = arr[i];
+        while(preIndex &gt;= 0 &amp;&amp; arr[preIndex] &gt; current) {
+            arr[preIndex + 1] = arr[preIndex];
+            preIndex--;
+        }
+        arr[preIndex + 1] = current;
+    }
+    return arr;
+}
+</code></pre>
+<p>Switf</p>
+<pre><code>func insertionSore(arr:[Int]) {
+    var inserArray = arr
+    var len = inserArray.count
+    var preIndex:Int
+    var current:Int
+    
+    for i in 1..&lt;len {
+        preIndex = i - 1
+        current = inserArray[i]
+        while preIndex &gt;= 0 &amp;&amp; inserArray[preIndex] &gt; current {
+            inserArray[preIndex + 1] = inserArray[preIndex]
+            preIndex-=1
+        }
+        inserArray[preIndex + 1] = current
+        
+    }
+    print(&quot;插入排序算法输出:\(inserArray)&quot;)
+    
+}
+</code></pre>
+<h4 id="34-算法分析">3.4 算法分析</h4>
+<p>插入排序在实现上，通常采用in-place排序（即只需用到O(1)的额外空间的排序），因而在从后向前扫描过程中，需要反复把已排序元素逐步向后挪位，为最新元素提供插入空间。</p>
+<h3 id="4-希尔排序shell-sort">4、希尔排序（Shell Sort）</h3>
+<p>1959年Shell发明，第一个突破O(n2)的排序算法，是简单插入排序的改进版。它与插入排序的不同之处在于，它会优先比较距离较远的元素。希尔排序又叫缩小增量排序。</p>
+<h4 id="41-算法描述">4.1 算法描述</h4>
+<p>先将整个待排序的记录序列分割成为若干子序列分别进行直接插入排序，具体算法描述：</p>
+<ul>
+<li>选择一个增量序列t1，t2，…，tk，其中ti&gt;tj，tk=1；</li>
+<li>按增量序列个数k，对序列进行k 趟排序；</li>
+<li>每趟排序，根据对应的增量ti，将待排序列分割成若干长度为m 的子序列，分别对各子表进行直接插入排序。仅增量因子为1 时，整个序列作为一个表来处理，表长度即为整个序列的长度。</li>
+</ul>
+<h4 id="42-动图演示">4.2 动图演示</h4>
+<figure data-type="image" tabindex="6"><img src="https://shineyangpro.com/post-images/1607647857924.gif" alt="" loading="lazy"></figure>
+<h4 id="43-代码实现">4.3 代码实现</h4>
+<pre><code>function shellSort(arr) {
+    var len = arr.length;
+    for(var gap = Math.floor(len / 2); gap &gt; 0; gap = Math.floor(gap / 2)) {
+        // 注意：这里和动图演示的不一样，动图是分组执行，实际操作是多个分组交替执行
+        for(vari = gap; i &lt; len; i++) {
+            varj = i;
+            var current = arr[i];
+            while(j - gap &gt;= 0 &amp;&amp; current &lt; arr[j - gap]) {
+                 arr[j] = arr[j - gap];
+                 j = j - gap;
+            }
+            arr[j] = current;
+        }
+    }
+    return arr;
+}
+</code></pre>
+<h4 id="44-算法分析">4.4 算法分析</h4>
+<p>希尔排序的核心在于间隔序列的设定。既可以提前设定好间隔序列，也可以动态的定义间隔序列。动态定义间隔序列的算法是《算法（第4版）》的合著者Robert Sedgewick提出的。</p>
+<h3 id="5-归并排序merge-sort">5、归并排序（Merge Sort）</h3>
+<p>归并排序是建立在归并操作上的一种有效的排序算法。该算法是采用分治法（Divide and Conquer）的一个非常典型的应用。将已有序的子序列合并，得到完全有序的序列；即先使每个子序列有序，再使子序列段间有序。若将两个有序表合并成一个有序表，称为2-路归并。</p>
+<h4 id="51-算法描述">5.1 算法描述</h4>
+<ul>
+<li>把长度为n的输入序列分成两个长度为n/2的子序列；</li>
+<li>对这两个子序列分别采用归并排序；</li>
+<li>将两个排序好的子序列合并成一个最终的排序序列。</li>
+</ul>
+<h4 id="52-动图演示">5.2 动图演示</h4>
+<figure data-type="image" tabindex="7"><img src="https://shineyangpro.com/post-images/1607647974013.gif" alt="" loading="lazy"></figure>
+<h4 id="53-代码实现">5.3 代码实现</h4>
+<pre><code>function mergeSort(arr) {
+    var len = arr.length;
+    if(len &lt; 2) {
+        returnarr;
+    }
+    var middle = Math.floor(len / 2),
+        left = arr.slice(0, middle),
+        right = arr.slice(middle);
+    return merge(mergeSort(left), mergeSort(right));
+}
+ 
+function merge(left, right) {
+    varresult = [];
+ 
+    while(left.length&gt;0 &amp;&amp; right.length&gt;0) {
+        if(left[0] &lt;= right[0]) {
+            result.push(left.shift());
+        }else{
+            result.push(right.shift());
+        }
+    }
+ 
+    while(left.length)
+        result.push(left.shift());
+ 
+    while(right.length)
+        result.push(right.shift());
+ 
+    return esult;
+}
+</code></pre>
+<h4 id="54-算法分析">5.4 算法分析</h4>
+<p>归并排序是一种稳定的排序方法。和选择排序一样，归并排序的性能不受输入数据的影响，但表现比选择排序好的多，因为始终都是O(nlogn）的时间复杂度。代价是需要额外的内存空间。</p>
+<h3 id="6-快速排序quick-sort">6、快速排序（Quick Sort）</h3>
+<p>快速排序的基本思想：通过一趟排序将待排记录分隔成独立的两部分，其中一部分记录的关键字均比另一部分的关键字小，则可分别对这两部分记录继续进行排序，以达到整个序列有序。</p>
+<h4 id="61-算法描述">6.1 算法描述</h4>
+<p>快速排序使用分治法来把一个串（list）分为两个子串（sub-lists）。具体算法描述如下：</p>
+<ul>
+<li>从数列中挑出一个元素，称为 “基准”（pivot）；</li>
+<li>重新排序数列，所有元素比基准值小的摆放在基准前面，所有元素比基准值大的摆在基准的后面（相同的数可以到任一边）。在这个分区退出之后，该基准就处于数列的中间位置。这个称为分区（partition）操作；</li>
+<li>递归地（recursive）把小于基准值元素的子数列和大于基准值元素的子数列排序。</li>
+</ul>
+<h4 id="62-动图演示">6.2 动图演示</h4>
+<figure data-type="image" tabindex="8"><img src="https://shineyangpro.com/post-images/1607648079226.gif" alt="" loading="lazy"></figure>
+<h4 id="63-代码实现">6.3 代码实现</h4>
+<pre><code>function quickSort(arr, left, right) {
+    var len = arr.length,
+        partitionIndex,
+        left =typeofleft !='number'? 0 : left,
+        right =typeofright !='number'? len - 1 : right;
+ 
+    if(left &lt; right) {
+        partitionIndex = partition(arr, left, right);
+        quickSort(arr, left, partitionIndex-1);
+        quickSort(arr, partitionIndex+1, right);
+    }
+    returnarr;
+}
+ 
+function partition(arr, left ,right) {    // 分区操作
+    var pivot = left,                     // 设定基准值（pivot）
+        index = pivot + 1;
+    for(var i = index; i &lt;= right; i++) {
+        if(arr[i] &lt; arr[pivot]) {
+            swap(arr, i, index);
+            index++;
+        }       
+    }
+    swap(arr, pivot, index - 1);
+    return index-1;
+}
+ 
+function swap(arr, i, j) {
+    var temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
+</code></pre>
+<h3 id="7-堆排序heap-sort">7、堆排序（Heap Sort）</h3>
+<p>堆排序（Heapsort）是指利用堆这种数据结构所设计的一种排序算法。堆积是一个近似完全二叉树的结构，并同时满足堆积的性质：即子结点的键值或索引总是小于（或者大于）它的父节点。</p>
+<h4 id="71-算法描述">7.1 算法描述</h4>
+<ul>
+<li>将初始待排序关键字序列(R1,R2….Rn)构建成大顶堆，此堆为初始的无序区；</li>
+<li>将堆顶元素R[1]与最后一个元素R[n]交换，此时得到新的无序区(R1,R2,……Rn-1)和新的有序区(Rn),且满足R[1,2…n-1]&lt;=R[n]；</li>
+<li>由于交换后新的堆顶R[1]可能违反堆的性质，因此需要对当前无序区(R1,R2,……Rn-1)调整为新堆，然后再次将R[1]与无序区最后一个元素交换，得到新的无序区(R1,R2….Rn-2)和新的有序区(Rn-1,Rn)。不断重复此过程直到有序区的元素个数为n-1，则整个排序过程完成。</li>
+</ul>
+<h4 id="72-动图演示">7.2 动图演示</h4>
+<figure data-type="image" tabindex="9"><img src="https://shineyangpro.com/post-images/1607648193466.gif" alt="" loading="lazy"></figure>
+<h4 id="73-代码实现">7.3 代码实现</h4>
+<pre><code>var len;   // 因为声明的多个函数都需要数据长度，所以把len设置成为全局变量
+ 
+function buildMaxHeap(arr) {  // 建立大顶堆
+    len = arr.length;
+    for(vari = Math.floor(len/2); i &gt;= 0; i--) {
+        heapify(arr, i);
+    }
+}
+ 
+function heapify(arr, i) {    // 堆调整
+    varleft = 2 * i + 1,
+        right = 2 * i + 2,
+        largest = i;
+ 
+    if(left &lt; len &amp;&amp; arr[left] &gt; arr[largest]) {
+        largest = left;
+    }
+ 
+    if(right &lt; len &amp;&amp; arr[right] &gt; arr[largest]) {
+        largest = right;
+    }
+ 
+    if(largest != i) {
+        swap(arr, i, largest);
+        heapify(arr, largest);
+    }
+}
+ 
+function swap(arr, i, j) {
+    vartemp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
+ 
+function heapSort(arr) {
+    buildMaxHeap(arr);
+ 
+    for(vari = arr.length - 1; i &gt; 0; i--) {
+        swap(arr, 0, i);
+        len--;
+        heapify(arr, 0);
+    }
+    returnarr;
+}
+</code></pre>
+<h3 id="8-计数排序counting-sort">8、计数排序（Counting Sort）</h3>
+<p>计数排序不是基于比较的排序算法，其核心在于将输入的数据值转化为键存储在额外开辟的数组空间中。 作为一种线性时间复杂度的排序，计数排序要求输入的数据必须是有确定范围的整数。</p>
+<h4 id="81-算法描述">8.1 算法描述</h4>
+<ul>
+<li>找出待排序的数组中最大和最小的元素；</li>
+<li>统计数组中每个值为i的元素出现的次数，存入数组C的第i项；</li>
+<li>对所有的计数累加（从C中的第一个元素开始，每一项和前一项相加）；</li>
+<li>反向填充目标数组：将每个元素i放在新数组的第C(i)项，每放一个元素就将C(i)减去1。</li>
+</ul>
+<h4 id="82-动图演示">8.2 动图演示</h4>
+<figure data-type="image" tabindex="10"><img src="https://shineyangpro.com/post-images/1607648264797.gif" alt="" loading="lazy"></figure>
+<h4 id="83-代码实现">8.3 代码实现</h4>
+<pre><code>function countingSort(arr, maxValue) {
+    var bucket =newArray(maxValue + 1),
+        sortedIndex = 0;
+        arrLen = arr.length,
+        bucketLen = maxValue + 1;
+ 
+    for(var i = 0; i &lt; arrLen; i++) {
+        if(!bucket[arr[i]]) {
+            bucket[arr[i]] = 0;
+        }
+        bucket[arr[i]]++;
+    }
+ 
+    for(var j = 0; j &lt; bucketLen; j++) {
+        while(bucket[j] &gt; 0) {
+            arr[sortedIndex++] = j;
+            bucket[j]--;
+        }
+    }
+ 
+    return arr;
+}
+</code></pre>
+<h4 id="84-算法分析">8.4 算法分析</h4>
+<p>计数排序是一个稳定的排序算法。当输入的元素是 n 个 0到 k 之间的整数时，时间复杂度是O(n+k)，空间复杂度也是O(n+k)，其排序速度快于任何比较排序算法。当k不是很大并且序列比较集中时，计数排序是一个很有效的排序算法。</p>
+<h4 id="9-桶排序bucket-sort">9、桶排序（Bucket Sort）</h4>
+<p>桶排序是计数排序的升级版。它利用了函数的映射关系，高效与否的关键就在于这个映射函数的确定。桶排序 (Bucket sort)的工作的原理：假设输入数据服从均匀分布，将数据分到有限数量的桶里，每个桶再分别排序（有可能再使用别的排序算法或是以递归方式继续使用桶排序进行排）。</p>
+<h4 id="91-算法描述">9.1 算法描述</h4>
+<ul>
+<li>设置一个定量的数组当作空桶；</li>
+<li>遍历输入数据，并且把数据一个一个放到对应的桶里去；</li>
+<li>对每个不是空的桶进行排序；</li>
+<li>从不是空的桶里把排好序的数据拼接起来。</li>
+</ul>
+<h4 id="92-图片演示">9.2 图片演示</h4>
+<figure data-type="image" tabindex="11"><img src="https://shineyangpro.com/post-images/1607648352259.png" alt="" loading="lazy"></figure>
+<h4 id="93-代码实现">9.3 代码实现</h4>
+<pre><code>function bucketSort(arr, bucketSize) {
+    if(arr.length === 0) {
+      returnarr;
+    }
+ 
+    vari;
+    varminValue = arr[0];
+    varmaxValue = arr[0];
+    for(i = 1; i &lt; arr.length; i++) {
+      if(arr[i] &lt; minValue) {
+          minValue = arr[i];               // 输入数据的最小值
+      }elseif(arr[i] &gt; maxValue) {
+          maxValue = arr[i];               // 输入数据的最大值
+      }
+    }
+ 
+    // 桶的初始化
+    varDEFAULT_BUCKET_SIZE = 5;           // 设置桶的默认数量为5
+    bucketSize = bucketSize || DEFAULT_BUCKET_SIZE;
+    varbucketCount = Math.floor((maxValue - minValue) / bucketSize) + 1;  
+    varbuckets =newArray(bucketCount);
+    for(i = 0; i &lt; buckets.length; i++) {
+        buckets[i] = [];
+    }
+ 
+    // 利用映射函数将数据分配到各个桶中
+    for(i = 0; i &lt; arr.length; i++) {
+        buckets[Math.floor((arr[i] - minValue) / bucketSize)].push(arr[i]);
+    }
+ 
+    arr.length = 0;
+    for(i = 0; i &lt; buckets.length; i++) {
+        insertionSort(buckets[i]);                     // 对每个桶进行排序，这里使用了插入排序
+        for(varj = 0; j &lt; buckets[i].length; j++) {
+            arr.push(buckets[i][j]);                     
+        }
+    }
+ 
+    returnarr;
+}
+</code></pre>
+<h4 id="94-算法分析">9.4 算法分析</h4>
+<p>桶排序最好情况下使用线性时间O(n)，桶排序的时间复杂度，取决与对各个桶之间数据进行排序的时间复杂度，因为其它部分的时间复杂度都为O(n)。很显然，桶划分的越小，各个桶之间的数据越少，排序所用的时间也会越少。但相应的空间消耗就会增大。</p>
+<h3 id="10-基数排序radix-sort">10、基数排序（Radix Sort）</h3>
+<p>基数排序是按照低位先排序，然后收集；再按照高位排序，然后再收集；依次类推，直到最高位。有时候有些属性是有优先级顺序的，先按低优先级排序，再按高优先级排序。最后的次序就是高优先级高的在前，高优先级相同的低优先级高的在前。</p>
+<h4 id="101-算法描述">10.1 算法描述</h4>
+<ul>
+<li>取得数组中的最大数，并取得位数；</li>
+<li>arr为原始数组，从最低位开始取每个位组成radix数组；</li>
+<li>对radix进行计数排序（利用计数排序适用于小范围数的特点）；</li>
+</ul>
+<h4 id="102-动图演示">10.2 动图演示</h4>
+<figure data-type="image" tabindex="12"><img src="https://shineyangpro.com/post-images/1607648426925.gif" alt="" loading="lazy"></figure>
+<h4 id="103-代码实现">10.3 代码实现</h4>
+<pre><code>var counter = [];
+function radixSort(arr, maxDigit) {
+    var mod = 10;
+    var dev = 1;
+    for(var i = 0; i &lt; maxDigit; i++, dev *= 10, mod *= 10) {
+        for(va rj = 0; j &lt; arr.length; j++) {
+            var bucket = parseInt((arr[j] % mod) / dev);
+            if(counter[bucket]==null) {
+                counter[bucket] = [];
+            }
+            counter[bucket].push(arr[j]);
+        }
+        var pos = 0;
+        for(var j = 0; j &lt; counter.length; j++) {
+            var value =null;
+            if(counter[j]!=null) {
+                while((value = counter[j].shift()) !=null) {
+                      arr[pos++] = value;
+                }
+          }
+        }
+    }
+    return arr;
+}
+</code></pre>
+<h4 id="104-算法分析">10.4 算法分析</h4>
+<p>基数排序基于分别排序，分别收集，所以是稳定的。但基数排序的性能比桶排序要略差，每一次关键字的桶分配都需要O(n)的时间复杂度，而且分配之后得到新的关键字序列又需要O(n)的时间复杂度。假如待排数据可以分为d个关键字，则基数排序的时间复杂度将是O(d*2n) ，当然d要远远小于n，因此基本上还是线性级别的。</p>
+<p>基数排序的空间复杂度为O(n+k)，其中k为桶的数量。一般来说n&gt;&gt;k，因此额外空间需要大概n个左右。</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://shineyangpro.com/swift-han-shu-pai-fa-ji-zhi/" class="post-title gt-a-link">
+                    Swift 函数派发机制
+                </a>
+            </div>
+        
+
+        
+
+        
+            
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+<script>
+    // md5.min.js
+    !function(n){
+        "use strict";
+        function d(n,t){var r=(65535&n)+(65535&t);return(n>>16)+(t>>16)+(r>>16)<<16|65535&r}
+        function f(n,t,r,e,o,u){return d((c=d(d(t,n),d(e,u)))<<(f=o)|c>>>32-f,r);var c,f}
+        function l(n,t,r,e,o,u,c){return f(t&r|~t&e,n,t,o,u,c)}
+        function v(n,t,r,e,o,u,c){return f(t&e|r&~e,n,t,o,u,c)}
+        function g(n,t,r,e,o,u,c){return f(t^r^e,n,t,o,u,c)}
+        function m(n,t,r,e,o,u,c){return f(r^(t|~e),n,t,o,u,c)}
+        function i(n,t){var r,e,o,u,c;n[t>>5]|=128<<t%32,n[14+(t+64>>>9<<4)]=t;var f=1732584193,i=-271733879,a=-1732584194,h=271733878;for(r=0;r<n.length;r+=16)f=l(e=f,o=i,u=a,c=h,n[r],7,-680876936),h=l(h,f,i,a,n[r+1],12,-389564586),a=l(a,h,f,i,n[r+2],17,606105819),i=l(i,a,h,f,n[r+3],22,-1044525330),f=l(f,i,a,h,n[r+4],7,-176418897),h=l(h,f,i,a,n[r+5],12,1200080426),a=l(a,h,f,i,n[r+6],17,-1473231341),i=l(i,a,h,f,n[r+7],22,-45705983),f=l(f,i,a,h,n[r+8],7,1770035416),h=l(h,f,i,a,n[r+9],12,-1958414417),a=l(a,h,f,i,n[r+10],17,-42063),i=l(i,a,h,f,n[r+11],22,-1990404162),f=l(f,i,a,h,n[r+12],7,1804603682),h=l(h,f,i,a,n[r+13],12,-40341101),a=l(a,h,f,i,n[r+14],17,-1502002290),f=v(f,i=l(i,a,h,f,n[r+15],22,1236535329),a,h,n[r+1],5,-165796510),h=v(h,f,i,a,n[r+6],9,-1069501632),a=v(a,h,f,i,n[r+11],14,643717713),i=v(i,a,h,f,n[r],20,-373897302),f=v(f,i,a,h,n[r+5],5,-701558691),h=v(h,f,i,a,n[r+10],9,38016083),a=v(a,h,f,i,n[r+15],14,-660478335),i=v(i,a,h,f,n[r+4],20,-405537848),f=v(f,i,a,h,n[r+9],5,568446438),h=v(h,f,i,a,n[r+14],9,-1019803690),a=v(a,h,f,i,n[r+3],14,-187363961),i=v(i,a,h,f,n[r+8],20,1163531501),f=v(f,i,a,h,n[r+13],5,-1444681467),h=v(h,f,i,a,n[r+2],9,-51403784),a=v(a,h,f,i,n[r+7],14,1735328473),f=g(f,i=v(i,a,h,f,n[r+12],20,-1926607734),a,h,n[r+5],4,-378558),h=g(h,f,i,a,n[r+8],11,-2022574463),a=g(a,h,f,i,n[r+11],16,1839030562),i=g(i,a,h,f,n[r+14],23,-35309556),f=g(f,i,a,h,n[r+1],4,-1530992060),h=g(h,f,i,a,n[r+4],11,1272893353),a=g(a,h,f,i,n[r+7],16,-155497632),i=g(i,a,h,f,n[r+10],23,-1094730640),f=g(f,i,a,h,n[r+13],4,681279174),h=g(h,f,i,a,n[r],11,-358537222),a=g(a,h,f,i,n[r+3],16,-722521979),i=g(i,a,h,f,n[r+6],23,76029189),f=g(f,i,a,h,n[r+9],4,-640364487),h=g(h,f,i,a,n[r+12],11,-421815835),a=g(a,h,f,i,n[r+15],16,530742520),f=m(f,i=g(i,a,h,f,n[r+2],23,-995338651),a,h,n[r],6,-198630844),h=m(h,f,i,a,n[r+7],10,1126891415),a=m(a,h,f,i,n[r+14],15,-1416354905),i=m(i,a,h,f,n[r+5],21,-57434055),f=m(f,i,a,h,n[r+12],6,1700485571),h=m(h,f,i,a,n[r+3],10,-1894986606),a=m(a,h,f,i,n[r+10],15,-1051523),i=m(i,a,h,f,n[r+1],21,-2054922799),f=m(f,i,a,h,n[r+8],6,1873313359),h=m(h,f,i,a,n[r+15],10,-30611744),a=m(a,h,f,i,n[r+6],15,-1560198380),i=m(i,a,h,f,n[r+13],21,1309151649),f=m(f,i,a,h,n[r+4],6,-145523070),h=m(h,f,i,a,n[r+11],10,-1120210379),a=m(a,h,f,i,n[r+2],15,718787259),i=m(i,a,h,f,n[r+9],21,-343485551),f=d(f,e),i=d(i,o),a=d(a,u),h=d(h,c);return[f,i,a,h]}
+        function a(n){var t,r="",e=32*n.length;for(t=0;t<e;t+=8)r+=String.fromCharCode(n[t>>5]>>>t%32&255);return r}
+        function h(n){var t,r=[];for(r[(n.length>>2)-1]=void 0,t=0;t<r.length;t+=1)r[t]=0;var e=8*n.length;for(t=0;t<e;t+=8)r[t>>5]|=(255&n.charCodeAt(t/8))<<t%32;return r}
+        function e(n){var t,r,e="0123456789abcdef",o="";for(r=0;r<n.length;r+=1)t=n.charCodeAt(r),o+=e.charAt(t>>>4&15)+e.charAt(15&t);return o}
+        function r(n){return unescape(encodeURIComponent(n))}
+        function o(n){return a(i(h(t=r(n)),8*t.length));var t}
+        function u(n,t){return function(n,t){var r,e,o=h(n),u=[],c=[];for(u[15]=c[15]=void 0,16<o.length&&(o=i(o,8*n.length)),r=0;r<16;r+=1)u[r]=909522486^o[r],c[r]=1549556828^o[r];return e=i(u.concat(h(t)),512+8*t.length),a(i(c.concat(e),640))}(r(n),r(t))}
+        function t(n,t,r){return t?r?u(t,n):e(u(t,n)):r?o(n):e(o(n))}
+        "function"==typeof define&&define.amd?define(function(){return t}):"object"==typeof module&&module.exports?module.exports=t:n.md5=t;
+    }(this);
+</script>
+
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '195888eb6f21583b91e3',
+    clientSecret: '7b8d5bd89ce3c23d844751f2cec4e8eb92411d0c',
+    repo: 'ShineYangGod.github.io',
+    owner: 'ShineYangGod',
+    admin: ['ShineYangGod'],
+    id: md5(location.pathname),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false       // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+            
+
+            
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first"><i>the purpose of living is to change the world<i></div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/ShineYangGod" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Copyright 2020 &copy <a href="https://twitter.com/mei_samson" target="_blank">
+<span style="color:blue">ShineYang</span></a><br><br>
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shineyangpro.com/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
