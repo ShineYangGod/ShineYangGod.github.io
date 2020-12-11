@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Swift-如何实现Cell可收起和展开 | ShineYang</title>
+<title>NSTimer和CADisplayLink | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1607678459060">
 
@@ -97,15 +97,15 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    Swift-如何实现Cell可收起和展开
+                    NSTimer和CADisplayLink
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2020-10-22 ·
+                        · 2020-12-11 ·
                     </time>
                     
-                        <a href="https://shineyangpro.com/RGlMWjcck/" class="post-tags">
-                            # IOS
+                        <a href="https://shineyangpro.com/It5jHhk-w/" class="post-tags">
+                            # iOS
                         </a>
                     
                         <a href="https://shineyangpro.com/3U6sZPuRZ/" class="post-tags">
@@ -114,185 +114,60 @@
                     
                 </div>
                 <div class="post-content">
-                    <p>这是一个简单的iOS swift项目，旨在介绍如何实现可收起和展开的table section，并且，项目不需要main storyboard, XIB, 注册nib等，只需要纯的Swfit代码！</p>
-<p><a href="https://github.com/jeantimex/ios-swift-collapsible-table-section">项目源代码</a></p>
-<p>如果你希望获得Swift 3.0的代码，可以在migrate-to-swift-3.0分支里找到, 最终将会汇入master分支。</p>
-<h3 id="效果">效果</h3>
-<figure data-type="image" tabindex="1"><img src="https://shineyangpro.com/post-images/1603329225974.gif" alt="" loading="lazy"></figure>
-<h3 id="如何实现可收起和展开的table-section">如何实现可收起和展开的Table Section?</h3>
-<h5 id="第一步-准备数据">第一步. 准备数据</h5>
-<p>假设我们有如下的数据，它已经按照不同的section进行组织和整理，每个section都是一个Section结构（或对象）：</p>
-<pre><code>struct Section {
-  var name: String!
-  var items: [String]!
-  var collapsed: Bool!
-
-  init(name: String, items: [String], collapsed: Bool = false) {
-    self.name = name
-    self.items = items
-    self.collapsed = collapsed
-  }
-}
-
-var sections = [Section]()
-
-sections = [
-  Section(name: &quot;Mac&quot;, items: [&quot;MacBook&quot;, &quot;MacBook Air&quot;, &quot;MacBook Pro&quot;, &quot;iMac&quot;, &quot;Mac Pro&quot;, &quot;Mac mini&quot;, &quot;Accessories&quot;, &quot;OS X El Capitan&quot;]),
-  Section(name: &quot;iPad&quot;, items: [&quot;iPad Pro&quot;, &quot;iPad Air 2&quot;, &quot;iPad mini 4&quot;, &quot;Accessories&quot;]),
-  Section(name: &quot;iPhone&quot;, items: [&quot;iPhone 6s&quot;, &quot;iPhone 6&quot;, &quot;iPhone SE&quot;, &quot;Accessories&quot;])
-]
-</code></pre>
-<p>collapsed表示当前的section是否被收起或展开，默认下是false，即展开。</p>
-<h5 id="第二步-section-header">第二步. Section Header</h5>
-<p>根据苹果 API reference, 我们应该使用UITableViewHeaderFooterView. 让我们创建一个section header的类来继承它，我们把这个section header类起名为CollapsibleTableViewHeader:</p>
-<pre><code>class CollapsibleTableViewHeader: UITableViewHeaderFooterView {
-    let titleLabel = UILabel()
-    let arrowLabel = UILabel()
-
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
-
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(arrowLabel)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError(&quot;init(coder:) has not been implemented&quot;)
-    }
+                    <p><code>NSTimer</code>或只是<code>Timer</code>在Swift世界中是一种经常使用的间隔执行方法。例如，倒数计时器就是一个很好的例子。<br>
+<img src="https://shineyangpro.com/post-images/1607676687040.jpeg" alt="" loading="lazy"><br>
+还有另一种是<code>CADisplayLink</code>-一种特殊的计时器，与设备屏幕刷新率相关。通常，每秒60帧，但是在新的iPad中，每秒120帧。</p>
+<h3 id="什么是ns计时器">什么是（NS）计时器？</h3>
+<p>借助Timer，您将来可以排定一项或多项任务。您可以指定计时器是否需要重复。</p>
+<pre><code>let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
+    print(&quot;1 second passed&quot;)
 }
 </code></pre>
-<p>当用户点击section header的时候我们需要收起或者展开这个section，为了实现这样的效果，让我们借用一下UITapGestureRecognizer. 同时我们需要将这个tap事件通知给table view并让它来更新section的collapsed值。</p>
-<pre><code>protocol CollapsibleTableViewHeaderDelegate {
-    func toggleSection(header: CollapsibleTableViewHeader, section: Int)
-}
-
-class CollapsibleTableViewHeader: UITableViewHeaderFooterView {
-    var delegate: CollapsibleTableViewHeaderDelegate?
-    var section: Int = 0
-    ...
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
-        ...
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(CollapsibleTableViewHeader.tapHeader(_:))))
-    }
-    ...
-    func tapHeader(gestureRecognizer: UITapGestureRecognizer) {
-        guard let cell = gestureRecognizer.view as? CollapsibleTableViewHeader else {
-            return
-        }
-        delegate?.toggleSection(self, section: cell.section)
-    }
-
-    func setCollapsed(collapsed: Bool) {
-        // Animate the arrow rotation (see Extensions.swf)
-        arrowLabel.rotate(collapsed ? 0.0 : CGFloat(M_PI_2))
-    }
-}
+<p>在上面的示例中，计时器将无限期地每1秒触发一次</p>
+<p>要停止计时器，您需要使其无效。</p>
+<pre><code>timer.invalidate()
 </code></pre>
-<p>既然我们不用任何storyboard或者XIB，如何实现自动布局呢？答案是运用NSLayoutConstraint的constraintsWithVisualFormat函数。</p>
-<pre><code>override init(reuseIdentifier: String?) {
-    ...
-    // arrowLabel must have fixed width and height
-    arrowLabel.widthAnchor.constraintEqualToConstant(12).active = true
-    arrowLabel.heightAnchor.constraintEqualToConstant(12).active = true
-
-    titleLabel.translatesAutoresizingMaskIntoConstraints = false
-    arrowLabel.translatesAutoresizingMaskIntoConstraints = false
-}
-
-override func layoutSubviews() {
-    super.layoutSubviews()
-    ...
-    let views = [
-        &quot;titleLabel&quot; : titleLabel,
-        &quot;arrowLabel&quot; : arrowLabel,
-    ]
-
-    contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-        &quot;H:|-20-[titleLabel]-[arrowLabel]-20-|&quot;,
-        options: [],
-        metrics: nil,
-        views: views
-    ))
-
-    contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-        &quot;V:|-[titleLabel]-|&quot;,
-        options: [],
-        metrics: nil,
-        views: views
-    ))
-
-    contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-        &quot;V:|-[arrowLabel]-|&quot;,
-        options: [],
-        metrics: nil,
-        views: views
-    ))
-}
+<p>在主线程上触发计时器。如果应用是用户界面，则繁琐的计时器不会触发。要解决此问题，您可以：</p>
+<ul>
+<li>附加到非默认RunLoop模式（如普通模式）-即使UI（主线程）忙，它也将允许计时器触发</li>
+</ul>
+<pre><code>RunLoop.current.add(timer, forMode: .common)
 </code></pre>
-<h5 id="第三步-uitableview-datasource-以及-delegate">第三步. UITableView DataSource 以及 Delegate</h5>
-<p>首先，sections的数量为sections.count:</p>
-<pre><code>override func numberOfSectionsInTableView(tableView: UITableView) -&gt; Int {
-  return sections.count
-}
+<p>OR<br>
+您可以使用CADisplayLink与屏幕更新同步。</p>
+<h3 id="什么是cadisplaylink">什么是CADisplayLink？</h3>
+<p><code>CADisplayLink</code>是Timer的一种特殊形式，它使您的应用在屏幕刷新后每次都可以运行一段代码。通常，它是每秒60帧，但在新iPad等选择性设备中，它是每秒120帧。</p>
+<p>这是创建平滑动画并计算下一帧的好方法。这样，您就可以在帧之间拥有完美的定时，这与经典的计时器不同，经典的计时器不能保证在刷新屏幕的确切时间触发。</p>
+<pre><code>class DisplayLink {
+   @objc func displayRefreshed(displayLink: CADisplayLink) {
+     print(displayLink.timestamp)
+   }
+ init() {
+   let displayLink = CADisplayLink(target: self, selector: #selector(displayRefreshed(displayLink:)))
+     displayLink.add(to: .main, forMode: .default)
+   }
+ }
 </code></pre>
-<p>每个section里面cell的数量为:</p>
-<pre><code>override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
-    return sections[section].items.count
-}
+<p>创建DisplayLink时，应将其链接到对象并指定objc函数作为选择器。在屏幕上重绘时，将立即触发此功能。我们可以通过打印出时间戳来查看它。</p>
+<pre><code> 93095.013681187
+  93095.11224511401
+  93095.12891178101
+  93095.145578448
+  93095.162245115
+  93095.178911782
+  93095.19557844901
+  93095.21224511601
 </code></pre>
-<p>接下来使用tableView的viewForHeaderInSection函数来渲染我们的section header:</p>
-<pre><code>override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -&gt; UIView? {
-    let header = tableView.dequeueReusableHeaderFooterViewWithIdentifier(&quot;header&quot;) as? CollapsibleTableViewHeader ?? CollapsibleTableViewHeader(reuseIdentifier: &quot;header&quot;)
-
-    header.titleLabel.text = sections[section].name
-    header.arrowLabel.text = &quot;&gt;&quot;
-    header.setCollapsed(sections[section].collapsed)
-
-    header.section = section
-    header.delegate = self
-
-    return header
-}
-</code></pre>
-<p>普通的cell就很简单了，没什么好说的：</p>
-<pre><code>override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier(&quot;cell&quot;) as UITableViewCell? ?? UITableViewCell(style: .Default, reuseIdentifier: &quot;cell&quot;)
-
-    cell.textLabel?.text = sections[indexPath.section].items[indexPath.row]
-
-    return cell
-}
-</code></pre>
-<h5 id="最后一步-如何收起和展开">最后一步. 如何收起和展开？</h5>
-<p>思路超级简单！如果该section的collapsed值为true, 我们就将这个section里所有cell的高度都设为0, 否则为 44.0!</p>
-<pre><code>override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -&gt; CGFloat {
-    return sections[indexPath.section].collapsed! ? 0 : 44.0
-}
-</code></pre>
-<p>切换收起和展开的函数如下:</p>
-<pre><code>extension CollapsibleTableViewController: CollapsibleTableViewHeaderDelegate {
-    func toggleSection(header: CollapsibleTableViewHeader, section: Int) {
-        let collapsed = !sections[section].collapsed
-
-        // Toggle collapse
-        sections[section].collapsed = collapsed
-        header.setCollapsed(collapsed)
-
-        // Adjust the height of the rows inside the section
-        tableView.beginUpdates()
-        for i in 0 ..&lt; sections[section].items.count {
-            tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: i, inSection: section)], withRowAnimation: .Automatic)
-        }
-        tableView.endUpdates()
-    }
-}
-</code></pre>
-<p>注意到我们不是简单的重绘整个section，实际上我们只需要重绘section里的所有cell就好, 这样做的好处是避免了section header因重绘时闪烁的效果, 最重要是的可以让我们更平滑地处理我们想要的动画效果, 例如旋转那个箭头，改变背景颜色等等。</p>
-<p>好了就这么多吧，如果你很感兴趣，请参考源码。</p>
-<h3 id="更多的关于table-section收起和展开的项目">更多的关于table section收起和展开的项目</h3>
-<p>有时候你可能想要在grouped-style的table里实现section的收起和展开, 我写了另外一个<a href="https://github.com/jeantimex/ios-swift-collapsible-table-section-in-grouped-section">Dome</a> 实现的方法其实很类似。<br>
-<img src="https://shineyangpro.com/post-images/1603329464539.gif" alt="" loading="lazy"></p>
+<p>CADisplayLink具有preferredFramesPerSecond属性，可让您指定以每秒帧数计算的回调速率。 这意味着您可以在希望计时器触发时指定刷新率。 如果您不需要在每次屏幕刷新时都执行代码，这是一种很好的方法。</p>
+<h3 id="timer-vs-cadisplaylink">Timer vs CADisplayLink</h3>
+<p>Timer和CADisplayLink都是以一定间隔触发一段代码的方法。这两种方法是不同的。 如果您只想每隔5秒执行一次而不将其与屏幕重绘相关联，则Timer很有用。</p>
+<p>CADisplayLink与每秒60或120帧的屏幕刷新率相关。 屏幕重绘后立即触发，并且您有最大的时间在下一次屏幕刷新之前执行代码。 如果您需要创建无缝的动画，或者在无法避免屏幕刷新的游戏开发中很有用，则这种方法非常有用。</p>
+<h3 id="外部资料">外部资料</h3>
+<ul>
+<li><a href="https://developer.apple.com/documentation/foundation/nstimer?language=objc">NSTimer official documentation</a></li>
+<li><a href="https://developer.apple.com/documentation/quartzcore/cadisplaylink">CADisplayLink official documentation</a></li>
+<li><a href="https://www.raywenderlich.com/113835-ios-timer-tutorial">Timer tutorial</a></li>
+</ul>
 
                 </div>
             </article>
@@ -301,8 +176,8 @@ override func layoutSubviews() {
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyangpro.com/gou-jian-geng-hao-de-ios-app-dong-hua/" class="post-title gt-a-link">
-                    构建更好的iOS App动画
+                <a href="https://shineyangpro.com/ios-block-zai-zhan-shang-huan-shi-dui-shang/" class="post-title gt-a-link">
+                    IOS block在栈上，还是堆上？
                 </a>
             </div>
         
