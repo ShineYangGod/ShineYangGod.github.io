@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>IOS block在栈上，还是堆上？ | ShineYang</title>
+<title>iOS KVO和NotificationCenter有什么区别？ | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1608002111344">
 
@@ -97,63 +97,34 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    IOS block在栈上，还是堆上？
+                    iOS KVO和NotificationCenter有什么区别？
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2020-12-11 ·
+                        · 2020-12-15 ·
                     </time>
                     
-                        <a href="https://shineyangpro.com/RGlMWjcck/" class="post-tags">
-                            # IOS
+                        <a href="https://shineyangpro.com/It5jHhk-w/" class="post-tags">
+                            # iOS
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <p>Block存储区域<br>
-首先，需要引入三个名词：<br>
-全局块(_NSConcreteGlobalBlock)<br>
-栈块(_NSConcreteStackBlock)<br>
-堆块(_NSConcreteMallocBlock)<br>
-正如它们名字显示得一样，表明了block的三种存储方式：栈、全局、堆。获取block对象中的isa的值，可以得到上面其中一个，下面开始说明哪种block存储在栈、堆、全局。</p>
-<p>这三种block各自的存储域如下图：<br>
-<img src="https://shineyangpro.com/post-images/1607661386237.png" alt="" loading="lazy"></p>
-<ul>
-<li>全局块存在于全局内存中, 相当于单例.</li>
-<li>栈块存在于栈内存中, 超出其作用域则马上被销毁</li>
-<li>堆块存在于堆内存中, 是一个带引用计数的对象, 需要自行管理其内存</li>
-</ul>
-<p>简而言之，存储在栈中的Block就是栈块、存储在堆中的就是堆块、既不在栈中也不在堆中的块就是全局块。</p>
-<p>遇到一个Block，我们怎么这个Block的存储位置呢？<br>
-（1）Block不访问外界变量（包括栈中和堆中的变量）<br>
-Block 既不在栈又不在堆中，在代码段中，ARC和MRC下都是如此。此时为全局块。      <br>
-（2）Block访问外界变量<br>
-MRC 环境下：访问外界变量的 Block 默认存储栈中。 ARC 环境下：访问外界变量的 Block 默认存储在堆中（实际是放在栈区，然后ARC情况下自动又拷贝到堆区），自动释放。</p>
-<p>ARC下，访问外界变量的 Block为什么要自动从栈区拷贝到堆区呢？<br>
-栈上的Block，如果其所属的变量作用域结束，该Block就被废弃，如同一般的自动变量。当然，Block中的__block变量也同时被废弃。如下图：<br>
-<img src="https://shineyangpro.com/post-images/1607661584149.png" alt="" loading="lazy"><br>
-如下图:<br>
-<img src="https://shineyangpro.com/post-images/1607661645787.png" alt="" loading="lazy"></p>
-<p>例如下面一个返回值为Block类型的函数：</p>
-<pre><code>typedef int (^blk_t)(int);
-
-blk_t func(int rate) {
-    return ^(int count) { return rate * count; };
-}
-</code></pre>
-<p>分析可知：上面的函数返回的Block是配置在栈上的，所以返回函数调用方时，Block变量作用域就结束了，Block会被废弃。但在ARC有效，这种情况编译器会自动完成复制。<br>
-在非ARC情况下则需要开发者调用copy方法手动复制，由于开发中几乎都是ARC模式，所以手动复制内容不再过多研究。<br>
-将Block从栈上复制到堆上相当消耗CPU，所以当Block设置在栈上也能够使用时，就不要复制了，因为此时的复制只是在浪费CPU资源。</p>
-<p>Block的复制操作执行的是copy实例方法。不同类型的Block使用copy方法的效果如下表：<br>
-<img src="https://shineyangpro.com/post-images/1607661703278.png" alt="" loading="lazy"><br>
-根据表得知，Block在堆中copy会造成引用计数增加，这与其他Objective-C对象是一样的。虽然Block在栈中也是以对象的身份存在，但是栈块没有引用计数，因为不需要，我们都知道栈区的内存由编译器自动分配释放。</p>
-<p>不管Block存储域在何处，用copy方法复制都不会引起任何问题。在不确定时调用copy方法即可。</p>
-<p>在ARC有效时，多次调用copy方法完全没有问题：</p>
-<pre><code>blk = [[[[blk copy] copy] copy] copy];
-// 经过多次复制，变量blk仍然持有Block的强引用，该Block不会被废弃。
-</code></pre>
-<h3 id="引用相关文章查看block完整解释请点击传送门">引用相关文章，查看block完整解释请点击传送门</h3>
-<p><mark><a href="https://juejin.cn/post/6844903461327208461">传送门</a></mark></p>
+                    <h2 id="基础概念">基础概念</h2>
+<blockquote>
+<p>KVO(Key-Value Observing)，俗称键值监听。它提供一种机制，当指定的对象的属性被修改后，则对象就会接受到通知。简单的说就是每次指定的被观察的对象的属性被修改后，KVO就会自动通知相应的观察者了</p>
+</blockquote>
+<blockquote>
+<p>通知中心(NSNotificationCenter)实际是在程序内部提供了一种广播机制。把接收到的消息，根据内部的消息转发表，将消息转发给需要的对象。这句话其实已经很明显的告诉我们要如何使用通知了。第一步：在需要的地方注册要观察的通知，第二步：在某地方发送通知。</p>
+</blockquote>
+<blockquote>
+<p>从概念上讲，键值观察（KVO）是一种模式，其中一个对象可以观察另一个对象的属性值以了解更改。同时，通知中心是一个单例对象，允许将发生的事件通知给对象。</p>
+</blockquote>
+<h2 id="主要区别">主要区别</h2>
+<p><code>KVO</code>仅可用于观察对象的属性。而<code>NSNotification</code>可以更广泛地用于观察任意对象的变化。</p>
+<p>KVO通常用于跟踪对象的特定更改（即“文本”属性），而NSNotifications用于跟踪通用的“事件”（例如用户完成注册流程）。KVO将自动为您提供有用的信息，例如属性的先前值和发生的更改的类型；NSNotifications仅发出您明确指定的任何其他元数据。</p>
+<p>您可以使用NSNotifications编写一个KVO风格的系统，每次您执行类似[[object setText：@“ new value”]]之类的操作时，都会发出特定的NSNotification。但是，KVO的要点在于，它不需要您必须为此类系统编写的粘合代码。</p>
+<p>在内部，KVO不使用NSNotificationCenter，而是使用一些运行时技巧来避免所述胶合代码；</p>
 
                 </div>
             </article>
@@ -162,8 +133,8 @@ blk_t func(int rate) {
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyangpro.com/ios-ms-2020/" class="post-title gt-a-link">
-                    iOS面试总结(2020-12-11)，持续更新。。。
+                <a href="https://shineyangpro.com/ios-jin-cheng-he-xian-cheng-de-qu-bie-chu-ban/" class="post-title gt-a-link">
+                    iOS 进程和线程的区别(初版)
                 </a>
             </div>
         
