@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://shineyangpro.com</id>
     <title>ShineYang</title>
-    <updated>2020-12-18T09:17:07.350Z</updated>
+    <updated>2020-12-18T09:33:34.604Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://shineyangpro.com"/>
     <link rel="self" href="https://shineyangpro.com/atom.xml"/>
@@ -14,13 +14,6 @@
         <title type="html"><![CDATA[Google Cloud开启SSH及设置root密码]]></title>
         <id>https://shineyangpro.com/google-cloud-kai-qi-ssh-ji-she-zhi-root-mi-ma/</id>
         <link href="https://shineyangpro.com/google-cloud-kai-qi-ssh-ji-she-zhi-root-mi-ma/">
-        </link>
-        <updated>2020-12-18T09:08:53.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[谷歌云开启SSH及设置root密码]]></title>
-        <id>https://shineyangpro.com/gu-ge-yun-kai-qi-ssh-ji-she-zhi-root-mi-ma/</id>
-        <link href="https://shineyangpro.com/gu-ge-yun-kai-qi-ssh-ji-she-zhi-root-mi-ma/">
         </link>
         <updated>2020-12-18T09:08:53.000Z</updated>
     </entry>
@@ -79,5 +72,12 @@
         <link href="https://shineyangpro.com/shi-da-pai-xu-suan-fa/">
         </link>
         <updated>2020-12-11T00:38:51.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Swift 函数派发机制]]></title>
+        <id>https://shineyangpro.com/swift-han-shu-pai-fa-ji-zhi/</id>
+        <link href="https://shineyangpro.com/swift-han-shu-pai-fa-ji-zhi/">
+        </link>
+        <updated>2020-12-09T03:24:01.000Z</updated>
     </entry>
 </feed>
