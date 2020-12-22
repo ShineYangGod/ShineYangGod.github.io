@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Xcode占用大量空间的派生数据， iOS DeviceSupport，存档，模拟器和SwiftUI预览模拟器 | ShineYang</title>
+<title>安装MySQL CentOS | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1608605393665">
 
@@ -97,56 +97,109 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    Xcode占用大量空间的派生数据， iOS DeviceSupport，存档，模拟器和SwiftUI预览模拟器
+                    安装MySQL CentOS
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2020-12-04 ·
+                        · 2020-12-22 ·
                     </time>
                     
-                        <a href="https://shineyangpro.com/fRADVONCB/" class="post-tags">
-                            # Mac整理
+                        <a href="https://shineyangpro.com/Kc-5_OzJu/" class="post-tags">
+                            # MySQL
+                        </a>
+                    
+                        <a href="https://shineyangpro.com/zYO5Zavq_/" class="post-tags">
+                            # CentOS
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <p>我们使用Xcode开发App时将产生派生数据，iOS DeviceSupport，存档，Simulator和SwiftUI预览模拟器，随着时间的累积，它们的空间将十分可观，甚至可以超过几十GB的规模。因此，接下来就让我们学习清除它们的小技巧，以备Mac空间不足时派上用场。下面给大家介绍三种清理方式:</p>
-<h3 id="1-为xcode使用app-devcleaner">1、为Xcode使用App DevCleaner</h3>
-<p><a href="https://apps.apple.com/us/app/devcleaner-for-xcode/id1388020431?mt=12">App DevCleaner下载</a><br>
-使用大大开发的免费的Xcode App DevCleaner是其中最简单的方法，打开App后，可以自动帮我们找到可以删除的内容。<br>
-<img src="https://shineyangpro.com/post-images/1607061628337.jpeg" alt="" loading="lazy"><br>
-<img src="https://shineyangpro.com/post-images/1607061634679.jpeg" alt="" loading="lazy"></p>
-<p>清除想要删除的档案后，按右下角的Clean开始删除。</p>
-<h3 id="2-使用app-xcode清洁程序">2、使用App Xcode清洁程序</h3>
-<p>Xcode的清理程序将帮助我们发现Xcode占用大量空间的档案，点选X可以一键删除。<br>
-<img src="https://shineyangpro.com/post-images/1607061670787.jpeg" alt="" loading="lazy"><br>
-<a href="https://apps.apple.com/tw/app/cleaner-for-xcode/id1296084683?l=en&amp;mt=12">官网下载</a></p>
-<h3 id="3-手动删除衍生数据">3、手动删除衍生数据</h3>
-<p>1、点选Xcode-&gt;首选项，打开首选项窗口。<br>
-<img src="https://shineyangpro.com/post-images/1607061820169.jpeg" alt="" loading="lazy"><br>
-2.切换到位置分页，点选派生数据向下勾引着我们，路径旁边指向右边的箭头。<br>
-<img src="https://shineyangpro.com/post-images/1607061850391.jpeg" alt="" loading="lazy"><br>
-点选箭头后将打开Finder视窗，显示派生数据资料夹。<br>
-<img src="https://shineyangpro.com/post-images/1607061868244.jpeg" alt="" loading="lazy"><br>
-3.双击派生的数据资料夹，显示其中的资料夹。单击cmd + a全选这些资料夹后，从快捷方式选择单点选移至垃圾桶，将其杀得一干二净，丢到垃圾桶。<br>
-<img src="https://shineyangpro.com/post-images/1607061886458.jpeg" alt="" loading="lazy"><br>
-4.点选Finder-&gt; Empty Trash，清空垃圾桶里的资料。<br>
-<img src="https://shineyangpro.com/post-images/1607061914605.jpeg" alt="" loading="lazy"></p>
-<p>从Finder视窗，可观察到空间从原本的16.64GB，瞬间成长到31.36GB，足足多了15G之多！<br>
-<img src="https://shineyangpro.com/post-images/1607061929087.jpeg" alt="" loading="lazy"></p>
-<h3 id="4-手动删除ios-devicesupport">4、手动删除iOS DeviceSupport</h3>
-<p>删除〜/ Library / Developer / Xcode / iOS DeviceSupport里的资料。iOSDeviceSupport包含了Mac接过装置的iOS支援挡，接过愈多装置，占用愈多空间。<br>
-<img src="https://shineyangpro.com/post-images/1607061966584.jpeg" alt="" loading="lazy"></p>
-<h4 id="手动删除">手动删除</h4>
-<p>删除〜/ Library / Developer / Xcode / Archives里的资料。<br>
-<img src="https://shineyangpro.com/post-images/1607061986695.jpeg" alt="" loading="lazy"><br>
-Archives资料夹里是我们曾经使用Xcode&gt; Archive制作的App。<br>
-<img src="https://shineyangpro.com/post-images/1607062006294.jpeg" alt="" loading="lazy"></p>
-<h3 id="5-清除用不到的模拟器">5、清除用不到的模拟器</h3>
-<p>Xcode的模拟器十分占空间，而且采用iOS版本的持续更新，Mac里可能存着很多我们用不到的旧版模拟器，比方以下CleanMyMac X列出目前用不到的模拟器占了38 GB的空间。</p>
-<p><img src="https://shineyangpro.com/post-images/1607062100454.jpeg" alt="" loading="lazy"><br>
-将这些不可用的模拟器通通清除很简单，只要在终端输入以下指令：</p>
-<pre><code>xcrun simctl delete unavailable
+                    <p>要在CentOS 7上安装MySQL 8，请执行以下步骤：</p>
+<h3 id="步骤1设置yum存储库">步骤1.设置Yum存储库</h3>
+<p>执行以下命令以在CentOS上启用MySQL yum存储库：</p>
+<blockquote>
+<p>rpm -Uvh https://repo.mysql.com/mysql80-community-release-el7-3.noarch.rpm</p>
+</blockquote>
+<h3 id="步骤2安装mysql-8-community-server">步骤2.安装MySQL 8 Community Server</h3>
+<p>由于MySQL yum存储库具有用于多个MySQL版本的多个存储库配置，因此您需要禁用mysql repo文件中的所有存储库</p>
+<blockquote>
+<p>sed -i 's/enabled=1/enabled=0/' /etc/yum.repos.d/mysql-community.repo</p>
+</blockquote>
+<p>并执行以下命令来安装MySQL 8：</p>
+<blockquote>
+<p>yum --enablerepo=mysql80-community install mysql-community-server</p>
+</blockquote>
+<h3 id="步骤3启动mysql服务">步骤3.启动MySQL服务</h3>
+<p>使用以下命令启动mysql服务：</p>
+<blockquote>
+<p>service mysqld start</p>
+</blockquote>
+<h3 id="步骤4显示root用户的默认密码">步骤4.显示root用户的默认密码</h3>
+<p>当您安装MySQL 8.0时，将为root用户帐户授予一个临时密码。要显示root用户帐户的密码，请使用以下命令：</p>
+<blockquote>
+<p>grep &quot;A temporary password&quot; /var/log/mysqld.log</p>
+</blockquote>
+<p>这是输出：</p>
+<blockquote>
+<p>[Note] A temporary password is generated for root@localhost: hjkygMukj5+t783</p>
+</blockquote>
+<p>== 请注意，您的临时密码将有所不同。您需要此密码来更改root用户帐户的密码。==</p>
+<h3 id="步骤5-mysql安全安装">步骤5. MySQL安全安装</h3>
+<p>执行命令mysql_secure_installation以保护MySQL服务器：</p>
+<blockquote>
+<p>mysql_secure_installation</p>
+</blockquote>
+<p>它将提示您输入根帐户的当前密码：</p>
+<blockquote>
+<p>Enter password for user root:</p>
+</blockquote>
+<p>在上方输入临时密码，然后按Enter。将显示以下消息：</p>
+<blockquote>
+<p>The existing password for the user account root has expired. Please set a new password.<br>
+New password:<br>
+Re-enter new password:</p>
+</blockquote>
+<p>您需要为root帐户输入两次新密码。它将提示您一些问题，建议键入是（y）：</p>
+<blockquote>
+<p>Remove anonymous users? (Press y|Y for Yes, any other key for No) : y<br>
+Disallow root login remotely? (Press y|Y for Yes, any other key for No) : y<br>
+Remove test database and access to it? (Press y|Y for Yes, any other key for No) : y<br>
+Reload privilege tables now? (Press y|Y for Yes, any other key for No) : y</p>
+</blockquote>
+<h3 id="步骤6重新启动并启用mysql服务">步骤6.重新启动并启用MySQL服务</h3>
+<p>使用以下命令重新启动mysql服务：</p>
+<blockquote>
+<p>service mysqld restart</p>
+</blockquote>
+<p>并在系统启动时自动启动mysql服务：</p>
+<blockquote>
+<p>chkconfig mysqld on</p>
+</blockquote>
+<h3 id="步骤7连接到mysql">步骤7.连接到MySQL</h3>
+<p>使用以下命令连接到MySQL服务器：</p>
+<blockquote>
+<p>mysql -u root -p</p>
+</blockquote>
+<p>它将提示您输入root用户密码。您输入密码，然后按Enter：<br>
+输入密码：<br>
+它将显示mysql命令：</p>
+<blockquote>
+<p>mysql&gt;</p>
+</blockquote>
+<p>使用SHOW DATABASES显示当前服务器中的所有数据库：</p>
+<blockquote>
+<p>mysql&gt; show databases;</p>
+</blockquote>
+<p>这是输出：</p>
+<pre><code>+--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+4 rows in set (0.05 sec)
 </code></pre>
 
                 </div>
@@ -156,8 +209,8 @@ Archives资料夹里是我们曾经使用Xcode&gt; Archive制作的App。<br>
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyangpro.com/go-kuang-jia-gin-li-huo-qu-http-qing-qiu-de-can-shu/" class="post-title gt-a-link">
-                    Go框架-Gin里获取http请求的参数
+                <a href="https://shineyangpro.com/yuan-cheng-lian-jie-shu-ju-ku-chu-xian-zhu-ji-xxxxxxxxxxxbu-yun-xu-lian-jie-dao-gai-mysql-fu-wu-qi/" class="post-title gt-a-link">
+                    远程连接数据库出现：主机“ xxx.xx.xxx.xxx”不允许连接到该MySQL服务器
                 </a>
             </div>
         

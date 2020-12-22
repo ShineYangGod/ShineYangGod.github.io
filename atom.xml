@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://shineyangpro.com</id>
     <title>ShineYang</title>
-    <updated>2020-12-18T09:33:34.604Z</updated>
+    <updated>2020-12-22T02:49:57.749Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://shineyangpro.com"/>
     <link rel="self" href="https://shineyangpro.com/atom.xml"/>
@@ -10,6 +10,20 @@
     <logo>https://shineyangpro.com/images/avatar.png</logo>
     <icon>https://shineyangpro.com/favicon.ico</icon>
     <rights>All rights reserved 2020, ShineYang</rights>
+    <entry>
+        <title type="html"><![CDATA[安装MySQL CentOS]]></title>
+        <id>https://shineyangpro.com/an-zhuang-mysql-centos/</id>
+        <link href="https://shineyangpro.com/an-zhuang-mysql-centos/">
+        </link>
+        <updated>2020-12-22T02:43:19.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[远程连接数据库出现：主机“ xxx.xx.xxx.xxx”不允许连接到该MySQL服务器]]></title>
+        <id>https://shineyangpro.com/yuan-cheng-lian-jie-shu-ju-ku-chu-xian-zhu-ji-xxxxxxxxxxxbu-yun-xu-lian-jie-dao-gai-mysql-fu-wu-qi/</id>
+        <link href="https://shineyangpro.com/yuan-cheng-lian-jie-shu-ju-ku-chu-xian-zhu-ji-xxxxxxxxxxxbu-yun-xu-lian-jie-dao-gai-mysql-fu-wu-qi/">
+        </link>
+        <updated>2020-12-22T02:40:50.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Google Cloud开启SSH及设置root密码]]></title>
         <id>https://shineyangpro.com/google-cloud-kai-qi-ssh-ji-she-zhi-root-mi-ma/</id>
@@ -65,19 +79,5 @@
         <link href="https://shineyangpro.com/ios-ms-2020/">
         </link>
         <updated>2020-12-11T03:17:07.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[十大排序算法]]></title>
-        <id>https://shineyangpro.com/shi-da-pai-xu-suan-fa/</id>
-        <link href="https://shineyangpro.com/shi-da-pai-xu-suan-fa/">
-        </link>
-        <updated>2020-12-11T00:38:51.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Swift 函数派发机制]]></title>
-        <id>https://shineyangpro.com/swift-han-shu-pai-fa-ji-zhi/</id>
-        <link href="https://shineyangpro.com/swift-han-shu-pai-fa-ji-zhi/">
-        </link>
-        <updated>2020-12-09T03:24:01.000Z</updated>
     </entry>
 </feed>
