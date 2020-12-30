@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Swift-如何实现Cell可收起和展开 | ShineYang</title>
+<title>Golang Gin 实战（四）| URL查询参数的获取和原理分析 | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1609316467630">
 
@@ -97,202 +97,106 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    Swift-如何实现Cell可收起和展开
+                    Golang Gin 实战（四）| URL查询参数的获取和原理分析
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2020-10-22 ·
+                        · 2020-12-30 ·
                     </time>
                     
-                        <a href="https://shineyangpro.com/RGlMWjcck/" class="post-tags">
-                            # IOS
+                        <a href="https://shineyangpro.com/CgM06XDhb/" class="post-tags">
+                            # Gin
                         </a>
                     
-                        <a href="https://shineyangpro.com/3U6sZPuRZ/" class="post-tags">
-                            # Swift
+                        <a href="https://shineyangpro.com/4pLK1CS7A/" class="post-tags">
+                            # Go
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <p>这是一个简单的iOS swift项目，旨在介绍如何实现可收起和展开的table section，并且，项目不需要main storyboard, XIB, 注册nib等，只需要纯的Swfit代码！</p>
-<p><a href="https://github.com/jeantimex/ios-swift-collapsible-table-section">项目源代码</a></p>
-<p>如果你希望获得Swift 3.0的代码，可以在migrate-to-swift-3.0分支里找到, 最终将会汇入master分支。</p>
-<h3 id="效果">效果</h3>
-<figure data-type="image" tabindex="1"><img src="https://shineyangpro.com/post-images/1603329225974.gif" alt="" loading="lazy"></figure>
-<h3 id="如何实现可收起和展开的table-section">如何实现可收起和展开的Table Section?</h3>
-<h5 id="第一步-准备数据">第一步. 准备数据</h5>
-<p>假设我们有如下的数据，它已经按照不同的section进行组织和整理，每个section都是一个Section结构（或对象）：</p>
-<pre><code>struct Section {
-  var name: String!
-  var items: [String]!
-  var collapsed: Bool!
+                    <h3 id="查询参数query-parames">查询参数(query parames)</h3>
+<p>Querystring parameters ，翻译成中文我只能叫查询参数了，不过觉得挺别捏的。其实这种参数我们并不陌生，比如：</p>
+<blockquote>
+<p>https://www.flysnow.org/search?q=golang&amp;sitesearch=https%3A%2F%2Fwww.flysnow.org</p>
+</blockquote>
+<p>URL查询参数，或者也可以简称为URL参数，是存在于我们请求的URL中，以?为起点，后面的k=v&amp;k1=v1&amp;k2=v2这样的字符串就是查询参数，比如我上面示例中的：</p>
+<blockquote>
+<p>?q=golang&amp;sitesearch=https%3A%2F%2Fwww.flysnow.org</p>
+</blockquote>
+<p>这个示例中有两个查询参数键值对:</p>
+<blockquote>
+<p>q=golang<br>
+sitesearch=https%3A%2F%2Fwww.flysnow.org</p>
+</blockquote>
+<p>第一个key是q，对应的值是golang。第二个key是sitesearch,对应的值是https%3A%2F%2Fwww.flysnow.org，它们通过&amp;相连。在URL中，多个查询参数键值对通过&amp;相连。</p>
+<h3 id="gin获取查询参数">Gin获取查询参数</h3>
+<p>在Gin中，为我们提供了简便的方法来获取查询参数的值，我们只需要知道查询参数的key（参数名）就可以了。</p>
+<pre><code>func main() {
+	r := gin.Default()
 
-  init(name: String, items: [String], collapsed: Bool = false) {
-    self.name = name
-    self.items = items
-    self.collapsed = collapsed
-  }
-}
-
-var sections = [Section]()
-
-sections = [
-  Section(name: &quot;Mac&quot;, items: [&quot;MacBook&quot;, &quot;MacBook Air&quot;, &quot;MacBook Pro&quot;, &quot;iMac&quot;, &quot;Mac Pro&quot;, &quot;Mac mini&quot;, &quot;Accessories&quot;, &quot;OS X El Capitan&quot;]),
-  Section(name: &quot;iPad&quot;, items: [&quot;iPad Pro&quot;, &quot;iPad Air 2&quot;, &quot;iPad mini 4&quot;, &quot;Accessories&quot;]),
-  Section(name: &quot;iPhone&quot;, items: [&quot;iPhone 6s&quot;, &quot;iPhone 6&quot;, &quot;iPhone SE&quot;, &quot;Accessories&quot;])
-]
-</code></pre>
-<p>collapsed表示当前的section是否被收起或展开，默认下是false，即展开。</p>
-<h5 id="第二步-section-header">第二步. Section Header</h5>
-<p>根据苹果 API reference, 我们应该使用UITableViewHeaderFooterView. 让我们创建一个section header的类来继承它，我们把这个section header类起名为CollapsibleTableViewHeader:</p>
-<pre><code>class CollapsibleTableViewHeader: UITableViewHeaderFooterView {
-    let titleLabel = UILabel()
-    let arrowLabel = UILabel()
-
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
-
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(arrowLabel)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError(&quot;init(coder:) has not been implemented&quot;)
-    }
+	r.GET(&quot;/&quot;, func(c *gin.Context) {
+		c.String(200, c.Query(&quot;wechat&quot;))
+	})
+	r.Run(&quot;:8080&quot;)
 }
 </code></pre>
-<p>当用户点击section header的时候我们需要收起或者展开这个section，为了实现这样的效果，让我们借用一下UITapGestureRecognizer. 同时我们需要将这个tap事件通知给table view并让它来更新section的collapsed值。</p>
-<pre><code>protocol CollapsibleTableViewHeaderDelegate {
-    func toggleSection(header: CollapsibleTableViewHeader, section: Int)
+<p>我们运行这段代码，打开浏览器访问http://localhost:8080/?wechat=flysnow_org,就可以看到flysnow_org文字。这表示我们通过c.Query(&quot;wechat&quot;)获取到了查询参数wechat的值是flysnow_org。</p>
+<p>Query方法为我们提供了获取对应key的值的能力，如果该key不存在，则返回&quot;&quot;字符串。如果对于一些数字参数，比如id如果返回为空的话，我们进行字符串转数字的时候会报错，这时候，我们就可以通过DefaultQuery方法指定一个默认值：</p>
+<pre><code>c.DefaultQuery(&quot;wechat&quot;, &quot;flysnow_org&quot;)
+
+c.DefaultQuery(&quot;id&quot;, &quot;0&quot;)
+</code></pre>
+<p>比如这样，尤其是第二个例子，默认为0，让我们字符串转数字很方便。</p>
+<pre><code>func (c *Context) Query(key string) string {
+	value, _ := c.GetQuery(key)
+	return value
 }
 
-class CollapsibleTableViewHeader: UITableViewHeaderFooterView {
-    var delegate: CollapsibleTableViewHeaderDelegate?
-    var section: Int = 0
-    ...
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
-        ...
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(CollapsibleTableViewHeader.tapHeader(_:))))
-    }
-    ...
-    func tapHeader(gestureRecognizer: UITapGestureRecognizer) {
-        guard let cell = gestureRecognizer.view as? CollapsibleTableViewHeader else {
-            return
-        }
-        delegate?.toggleSection(self, section: cell.section)
-    }
 
-    func setCollapsed(collapsed: Bool) {
-        // Animate the arrow rotation (see Extensions.swf)
-        arrowLabel.rotate(collapsed ? 0.0 : CGFloat(M_PI_2))
-    }
+func (c *Context) DefaultQuery(key, defaultValue string) string {
+	if value, ok := c.GetQuery(key); ok {
+		return value
+	}
+	return defaultValue
 }
 </code></pre>
-<p>既然我们不用任何storyboard或者XIB，如何实现自动布局呢？答案是运用NSLayoutConstraint的constraintsWithVisualFormat函数。</p>
-<pre><code>override init(reuseIdentifier: String?) {
-    ...
-    // arrowLabel must have fixed width and height
-    arrowLabel.widthAnchor.constraintEqualToConstant(12).active = true
-    arrowLabel.heightAnchor.constraintEqualToConstant(12).active = true
-
-    titleLabel.translatesAutoresizingMaskIntoConstraints = false
-    arrowLabel.translatesAutoresizingMaskIntoConstraints = false
+<p>看下这两个函数的源代码实现，它们都是调用的<code>GetQuery</code>方法获取对应的值，唯一不同的是<code>DefaultQuery</code>会判断对应的key是否存在，如果不存在的话，则返回默认defaultValue值。</p>
+<h3 id="原理解析">原理解析</h3>
+<p>从以上两个获取查询参数值的方法可以看到，他们调用的都是<code>GetQuery</code>，这也是gin.Context的一个方法，它和Query唯一不同的是，它返回两个值，可以告诉我们要获取的key是否存在。</p>
+<blockquote>
+<p>value, ok := c.GetQuery(&quot;id&quot;)</p>
+</blockquote>
+<p>如果我们自己的业务中，需要这类功能，可以用<code>GetQuery</code>来代替Query方法。<br>
+<code>GetQuery</code>方法的底层实现其实是<code>c.Request.URL.Query().Get(key)</code>，通过<code>url.URL.Query()</code>来获取所有的参数键值对。</p>
+<pre><code>本质上是调用的GetQueryArray，取的数组中第一个值
+func (c *Context) GetQuery(key string) (string, bool) {
+	if values, ok := c.GetQueryArray(key); ok {
+		return values[0], ok
+	}
+	return &quot;&quot;, false
 }
 
-override func layoutSubviews() {
-    super.layoutSubviews()
-    ...
-    let views = [
-        &quot;titleLabel&quot; : titleLabel,
-        &quot;arrowLabel&quot; : arrowLabel,
-    ]
 
-    contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-        &quot;H:|-20-[titleLabel]-[arrowLabel]-20-|&quot;,
-        options: [],
-        metrics: nil,
-        views: views
-    ))
+func (c *Context) GetQueryArray(key string) ([]string, bool) {
+	c.getQueryCache() //缓存所有的键值对
+	if values, ok := c.queryCache[key]; ok &amp;&amp; len(values) &gt; 0 {
+		return values, true
+	}
+	return []string{}, false
+}
 
-    contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-        &quot;V:|-[titleLabel]-|&quot;,
-        options: [],
-        metrics: nil,
-        views: views
-    ))
-
-    contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-        &quot;V:|-[arrowLabel]-|&quot;,
-        options: [],
-        metrics: nil,
-        views: views
-    ))
+func (c *Context) getQueryCache() {
+	if c.queryCache == nil {
+		c.queryCache = c.Request.URL.Query()
+	}
 }
 </code></pre>
-<h5 id="第三步-uitableview-datasource-以及-delegate">第三步. UITableView DataSource 以及 Delegate</h5>
-<p>首先，sections的数量为sections.count:</p>
-<pre><code>override func numberOfSectionsInTableView(tableView: UITableView) -&gt; Int {
-  return sections.count
-}
-</code></pre>
-<p>每个section里面cell的数量为:</p>
-<pre><code>override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
-    return sections[section].items.count
-}
-</code></pre>
-<p>接下来使用tableView的viewForHeaderInSection函数来渲染我们的section header:</p>
-<pre><code>override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -&gt; UIView? {
-    let header = tableView.dequeueReusableHeaderFooterViewWithIdentifier(&quot;header&quot;) as? CollapsibleTableViewHeader ?? CollapsibleTableViewHeader(reuseIdentifier: &quot;header&quot;)
-
-    header.titleLabel.text = sections[section].name
-    header.arrowLabel.text = &quot;&gt;&quot;
-    header.setCollapsed(sections[section].collapsed)
-
-    header.section = section
-    header.delegate = self
-
-    return header
-}
-</code></pre>
-<p>普通的cell就很简单了，没什么好说的：</p>
-<pre><code>override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier(&quot;cell&quot;) as UITableViewCell? ?? UITableViewCell(style: .Default, reuseIdentifier: &quot;cell&quot;)
-
-    cell.textLabel?.text = sections[indexPath.section].items[indexPath.row]
-
-    return cell
-}
-</code></pre>
-<h5 id="最后一步-如何收起和展开">最后一步. 如何收起和展开？</h5>
-<p>思路超级简单！如果该section的collapsed值为true, 我们就将这个section里所有cell的高度都设为0, 否则为 44.0!</p>
-<pre><code>override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -&gt; CGFloat {
-    return sections[indexPath.section].collapsed! ? 0 : 44.0
-}
-</code></pre>
-<p>切换收起和展开的函数如下:</p>
-<pre><code>extension CollapsibleTableViewController: CollapsibleTableViewHeaderDelegate {
-    func toggleSection(header: CollapsibleTableViewHeader, section: Int) {
-        let collapsed = !sections[section].collapsed
-
-        // Toggle collapse
-        sections[section].collapsed = collapsed
-        header.setCollapsed(collapsed)
-
-        // Adjust the height of the rows inside the section
-        tableView.beginUpdates()
-        for i in 0 ..&lt; sections[section].items.count {
-            tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: i, inSection: section)], withRowAnimation: .Automatic)
-        }
-        tableView.endUpdates()
-    }
-}
-</code></pre>
-<p>注意到我们不是简单的重绘整个section，实际上我们只需要重绘section里的所有cell就好, 这样做的好处是避免了section header因重绘时闪烁的效果, 最重要是的可以让我们更平滑地处理我们想要的动画效果, 例如旋转那个箭头，改变背景颜色等等。</p>
-<p>好了就这么多吧，如果你很感兴趣，请参考源码。</p>
-<h3 id="更多的关于table-section收起和展开的项目">更多的关于table section收起和展开的项目</h3>
-<p>有时候你可能想要在grouped-style的table里实现section的收起和展开, 我写了另外一个<a href="https://github.com/jeantimex/ios-swift-collapsible-table-section-in-grouped-section">Dome</a> 实现的方法其实很类似。<br>
-<img src="https://shineyangpro.com/post-images/1603329464539.gif" alt="" loading="lazy"></p>
+<p>从以上的实现代码中，可以看到最终的实现都在<code>GetQueryArray</code>方法中，找到对应的key就返回对应的[]string，返回就返回空数组。</p>
+<p>这里Gin进行了优化，通过缓存所有的键值对，提升代码的查询效率。这里缓存的<code>queryCache</code>本质上是url.Values，也是一个<code>map[string][]string</code>。</p>
+<blockquote>
+<p>type Values map[string][]string</p>
+</blockquote>
+<p>其中<code>c.Request.URL.Query()</code>这个方法就是把?k=v&amp;k1=v1&amp;k2=v2这类查询键值对转换为map[string][]string，所以还是很耗性能的，这里Gin采用了缓存的做法提高了性能挺好，这也是Gin成为性能最快的Golang Web 框架的原因之一吧。</p>
 
                 </div>
             </article>
@@ -301,8 +205,8 @@ override func layoutSubviews() {
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyangpro.com/gou-jian-geng-hao-de-ios-app-dong-hua/" class="post-title gt-a-link">
-                    构建更好的iOS App动画
+                <a href="https://shineyangpro.com/golang-gin-kuang-jia-de-an-zhuang-he-shi-yong/" class="post-title gt-a-link">
+                    Golang-Gin框架的安装和使用
                 </a>
             </div>
         
