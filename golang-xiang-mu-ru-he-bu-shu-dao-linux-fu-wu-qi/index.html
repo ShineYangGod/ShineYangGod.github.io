@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Mac下使用Visual Studio Code调试C#控制台程序以及相关的配置（2） | ShineYang</title>
+<title>Golang项目如何部署到linux服务器 | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1609397383659">
 
@@ -97,67 +97,44 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    Mac下使用Visual Studio Code调试C#控制台程序以及相关的配置（2）
+                    Golang项目如何部署到linux服务器
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2020-10-20 ·
+                        · 2020-12-31 ·
                     </time>
                     
-                        <a href="https://shineyangpro.com/1wSGTDZ0F/" class="post-tags">
-                            # Visual Studio Code
+                        <a href="https://shineyangpro.com/CgM06XDhb/" class="post-tags">
+                            # Gin
+                        </a>
+                    
+                        <a href="https://shineyangpro.com/4pLK1CS7A/" class="post-tags">
+                            # Go
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <h5 id="安装net-core">安装.NET Core</h5>
-<pre><code>    在mac上打开终端输入以下命令: 
-</code></pre>
-<pre><code>~$ brew update
-~$ brew install openssl
-~$ brew link --force openssl
-</code></pre>
-<pre><code>如果不能使用brew命令，先安装homebrew，玩转Mac必备。下载.NET Core SDK：https://go.microsoft.com/fwlink/?LinkID=80912下载完成后双击pkg安装，如下图所示：一路Next完成后.Net Core就在Mac上安装好了。
-</code></pre>
-<figure data-type="image" tabindex="1"><img src="https://shineyangpro.com/post-images/1603175558284.png" alt="" loading="lazy"></figure>
-<h4 id="新建一个net-core的程序">新建一个.NET Core的程序</h4>
-<pre><code>打开Mac的终端：
-mkdir hwapp
-cd hwapp
-然后创建一个简单控制台程序如：dotnet new console （创建控制台应用程序）
-这几个命令是新建一个叫hwapp的目录然后在该目录下初始化一个项目，类似于用VS新建一个控制台项目，如下图所示：
-</code></pre>
-<figure data-type="image" tabindex="2"><img src="https://shineyangpro.com/post-images/1603175649258.png" alt="" loading="lazy"></figure>
-<h4 id="运行一个程序">运行一个程序</h4>
-<pre><code>在终端定位到hwapp目录然后执行命令：
-dotnet restore
-dotnet run
-这2个命令是说还原该项目的依赖，并且编译运行，输出Hello World，
-</code></pre>
-<h4 id="安装visual-studio-code">安装Visual Studio Code</h4>
-<pre><code>Mac上没有宇宙第一IDE VS 那我们怎么写代码呢？别急，微软为了.NET Core的跨平台计划已经给我们开发了一款编辑器 VS Code。虽然VS Code没发布多久，但是个人觉得已经超越了Atom，Sublime Text等Mac上以前常用的编辑器。不光可以开发C#，而且调试Nodejs也是非常顺手。
-下载：https://code.visualstudio.com/b?utm_expid=101350005-21.ckupCbvGQMiML5eJsxWmxw.1&amp;utm_referrer=https%3A%2F%2Fwww.microsoft.com%2Fnet%2Fcore 装完后用VS Code打开hwapp文件夹，如下图所示：
-</code></pre>
-<figure data-type="image" tabindex="3"><img src="https://shineyangpro.com/post-images/1603175721618.png" alt="" loading="lazy"></figure>
-<h4 id="安装vs-code的c扩展">安装VS Code的C#扩展</h4>
-<pre><code>打开VS Code，按快捷键：Command+p，在弹出的输入框里输入ext install csharp，在搜索出来的下拉框里选第一个C#
-安装完C#的扩展插件后让我们打开Program.cs这个文件编辑一下吧。这个时候已经有C#标准的代码着色，跟智能提示了，如下图所示：
-</code></pre>
-<figure data-type="image" tabindex="4"><img src="https://shineyangpro.com/post-images/1603175755239.png" alt="" loading="lazy"></figure>
-<h4 id="调试程序">调试程序</h4>
-<pre><code>在调试之前能，我们需要配置luanch.json文件。
-luanch.json是用来描述Debugger的配置的文件。
-我们主要是需要修改program属性的设置，其实就是当前可执行文件的Path，注意在Mac下没有exe，编译后是dll，如下图所示：
-</code></pre>
-<figure data-type="image" tabindex="5"><img src="https://shineyangpro.com/post-images/1603175789732.png" alt="" loading="lazy"></figure>
-<pre><code>“${workspaceRoot}/bin/Debug/netcoreapp1.0/hwapp.dll”配置好后我们就可以开始正式调试程序了。
-
-VSCode的左侧边栏有一只虫子样的图标，点击后切换到调试模式，VS Code中下断点跟VS里一样，在代码行的最左边点击一下，出现一个红点，表示下断点成功。
-
-在绿色箭头旁边的下拉框选择.NET Core Launch (Console)控制台调试模式。点击绿色的箭头就可以开始调试啦，如果有断点的话代码就会停止在断点位置
-
-使用方式跟VS基本一致，F5执行，F10单步跳过，F11单步调试，鼠标悬停在变量上可以查看值，监控变量等等。(Mac上可能会出现热键冲突)；
-</code></pre>
+                    <p>方法比较简单，如下:</p>
+<ul>
+<li>把服务器上配置成本地一样的环境，包括项目里面所依赖的包；</li>
+<li>项目源码拷贝到服务器，在服务器上进行编译</li>
+</ul>
+<blockquote>
+<p>go build main.go</p>
+</blockquote>
+<p>编译后会在同级目录生成可执行文件main。</p>
+<ul>
+<li>最后执行 ./main 就行了。</li>
+<li>如果想让项目在后台执行：执行 nohup ./main &amp; ，这样就可以程序在后台运行了。</li>
+<li>执行完nohup ./main &amp; 后会出现一个程序编号：</li>
+</ul>
+<blockquote>
+<p>[1]29643</p>
+</blockquote>
+<p><mark>如果想 关闭程序，可以是用<code>kill</code>命令来关闭,如果不记得程序的id,可以是用如下命令来查看:</mark></p>
+<blockquote>
+<p>ps aux | grep 进程名</p>
+</blockquote>
 
                 </div>
             </article>
@@ -166,8 +143,8 @@ VSCode的左侧边栏有一只虫子样的图标，点击后切换到调试模�
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyangpro.com/ios-zhong-bi-jiao-dang-qian-ri-qi-yu-zhi-ding-ri-qi-da-xiao/" class="post-title gt-a-link">
-                    iOS中比较当前日期与指定日期大小
+                <a href="https://shineyangpro.com/golang-gin-shi-zhan-si-or-url-cha-xun-can-shu-de-huo-qu-he-yuan-li-fen-xi/" class="post-title gt-a-link">
+                    Golang Gin 实战（四）| URL查询参数的获取和原理分析
                 </a>
             </div>
         
