@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://shineyangpro.com</id>
     <title>ShineYang</title>
-    <updated>2021-01-04T01:57:48.245Z</updated>
+    <updated>2021-01-05T02:54:43.994Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://shineyangpro.com"/>
     <link rel="self" href="https://shineyangpro.com/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://shineyangpro.com/images/avatar.png</logo>
     <icon>https://shineyangpro.com/favicon.ico</icon>
     <rights>All rights reserved 2021, ShineYang</rights>
+    <entry>
+        <title type="html"><![CDATA[CentOS 7下安装Let's Encrypt的通配符证书，出现No package certbot available]]></title>
+        <id>https://shineyangpro.com/centos-7-xia-an-zhuang-lets-encrypt-de-tong-pei-fu-zheng-shu-chu-xian-no-package-certbot-available/</id>
+        <link href="https://shineyangpro.com/centos-7-xia-an-zhuang-lets-encrypt-de-tong-pei-fu-zheng-shu-chu-xian-no-package-certbot-available/">
+        </link>
+        <updated>2021-01-05T02:51:11.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[DNS服务器搭建与配置（学习记录）]]></title>
         <id>https://shineyangpro.com/dns-fu-wu-qi-da-jian-yu-pei-zhi-xue-xi-ji-lu/</id>
@@ -72,12 +79,5 @@
         <link href="https://shineyangpro.com/centos-7-ming-ling-xing-an-zhuang-gnomekde-tu-xing-jie-mian/">
         </link>
         <updated>2020-12-18T00:34:15.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[iOS KVO和NotificationCenter有什么区别？]]></title>
-        <id>https://shineyangpro.com/ios-kvo-he-notificationcenter-you-shi-me-qu-bie/</id>
-        <link href="https://shineyangpro.com/ios-kvo-he-notificationcenter-you-shi-me-qu-bie/">
-        </link>
-        <updated>2020-12-15T03:09:26.000Z</updated>
     </entry>
 </feed>
