@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>CentOS 7下安装Let&#39;s Encrypt的通配符证书，出现No package certbot available | ShineYang</title>
+<title>CentOS 7下安装Let&#39;s Encrypt的通配符证书 | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1609815821788">
 
@@ -97,7 +97,7 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    CentOS 7下安装Let&#39;s Encrypt的通配符证书，出现No package certbot available
+                    CentOS 7下安装Let&#39;s Encrypt的通配符证书
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
@@ -108,24 +108,157 @@
                             # certbot
                         </a>
                     
+                        <a href="https://shineyangpro.com/zYO5Zavq_/" class="post-tags">
+                            # CentOS
+                        </a>
+                    
                 </div>
                 <div class="post-content">
-                    <h3 id="一-先执行">一、先执行</h3>
+                    <p>Let's Encrypt的通配符证书（Wildcard Certificate）于2018年3月中旬上线，可以免费申请，安装和使用，本次记录一下基本的步骤。</p>
+<p>申请通配符证书需要ACME v2协议的客户端，官方推荐使用Certbot。</p>
+<h4 id="安装certbot">安装Certbot</h4>
+<p>先安装EPEL仓库（因为certbot在这个源里，目前还没在重置的源里）</p>
 <blockquote>
-<p>yum remove epel-release<br>
-yum clean all</p>
+<p>sudo yum install epel-release</p>
 </blockquote>
-<h3 id="二-然后在安装">二、然后在安装</h3>
+<p>安装certbot</p>
 <blockquote>
-<p>sudo yum -y install yum-utils<br>
-sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm<br>
-sudo yum-config-manager --enable rhui-REGION-rhel-server-extras rhui-REGION-rhel-server-optional<br>
-sudo yum install certbot</p>
+<p>sudo yum install certbot</p>
 </blockquote>
-<h3 id="三-然后在安装">三、然后在安装</h3>
+<p>查看certbot版本，因为ACME v2要在certbot 0.20.0以后的版本支持。</p>
 <blockquote>
-<p>yum install certbot</p>
+<p>certbot --version</p>
 </blockquote>
+<h3 id="申请证书">申请证书</h3>
+<p>申请通配符证书命令如下：</p>
+<blockquote>
+<p>sudo certbot certonly -d yourdomain.com -d *.yourdomain.com --manual --preferred-challenges dns --server https://acme-v02.api.letsencrypt.org/directory</p>
+</blockquote>
+<p>主要参数说明：<br>
+<code>certonly</code>是certbot众多插件之一，您可以选择其他插件。<br>
+<code>-d</code>为那些主机申请证书，如果是通配符，输入* .yourdomain.com<br>
+<mark>注意：本文还申请了 yourdomain.com 这是为了避免通配符证书不匹配。。</mark><br>
+<code>–preferred-challenges dns</code>，使用DNS方式重置域名所有权<br>
+注意：通配符证书只能使用 <code>dns-01</code> 这种方式申请。</p>
+<p>输出如下：(可能会不同，根据自己的版本为准)</p>
+<pre><code>Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Plugins selected: Authenticator manual, Installer None
+Enter email address (used for urgent renewal and security notices) (Enter 'c' to
+cancel): admin@yourdomain.com
+-------------------------------------------------------------------------------
+Please read the Terms of Service at
+https://letsencrypt.org/documents/LE-SA-v1.2-November-15-2017.pdf. You must
+agree in order to register with the ACME server at
+https://acme-v02.api.letsencrypt.org/directory
+-------------------------------------------------------------------------------
+(A)gree/(C)ancel: A
+ 
+Plugins selected: Authenticator manual, Installer None
+Obtaining a new certificate
+Performing the following challenges:
+dns-01 challenge for yourdomain.com
+-------------------------------------------------------------------------------
+NOTE: The IP of this machine will be publicly logged as having requested this
+certificate. If you're running certbot in manual mode on a machine that is not
+your server, please ensure you're okay with that.
+ 
+Are you OK with your IP being logged?
+-------------------------------------------------------------------------------
+(Y)es/(N)o: y
+-------------------------------------------------------------------------------
+Please deploy a DNS TXT record under the name
+_acme-challenge.yourdomain.com with the following value:
+ 
+hkh6BT7jERHEDzPORxBQ*************4ebhA
+ 
+Before continuing, verify the record is deployed.
+-------------------------------------------------------------------------------
+Press Enter to Continue
+</code></pre>
+<p>互动提示：</p>
+<ul>
+<li>输入邮箱地址，以备紧急更新或安全提醒的通知。</li>
+<li>同意许可协议。</li>
+<li>同意域名和IP绑定。</li>
+<li>绑定DNS的TXT记录值，验证域名的所有权。</li>
+</ul>
+<p>然后去DNS服务商那里，配置<code>_acme-challenge.yourdomain.com</code>类型为TXT的记录。在没有确认TXT记录执行之前不要回车执行。<br>
+<mark>注意：要输入当时提示的值，本例为 hkh6BT7jERHEDzPORxBQ*************4ebhA</mark></p>
+<p>新打开一个ssh窗口，输入以下命令确认TXT记录是否生效：</p>
+<pre><code>$ dig -t txt _acme-challenge.yourdomain.com @8.8.8.8
+
+...
+...
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;_acme-challenge.yourdomain.com.	IN	TXT
+
+;; ANSWER SECTION:
+_acme-challenge.yourdomain.com. 599	IN	TXT	&quot;hkh6BT7jERHEDzPORxBQ*************4ebhA&quot;
+
+...
+...
+
+</code></pre>
+<p>可以看到，配置已经生效，可以退出新打开的这个ssh窗口。</p>
+<p>回到原来的ssh窗口，点击回车。</p>
+<pre><code>Waiting for verification...
+Cleaning up challenges 
+
+IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/yourdomain.com/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/yourdomain.com/privkey.pem
+   Your cert will expire on 2019-07-22. To obtain a new or tweaked
+   version of this certificate in the future, simply run certbot
+   again. To non-interactively renew *all* of your certificates, run
+   &quot;certbot renew&quot;
+ - If you like Certbot, please consider supporting our work by:
+ 
+   Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+   Donating to EFF:                    https://eff.org/donate-le
+   
+</code></pre>
+<p>至此，证书申请成功。</p>
+<h3 id="查看证书">查看证书</h3>
+<p>证书申请成功后，交替存放在<code>/etc/letsencrypt</code>目录下：</p>
+<blockquote>
+<p>cd /etc/letsencrypt/<br>
+ls<br>
+输出:<br>
+accounts  archive  csr  keys  live  renewal  renewal-hooks</p>
+</blockquote>
+<p>可以验证一下证书信息：</p>
+<blockquote>
+<p>sudo openssl x509 -in /etc/letsencrypt/live/yourdomain.com/cert.pem -noout -text</p>
+</blockquote>
+<pre><code>Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+...
+...
+            Authority Information Access: 
+                OCSP - URI:http://ocsp.int-x3.letsencrypt.org
+                CA Issuers - URI:http://cert.int-x3.letsencrypt.org/
+
+            X509v3 Subject Alternative Name: 
+                DNS:*.yourdomain.com, DNS:yourdomain.com
+            X509v3 Certificate Policies: 
+...
+...
+</code></pre>
+<p>可以看到证书的SAN扩展里包含了<code>*.yourdomain.com</code>，说明申请的证书的匹配范围。</p>
+<h3 id="证书更新">证书更新</h3>
+<blockquote>
+<p>certbot-auto renew</p>
+</blockquote>
+<p>certbot默认离过期30个月可以续订。普通的证书可以使用</p>
+<p>普通的证书可以使用certbot自带命令，配合corn表达式，定时执行作业。</p>
+<p>通配符证书更新可以重新执行一次申请的命令，如果域名服务商支持API方式，也可以使用脚本自动执行，但是不在此范围内。</p>
 
                 </div>
             </article>
@@ -134,8 +267,8 @@ sudo yum install certbot</p>
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyangpro.com/dns-fu-wu-qi-da-jian-yu-pei-zhi-xue-xi-ji-lu/" class="post-title gt-a-link">
-                    DNS服务器搭建与配置（学习记录）
+                <a href="https://shineyangpro.com/centos-7-xia-an-zhuang-lets-encrypt-de-tong-pei-fu-zheng-shu-chu-xian-no-package-certbot-available/" class="post-title gt-a-link">
+                    CentOS 7下安装Let&#39;s Encrypt的通配符证书，出现No package certbot available
                 </a>
             </div>
         
