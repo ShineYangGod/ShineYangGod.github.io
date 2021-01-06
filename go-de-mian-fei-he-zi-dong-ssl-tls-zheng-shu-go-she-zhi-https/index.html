@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>ThinkPHP5.0路径中去除index.php入口文件方式 | ShineYang</title>
+<title>Go的免费和自动SSL / TLS证书(Go设置HTTPS) | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1609922138415">
 
@@ -97,36 +97,97 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    ThinkPHP5.0路径中去除index.php入口文件方式
+                    Go的免费和自动SSL / TLS证书(Go设置HTTPS)
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2020-10-22 ·
+                        · 2021-01-06 ·
                     </time>
                     
-                        <a href="https://shineyangpro.com/FFgC-zxg5/" class="post-tags">
-                            # PHP
+                        <a href="https://shineyangpro.com/ezeC3POHC/" class="post-tags">
+                            # SSL
+                        </a>
+                    
+                        <a href="https://shineyangpro.com/jCW-0qjnBv/" class="post-tags">
+                            # HTTPS
+                        </a>
+                    
+                        <a href="https://shineyangpro.com/4pLK1CS7A/" class="post-tags">
+                            # Go
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <p>1、httpd.conf配置文件中加载了mod_rewrite.so模块  //在APACHE里面去配置</p>
-<p>#LoadModule rewrite_module modules/mod_rewrite.so把前面的警号去掉,如下图:<br>
-<img src="https://shineyangpro.com/post-images/1603327430796.png" alt="图1" loading="lazy"></p>
-<p>如果没有，可以自己添加进去（我的是没有，我自己添加进去的）<br>
-2、AllowOverride None 讲None改为 All （搜索到的全部改为All就好，小写的就改成小写的all）<br>
-<img src="https://shineyangpro.com/post-images/1603327470628.png" alt="图2" loading="lazy"><br>
-3、确保URL_MODEL设置为2，在项目的配置文件里写<br>
-<img src="https://shineyangpro.com/post-images/1603327497183.png" alt="图3" loading="lazy"><br>
-4、.htaccess文件必须放到跟目录下（没有就新建一个，TP5.0有自带(application这个文件夹)，可以拷贝出来，Mac下按command+Shift+.可以显示隐藏文件）在里面添加如下内容：</p>
-<pre><code>&lt;IfModule mod_rewrite.c&gt;
-Options +FollowSymlinks -Multiviews
-RewriteEngine on
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
-&lt;/IfModule&gt;
+                    <p>如今，HTTPS已成为必需。不仅出于安全目的，而且还因为像Google这样的搜索引擎比基于纯HTTP的网站对基于安全协议运行的网站的排名更高。</p>
+<p>到了2017年，我们可以以价格为借口而不使用我们的网站进行HTTPS的日子已经一去不复返了。</p>
+<p>在这篇文章中，我将解释如何创建一个Go Web应用程序，该应用程序会自动生成SSL / TLS证书，并使用它们在HTTPS上运行。最好的部分是：它是免费的！</p>
+<p>如果您希望按照此演示并自己尝试，请确保符合以下要求。</p>
+<p>您需要Go编译器；<br>
+公开可用的服务器。如果您没有，我建议在Digital Ocean上使用VM 。如果您将其运行24小时，则只需支付0.15美元；<br>
+域名并访问其DNS设置。如果您的云提供了公共共享名称，则不需要此名称，例如：yourvm0001.yourcloud.net。</p>
+<h4 id="让我们加密和acme协议">让我们加密和ACME协议</h4>
+<p><code>Let's Encrypt</code>是一个非常知名且受信任的SSL / TLS证书颁发者，它提供了免费且自动的生成过程。无需任何注册过程或付款即可在不到一秒钟的时间内颁发证书。</p>
+<p>Autocert是Go软件包，它实现ACME协议的客户端，该客户端用于在Let's Encrypt上生成证书。这是您唯一需要的软件包依赖项，不需要其他安装或软件包。</p>
+<p>您可以像其他任何Go软件包一样获得它。</p>
+<blockquote>
+<p>go get golang.org/x/crypto/acme/autocert</p>
+</blockquote>
+<p>下面是代码:</p>
+<pre><code>package main
+
+import (
+	&quot;crypto/tls&quot;
+	&quot;fmt&quot;
+	&quot;net/http&quot;
+
+	&quot;golang.org/x/crypto/acme/autocert&quot;
+)
+
+func main() {
+	mux := http.NewServeMux()
+	mux.HandleFunc(&quot;/&quot;, func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, &quot;Hello Secure World&quot;)
+	})
+
+	certManager := autocert.Manager{
+		Prompt: autocert.AcceptTOS,
+		Cache:  autocert.DirCache(&quot;certs&quot;),
+	}
+
+	server := &amp;http.Server{
+		Addr:    &quot;:443&quot;,
+		Handler: mux,
+		TLSConfig: &amp;tls.Config{
+			GetCertificate: certManager.GetCertificate,
+		},
+	}
+
+	go http.ListenAndServe(&quot;:80&quot;, certManager.HTTPHandler(nil))
+	server.ListenAndServeTLS(&quot;&quot;, &quot;&quot;)
+}
 </code></pre>
+<p>代码详解:</p>
+<ul>
+<li>我们main通过mux在path上创建一个带有简单Hello World消息的函数来启动该功能/。在此示例中，我们使用Go的默认Mux，但可以轻松地用任何其他第三方路由器替换它。</li>
+<li>下一步，我们将创建一个实例autocert.Manager。该结构负责与Let's Encrypt通信并获取SSL / TLS证书。该Cache字段是一个接口，定义了autocert.Manager应如何以及在何处存储和加载证书。在此示例中，我们将autocert.DirCache证书存储在本地文件夹中。这是最简单的入门方法，但对于托管在多台服务器上的网站而言，可能不是最佳方法，因为每台服务器都具有自己的缓存。</li>
+<li>最后一步是创建一个http.Server侦听端口443并使用我们的mux实例的对象。然后，我们创建tls.Config对象并将其分配给服务器。现在是“魔术”发生的地方。GetCertificate这是一种方法，我们可以在启动新的HTTPS请求时告诉服务器将证书加载到何处。这种方法使我们有机会选择要使用的证书，而不是像大多数应用程序一样为每个请求返回特定证书。然后certManager.GetCertificate，我们使用它将首先尝试从缓存中获取匹配的证书，如果没有匹配的证书，则使用ACME协议从Let's Encrypt获取新的证书。</li>
+</ul>
+<p>2018年初，由于安全原因，让我们加密禁用的TLS-SNI挑战。建议使用HTTP质询，我们通过certManager.HTTPHandler(nil)在端口80上使用并附加一个新的http侦听器来实现。</p>
+<p>之后，我们要做的就是使用来启动服务器server.ListenAndServeTLS(&quot;&quot;, &quot;&quot;)。如果您以前在Go上使用HTTPS服务器，则可能还记得这两个参数是Certificate和和Privatey Key。使用时autocert，我们不需要这些，因此我们传递一个空字符串。</p>
+<p>值得一提的是，使用时certManager.HTTPHandler(nil)，所有传入HTTP的流量都会自动重定向到HTTPS。您可以通过传递http.Handler而不是nil作为第一个参数来覆盖此行为。</p>
+<h3 id="让我们运行它">让我们运行它！</h3>
+<p>您可以像运行其他任何Go Web应用程序一样运行它，但是如果在本地计算机上运行它将会失败。原因是“让我们加密”要求该网站可以通过已知的DNS名称公开获得。在本地运行时，“让我们加密”无法为验证目的而对您的域执行ping操作，但失败。</p>
+<p>在浏览器中输入你的域名，你会看到<br>
+<img src="https://shineyangpro.com/post-images/1609921968034.png" alt="" loading="lazy"></p>
+<p>您可能会注意到，加载第一个请求可能需要几秒钟的时间。这是因为SSL / TLS证书生成过程是在后台进行的。由于证书已被缓存，因此连续请求应该很快。</p>
+<h3 id="重要说明和建议">重要说明和建议：</h3>
+<ul>
+<li>对于同一域可以生成多少证书有限制。在撰写本文时，限制为每周20张证书。看起来可能很多，但是如果您无法正确管理缓存，则很容易达到此限制。有关“让我们加密”限制的更多信息，请查看官方文档https://letsencrypt.org/docs/rate-limits/。</li>
+<li>由您决定存储证书的位置和方式。如果只有几台服务器，则临时本地存储将非常有用。群集增长后，此方法可能不适合您，因为每个服务器都将获取一个新证书。记住上面解释的限制。</li>
+<li>Let's Encrypt生成的所有证书的有效期仅为90天。幸运的是，autocert自动处理续订，因此我们无需执行任何操作。但是，在接近到期日期时始终保持关注是一个好主意。</li>
+<li>尝试在多租户应用程序上使用它，其中每个租户都有自己的子域，否则您将失败。我学到了很难的方法。限制是按域名（不包括子域）进行的，因此您每周只能为20个租户生成证书。</li>
+<li>由于您无法在本地使用autocert，因此您需要以一种可以在HTTP或HTTPS上运行之间进行选择的方式来构建应用，以便可以在开发过程中轻松使用HTTP。</li>
+</ul>
 
                 </div>
             </article>
@@ -135,8 +196,8 @@ RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyangpro.com/swift-nsclassfromstring-chu-shi-hua-kong-zhi-qi/" class="post-title gt-a-link">
-                    Swift NSClassFromString初始化控制器
+                <a href="https://shineyangpro.com/centos-7-xia-an-zhuang-lets-encrypt-de-tong-pei-fu-zheng-shu/" class="post-title gt-a-link">
+                    CentOS 7下安装Let&#39;s Encrypt的通配符证书
                 </a>
             </div>
         
