@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://shineyangpro.com</id>
     <title>ShineYang</title>
-    <updated>2021-01-06T08:43:34.492Z</updated>
+    <updated>2021-01-07T07:45:11.809Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://shineyangpro.com"/>
     <link rel="self" href="https://shineyangpro.com/atom.xml"/>
@@ -10,6 +10,20 @@
     <logo>https://shineyangpro.com/images/avatar.png</logo>
     <icon>https://shineyangpro.com/favicon.ico</icon>
     <rights>All rights reserved 2021, ShineYang</rights>
+    <entry>
+        <title type="html"><![CDATA[iOS Siri 配置]]></title>
+        <id>https://shineyangpro.com/ios-siri-pei-zhi/</id>
+        <link href="https://shineyangpro.com/ios-siri-pei-zhi/">
+        </link>
+        <updated>2021-01-07T07:11:42.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[如何为Go服务器应用程序设置Let's Encrypt]]></title>
+        <id>https://shineyangpro.com/ru-he-wei-go-fu-wu-qi-ying-yong-cheng-xu-she-zhi-lets-encrypt/</id>
+        <link href="https://shineyangpro.com/ru-he-wei-go-fu-wu-qi-ying-yong-cheng-xu-she-zhi-lets-encrypt/">
+        </link>
+        <updated>2021-01-07T05:41:30.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Go的免费和自动SSL / TLS证书(Go设置HTTPS)]]></title>
         <id>https://shineyangpro.com/go-de-mian-fei-he-zi-dong-ssl-tls-zheng-shu-go-she-zhi-https/</id>
@@ -65,19 +79,5 @@
         <link href="https://shineyangpro.com/centos7-an-zhuang-go-huan-jing/">
         </link>
         <updated>2020-12-22T03:58:06.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[安装MySQL CentOS]]></title>
-        <id>https://shineyangpro.com/an-zhuang-mysql-centos/</id>
-        <link href="https://shineyangpro.com/an-zhuang-mysql-centos/">
-        </link>
-        <updated>2020-12-22T02:43:19.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[远程连接数据库出现：主机“ xxx.xx.xxx.xxx”不允许连接到该MySQL服务器]]></title>
-        <id>https://shineyangpro.com/yuan-cheng-lian-jie-shu-ju-ku-chu-xian-zhu-ji-xxxxxxxxxxxbu-yun-xu-lian-jie-dao-gai-mysql-fu-wu-qi/</id>
-        <link href="https://shineyangpro.com/yuan-cheng-lian-jie-shu-ju-ku-chu-xian-zhu-ji-xxxxxxxxxxxbu-yun-xu-lian-jie-dao-gai-mysql-fu-wu-qi/">
-        </link>
-        <updated>2020-12-22T02:40:50.000Z</updated>
     </entry>
 </feed>
