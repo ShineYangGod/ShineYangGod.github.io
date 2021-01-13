@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>CentOS 7下安装Let&#39;s Encrypt的通配符证书，出现No package certbot available | ShineYang</title>
+<title>iOS- 如何在部分中不重复设置UITableViewCell背景颜色？ | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1610508199709">
 
@@ -97,35 +97,22 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    CentOS 7下安装Let&#39;s Encrypt的通配符证书，出现No package certbot available
+                    iOS- 如何在部分中不重复设置UITableViewCell背景颜色？
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2021-01-05 ·
+                        · 2021-01-12 ·
                     </time>
                     
-                        <a href="https://shineyangpro.com/y-HMCNzcw/" class="post-tags">
-                            # certbot
+                        <a href="https://shineyangpro.com/It5jHhk-w/" class="post-tags">
+                            # iOS
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <h3 id="一-先执行">一、先执行</h3>
-<blockquote>
-<p>yum remove epel-release<br>
-yum clean all</p>
-</blockquote>
-<h3 id="二-然后在安装">二、然后在安装</h3>
-<blockquote>
-<p>sudo yum -y install yum-utils<br>
-sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm<br>
-sudo yum-config-manager --enable rhui-REGION-rhel-server-extras rhui-REGION-rhel-server-optional<br>
-sudo yum install certbot</p>
-</blockquote>
-<h3 id="三-然后在安装">三、然后在安装</h3>
-<blockquote>
-<p>yum install certbot</p>
-</blockquote>
+                    <pre><code>let row = (0..&lt;indexPath.section).reduce(indexPath.row) { $0 + tableView.numberOfRows(inSection: $1) }
+cell.backgroundColor = row % 2 == 0 ? UIColor.gray : UIColor.white
+</code></pre>
 
                 </div>
             </article>
@@ -134,8 +121,8 @@ sudo yum install certbot</p>
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyangpro.com/dns-fu-wu-qi-da-jian-yu-pei-zhi-xue-xi-ji-lu/" class="post-title gt-a-link">
-                    DNS服务器搭建与配置（学习记录）
+                <a href="https://shineyangpro.com/ios-siri-pei-zhi/" class="post-title gt-a-link">
+                    iOS Siri 配置
                 </a>
             </div>
         
