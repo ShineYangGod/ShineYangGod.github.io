@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://shineyangpro.com</id>
     <title>ShineYang</title>
-    <updated>2021-01-26T06:43:46.112Z</updated>
+    <updated>2021-02-02T06:47:15.234Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://shineyangpro.com"/>
     <link rel="self" href="https://shineyangpro.com/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://shineyangpro.com/images/avatar.png</logo>
     <icon>https://shineyangpro.com/favicon.ico</icon>
     <rights>All rights reserved 2021, ShineYang</rights>
+    <entry>
+        <title type="html"><![CDATA[Mac OS 打开软件提示【XXX.app 已损坏，打不开。您应该将它移到废纸篓】解决方法：]]></title>
+        <id>https://shineyangpro.com/mac-os-da-kai-ruan-jian-ti-shi-xxxapp-yi-sun-pi-da-bu-kai-nin-ying-gai-jiang-ta-yi-dao-fei-zhi-lou-jie-jue-fang-fa/</id>
+        <link href="https://shineyangpro.com/mac-os-da-kai-ruan-jian-ti-shi-xxxapp-yi-sun-pi-da-bu-kai-nin-ying-gai-jiang-ta-yi-dao-fei-zhi-lou-jie-jue-fang-fa/">
+        </link>
+        <updated>2021-02-02T06:43:42.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[JS 使用地理位置定位]]></title>
         <id>https://shineyangpro.com/js-shi-yong-di-li-wei-zhi-ding-wei/</id>
@@ -72,12 +79,5 @@
         <link href="https://shineyangpro.com/dns-fu-wu-qi-da-jian-yu-pei-zhi-xue-xi-ji-lu/">
         </link>
         <updated>2021-01-04T01:22:25.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Golang项目如何部署到linux服务器]]></title>
-        <id>https://shineyangpro.com/golang-xiang-mu-ru-he-bu-shu-dao-linux-fu-wu-qi/</id>
-        <link href="https://shineyangpro.com/golang-xiang-mu-ru-he-bu-shu-dao-linux-fu-wu-qi/">
-        </link>
-        <updated>2020-12-31T06:39:31.000Z</updated>
     </entry>
 </feed>

@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>iOS KVO和NotificationCenter有什么区别？ | ShineYang</title>
+<title>Mac OS 打开软件提示【XXX.app 已损坏，打不开。您应该将它移到废纸篓】解决方法： | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1612248389833">
 
@@ -97,34 +97,28 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    iOS KVO和NotificationCenter有什么区别？
+                    Mac OS 打开软件提示【XXX.app 已损坏，打不开。您应该将它移到废纸篓】解决方法：
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2020-12-15 ·
+                        · 2021-02-02 ·
                     </time>
                     
-                        <a href="https://shineyangpro.com/It5jHhk-w/" class="post-tags">
-                            # iOS
+                        <a href="https://shineyangpro.com/vrZh7kbdJ/" class="post-tags">
+                            # 日常收集
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <h2 id="基础概念">基础概念</h2>
+                    <h3 id="1-先打开软件任何来源">1、先打开软件任何来源</h3>
 <blockquote>
-<p>KVO(Key-Value Observing)，俗称键值监听。它提供一种机制，当指定的对象的属性被修改后，则对象就会接受到通知。简单的说就是每次指定的被观察的对象的属性被修改后，KVO就会自动通知相应的观察者了</p>
+<p>sudo spctl –master-disable</p>
 </blockquote>
-<blockquote>
-<p>通知中心(NSNotificationCenter)实际是在程序内部提供了一种广播机制。把接收到的消息，根据内部的消息转发表，将消息转发给需要的对象。这句话其实已经很明显的告诉我们要如何使用通知了。第一步：在需要的地方注册要观察的通知，第二步：在某地方发送通知。</p>
-</blockquote>
-<blockquote>
-<p>从概念上讲，键值观察（KVO）是一种模式，其中一个对象可以观察另一个对象的属性值以了解更改。同时，通知中心是一个单例对象，允许将发生的事件通知给对象。</p>
-</blockquote>
-<h2 id="主要区别">主要区别</h2>
-<p><code>KVO</code>仅可用于观察对象的属性。而<code>NSNotification</code>可以更广泛地用于观察任意对象的变化。</p>
-<p>KVO通常用于跟踪对象的特定更改（即“文本”属性），而NSNotifications用于跟踪通用的“事件”（例如用户完成注册流程）。KVO将自动为您提供有用的信息，例如属性的先前值和发生的更改的类型；NSNotifications仅发出您明确指定的任何其他元数据。</p>
-<p>您可以使用NSNotifications编写一个KVO风格的系统，每次您执行类似[[object setText：@“ new value”]]之类的操作时，都会发出特定的NSNotification。但是，KVO的要点在于，它不需要您必须为此类系统编写的粘合代码。</p>
-<p>在内部，KVO不使用NSNotificationCenter，而是使用一些运行时技巧来避免所述胶合代码；</p>
+<h3 id="2-打开终端输入sudo-xattr-r-d-comapplequarantine-然后命令后面输入个空格-注意命令后面输入一个空格">2、打开终端，输入：sudo xattr -r -d com.apple.quarantine ，然后命令后面输入个空格。(注意:命令后面输入一个空格)</h3>
+<figure data-type="image" tabindex="1"><img src="https://shineyangpro.com/post-images/1612248298040.jpg" alt="" loading="lazy"></figure>
+<h3 id="3-命令粘贴后把应用程序里面的app拖拽到命令后面回车输入开机密码密码不会显示回车即可搞定如果您安装别的软件提示损坏亦可如此操作">3、命令粘贴后，把应用程序里面的APP拖拽到命令后面回车，输入开机密码，密码不会显示，回车即可搞定，(如果您安装别的软件提示损坏亦可如此操作)。</h3>
+<figure data-type="image" tabindex="2"><img src="https://shineyangpro.com/post-images/1612248315010.jpg" alt="" loading="lazy"></figure>
+<h3 id="4-完成后app-会自动运行">4、完成后，APP 会自动运行。</h3>
 
                 </div>
             </article>
@@ -133,8 +127,8 @@
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyangpro.com/ios-jin-cheng-he-xian-cheng-de-qu-bie-chu-ban/" class="post-title gt-a-link">
-                    iOS 进程和线程的区别(初版)
+                <a href="https://shineyangpro.com/js-shi-yong-di-li-wei-zhi-ding-wei/" class="post-title gt-a-link">
+                    JS 使用地理位置定位
                 </a>
             </div>
         
