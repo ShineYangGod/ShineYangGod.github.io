@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>在 Mac 端获取【网易云音乐】付费音乐的播放地址（注意下载要坚决支持正版！） | ShineYang</title>
+<title>Swift 使用泛型来定义的UITableViewCell标识符(包含NIB) | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1612426573818">
 
@@ -97,37 +97,119 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    在 Mac 端获取【网易云音乐】付费音乐的播放地址（注意下载要坚决支持正版！）
+                    Swift 使用泛型来定义的UITableViewCell标识符(包含NIB)
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2020-10-22 ·
+                        · 2021-02-04 ·
                     </time>
                     
-                        <a href="https://shineyangpro.com/21l95f3aU/" class="post-tags">
-                            # 破解
+                        <a href="https://shineyangpro.com/3U6sZPuRZ/" class="post-tags">
+                            # Swift
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <p>在网易云音乐下载付费音乐，如果你是未付费人员会弹出如下的提示：<br>
-<img src="https://shineyangpro.com/post-images/1603348249161.png" alt="" loading="lazy"><br>
-出于好奇，感觉音乐既然已经能够试听肯定是有有效的下载地址，只是在下载的时候做了权限判断，既然有地址那怎么去获取呢？</p>
-<h4 id="首先查看下-云音乐-这个软件的-bundle-identifier">首先查看下 云音乐 这个软件的 Bundle identifier ：</h4>
-<figure data-type="image" tabindex="1"><img src="https://shineyangpro.com/post-images/1603348281568.png" alt="" loading="lazy"></figure>
-<p>然后按照 Mac 软件的惯例，存在默认的缓存目录，先去看看果真有一个 com.netease.163music 文件夹。路径如下：</p>
-<p><img src="https://shineyangpro.com/post-images/1603348302404.png" alt="" loading="lazy"><br>
-<img src="https://shineyangpro.com/post-images/1603348316556.png" alt="" loading="lazy"></p>
-<p>但是查看里面的信息只有一部分数据库记录和音乐专辑封面图片的缓存内容，使用  Navicat 查看也并未找到音乐地址的相关信息，难道就这样结束了吗？</p>
-<p>既然 Bundle identifier 以及 缓存目录中  163music 这个关键字，依据大家习惯的命名规则，应该通过这个也能定位查找到一部分数据信息呀，采用直接的关键字全局搜索还真的找到了部分日志文件：(或者可以打开Mac自带的控制台)<br>
-<img src="https://shineyangpro.com/post-images/1603348345310.png" alt="" loading="lazy"></p>
-<p>通过修改日期排列下顺序，那就直接 cat 看一下最近的那一个，不看不知道，一看这里面还真记录了基本上我听过的每首歌曲的详细信息啊，那就 COM+F 直接搜索刚才的一首 【爸爸妈妈】，直接就定位如下：<br>
-<img src="https://shineyangpro.com/post-images/1603348384383.png" alt="" loading="lazy"></p>
-<p>可以看到，有相关的歌词信息，也有具体的下载信息，为了保证用户可以正常欣赏咱们可以看到具体的播放地址有三个，看来网易的工作人员还是蛮严谨的嘛，直接去浏览器验证下地址：<br>
-<img src="https://shineyangpro.com/post-images/1603348404952.png" alt="" loading="lazy"><br>
-果真是刚才听得的哪一首 <sup>_</sup></p>
-<h6 id="不过到最后还是要说这属于一次好奇心研究生命在于折腾寻找不同的可行路线嘛">不过到最后还是要说，这属于一次好奇心“研究”，生命在于折腾寻找不同的可行路线嘛。</h6>
-<p><mark>大家下载音乐还是要支持正版啊，支持辛苦创作的音乐人！</mark></p>
+                    <h3 id="定义泛型">定义泛型</h3>
+<pre><code>import Foundation
+import UIKit
+
+protocol Reusable: class{
+    static var reuseIdentifier: String { get }
+}
+
+extension Reusable {
+    static var reuseIdentifier: String {
+        return String(describing: self)
+
+    }
+}
+
+extension UITableViewCell: Reusable{}
+extension UITableViewHeaderFooterView: Reusable{}
+
+protocol NibLoadableView {
+    static var nibName: String { get }
+}
+
+extension NibLoadableView  {
+    static var nibName: String {
+        return String(describing: self)
+    }
+}
+
+extension UITableViewCell: NibLoadableView {}
+
+extension UITableView {
+
+    func register&lt;T: UITableViewCell&gt;(_: T.Type)  {
+        register(T.self, forCellReuseIdentifier: T.reuseIdentifier)
+    }
+
+    func registerNib&lt;T: UITableViewCell&gt;(_: T.Type)  {
+        let bundle = Bundle(for: T.self)
+        let nib = UINib(nibName: T.reuseIdentifier, bundle: bundle)
+        print(T.nibName, T.reuseIdentifier)
+        register(nib, forCellReuseIdentifier: T.reuseIdentifier)
+    }
+
+    func registerHeaderNib&lt;T: UITableViewHeaderFooterView&gt;(_: T.Type)  {
+        let bundle = Bundle(for: T.self)
+        let nib = UINib(nibName: T.reuseIdentifier, bundle: bundle)
+        print(T.reuseIdentifier, T.reuseIdentifier)
+        register(nib, forHeaderFooterViewReuseIdentifier: T.reuseIdentifier)
+    }
+
+    func dequeueReusableCell&lt;T: UITableViewCell&gt;(for indexPath: IndexPath) -&gt; T  {
+        print(T.reuseIdentifier)
+        guard let cell = dequeueReusableCell(withIdentifier: T.reuseIdentifier, for: indexPath) as? T else {
+            fatalError(&quot;Could not dequeue cell with identifier: \(T.reuseIdentifier)&quot;)
+        }
+        return cell
+    }
+
+    func dequeueReusableHeaderFooterView&lt;T: UITableViewHeaderFooterView&gt;(for section: Int) -&gt; T  {
+        print(T.reuseIdentifier)
+        guard let cell = dequeueReusableHeaderFooterView(withIdentifier: &quot;DemoHeaderView&quot;) as? T else {
+            fatalError(&quot;Could not dequeue cell with identifier: \(T.reuseIdentifier)&quot;)
+        }
+        return cell
+    }
+
+}
+</code></pre>
+<h3 id="viewcontoller使用它的方式">ViewContoller使用它的方式。</h3>
+<pre><code>class ViewController: UIViewController {
+
+    @IBOutlet weak var tableView: UITableView!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+       // 使用了泛型后的使用方式
+        tableView.register(TestCell.self)
+
+       //Nib以前使用方式
+       let headerNib = UINib.init(nibName: &quot;DemoHeaderView&quot;, bundle: Bundle.main)
+       tableView.register(headerNib, forHeaderFooterViewReuseIdentifier: &quot;DemoHeaderView&quot;)
+       // 使用了泛型后的Nib使用方式
+        tableView.registerHeaderNib(DemoHeaderView.self)
+
+    }
+
+
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+    }  
+}
+// UITableViewDataSource
+ func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -&gt; UITableViewCell {
+        let cell: TestCell = tableView.dequeueReusableCell(for: indexPath)
+        cell.textLabel?.text  = &quot;\(indexPath.row)&quot;
+        return cell
+    }
+    ```</code></pre>
 
                 </div>
             </article>
@@ -136,8 +218,8 @@
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyangpro.com/mac-ban-office-2019-guan-fang-yuan-ban-an-zhuang-bao-he-ji-huo-gong-ju-office-2019-ji-huo-gong-ju-microsoft_office_2019_vl_serializerpkg/" class="post-title gt-a-link">
-                    Mac版Office 2019官方原版安装包和激活工具，Office 2019激活工具：Microsoft_Office_2019_VL_Serializer.pkg
+                <a href="https://shineyangpro.com/mac-os-da-kai-ruan-jian-ti-shi-xxxapp-yi-sun-pi-da-bu-kai-nin-ying-gai-jiang-ta-yi-dao-fei-zhi-lou-jie-jue-fang-fa/" class="post-title gt-a-link">
+                    Mac OS 打开软件提示【XXX.app 已损坏，打不开。您应该将它移到废纸篓】解决方法：
                 </a>
             </div>
         

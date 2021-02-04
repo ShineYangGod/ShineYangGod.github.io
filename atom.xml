@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://shineyangpro.com</id>
     <title>ShineYang</title>
-    <updated>2021-02-02T06:47:15.234Z</updated>
+    <updated>2021-02-04T08:16:18.333Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://shineyangpro.com"/>
     <link rel="self" href="https://shineyangpro.com/atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://shineyangpro.com/images/avatar.png</logo>
     <icon>https://shineyangpro.com/favicon.ico</icon>
     <rights>All rights reserved 2021, ShineYang</rights>
+    <entry>
+        <title type="html"><![CDATA[Swift 使用泛型来定义的UITableViewCell标识符(包含NIB)]]></title>
+        <id>https://shineyangpro.com/swift-shi-yong-fan-xing-lai-ding-yi-de-uitableviewcell-biao-shi-fu-bao-han-nib/</id>
+        <link href="https://shineyangpro.com/swift-shi-yong-fan-xing-lai-ding-yi-de-uitableviewcell-biao-shi-fu-bao-han-nib/">
+        </link>
+        <updated>2021-02-04T08:09:43.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Mac OS 打开软件提示【XXX.app 已损坏，打不开。您应该将它移到废纸篓】解决方法：]]></title>
         <id>https://shineyangpro.com/mac-os-da-kai-ruan-jian-ti-shi-xxxapp-yi-sun-pi-da-bu-kai-nin-ying-gai-jiang-ta-yi-dao-fei-zhi-lou-jie-jue-fang-fa/</id>
@@ -72,12 +79,5 @@
         <link href="https://shineyangpro.com/centos-7-xia-an-zhuang-lets-encrypt-de-tong-pei-fu-zheng-shu-chu-xian-no-package-certbot-available/">
         </link>
         <updated>2021-01-05T02:51:11.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[DNS服务器搭建与配置（学习记录）]]></title>
-        <id>https://shineyangpro.com/dns-fu-wu-qi-da-jian-yu-pei-zhi-xue-xi-ji-lu/</id>
-        <link href="https://shineyangpro.com/dns-fu-wu-qi-da-jian-yu-pei-zhi-xue-xi-ji-lu/">
-        </link>
-        <updated>2021-01-04T01:22:25.000Z</updated>
     </entry>
 </feed>
