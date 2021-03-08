@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Swift — 7种强大的动画可改善您的应用程序用户界面 | ShineYang</title>
+<title>使用UIView作为子视图的水平分页的UIScrollView | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1615187172606">
 
@@ -97,11 +97,11 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    Swift — 7种强大的动画可改善您的应用程序用户界面
+                    使用UIView作为子视图的水平分页的UIScrollView
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2021-01-26 ·
+                        · 2021-02-24 ·
                     </time>
                     
                         <a href="https://shineyangpro.com/3U6sZPuRZ/" class="post-tags">
@@ -110,163 +110,43 @@
                     
                 </div>
                 <div class="post-content">
-                    <p>在最近的几个月中，我一直在努力开发一款具有深色调和恐怖气氛的新应用程序。我在Sketch中制作了所有图形和内容，经过几天的调整，我将所有内容都放在Xcode上并最终运行了我的项目。</p>
-<p>但不幸的是，我很快注意到我的应用与我每天使用的其他应用不同。它缺少使它充满活力的过渡和动画。<br>
-因此，我开始学习有关动画的更多信息，并且发现了一个隐藏的世界，使我仅需几行代码即可创建令人惊叹的效果。您可以在下面找到一些示例，可以在Playground上对其进行自定义，然后再用于您的项目。</p>
-<h2 id="pop-in">Pop In</h2>
-<p>我们从可用于按钮和视图的基本动画开始。此动画通常也用于弹出消息和警告。<br>
-<img src="https://shineyangpro.com/post-images/1611642397680.gif" alt="" loading="lazy"></p>
-<pre><code>let containerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 375.0, height: 667.0))
+                    <pre><code>import UIKit
 
-// Create the square and add it to container
-let square = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 200.0, height: 200.0))
-square.center = containerView.center
-square.layer.cornerRadius = 20.0
-square.backgroundColor = UIColor.white
-containerView.addSubview(square)
+class ViewController: UIViewController {
 
-// make the square not visible and scale it to 0.5x
-square.alpha = 0
-square.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+@IBOutlet weak var scrollView: UIScrollView!
 
-// Finally the animation!
-UIView.animate(
-    withDuration: 0.5, delay: 1, usingSpringWithDamping: 0.55, initialSpringVelocity: 3,
-    options: .curveEaseOut, animations: {
-        square.transform = .identity
-        square.alpha = 1
-}, completion: nil)
-</code></pre>
-<h2 id="pop-out">Pop Out</h2>
-<p>此动画产生与前一个相反的效果。通常，这用于关闭视图/弹出窗口。<br>
-<img src="https://shineyangpro.com/post-images/1611642490902.gif" alt="" loading="lazy"></p>
-<pre><code>// Create the container
-let containerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 250, height: 400))
-containerView.backgroundColor = UIColor.white
+var colors:[UIColor] = [.red, .blue, .green, .yellow]
+var frame: CGRect = CGRect(x: 0, y: 0, width: 0, height: 0)
+override func viewDidLoad() {
+    super.viewDidLoad()
 
-// Create the square and add it to container
-let square = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 200.0, height: 200.0))
-square.center = containerView.center
-square.layer.cornerRadius = 20.0
-square.backgroundColor = UIColor.blue
-containerView.addSubview(square)
+    scrollView.isPagingEnabled = true
+    scrollView.backgroundColor = .orange
+    view.addSubview(scrollView)
+    let numberOfPages :Int = 3
+    let padding : CGFloat = 15
+    let viewWidth = scrollView.frame.size.width - 2 * padding
+    let viewHeight = scrollView.frame.size.height - 2 * padding
 
-// Finally the animation!
-UIView.animate(
-    withDuration: 0.5, delay: 1, usingSpringWithDamping: 0.55, initialSpringVelocity: 3,
-    options: .curveEaseOut, animations: {
-        square.alpha = 0
-        square.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-}, completion: nil)
-</code></pre>
-<h2 id="drop-from-top">Drop From Top</h2>
-<p>该动画可用于游戏或应用中以显示设置或过滤视图。<br>
-<img src="https://shineyangpro.com/post-images/1611642588471.gif" alt="" loading="lazy"></p>
-<pre><code>// Create the container
-let containerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 250, height: 400))
-containerView.backgroundColor = UIColor.white
+    var x : CGFloat = 0
 
-// Create the square and add it to container
-let squareBlue = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 200.0, height: 200.0))
-squareBlue.center = containerView.center
-squareBlue.layer.cornerRadius = 20.0
-squareBlue.backgroundColor = UIColor.blue
-containerView.addSubview(squareBlue)
+    for i in 0...numberOfPages{
+        let view: UIView = UIView(frame: CGRect(x: x + padding, y: padding, width: viewWidth, height: viewHeight))
+        view.backgroundColor = colors[i]
+        scrollView .addSubview(view)
+        x = view.frame.origin.x + viewWidth + padding
+    }
 
-// Finally the animation!
-let offset = CGPoint(x: 0, y: -containerView.frame.maxY)
-let x: CGFloat = 0, y: CGFloat = 0
-squareBlue.transform = CGAffineTransform(translationX: offset.x + x, y: offset.y + y)
-squareBlue.isHidden = false
-UIView.animate(
-    withDuration: 1, delay: 1, usingSpringWithDamping: 0.47, initialSpringVelocity: 3,
-    options: .curveEaseOut, animations: {
-        squareBlue.transform = .identity
-        squareBlue.alpha = 1
-})
-</code></pre>
-<h2 id="coming-from-left">Coming From Left</h2>
-<p>这是一个真正的动态动画，当我们在两个控制器之间进行选择时可以使用。您可以将其添加viewDidLoad到第二个控制器上的事件中，以表示移动和继续。<br>
-<img src="https://shineyangpro.com/post-images/1611642711083.gif" alt="" loading="lazy"></p>
-<pre><code>// Create the container
-let containerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 250, height: 400))
-containerView.backgroundColor = UIColor.white
+    scrollView.contentSize = CGSize(width:x+padding, height:scrollView.frame.size.height)
+}
 
-// Create the square and add it to container
-let squareBlue = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
-squareBlue.center = containerView.center
-squareBlue.layer.cornerRadius = 20.0
-squareBlue.backgroundColor = UIColor.blue
-containerView.addSubview(squareBlue)
+override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+}
 
-// Finally the animation!
-let offset = CGPoint(x: -containerView.frame.maxX, y: 0)
-let x: CGFloat = 0, y: CGFloat = 0
-squareBlue.transform = CGAffineTransform(translationX: offset.x + x, y: offset.y + y)
-squareBlue.isHidden = false
-UIView.animate(
-    withDuration: 1, delay: 1, usingSpringWithDamping: 0.47, initialSpringVelocity: 3,
-    options: .curveEaseOut, animations: {
-        squareBlue.transform = .identity
-        squareBlue.alpha = 1
-})
-</code></pre>
-<h2 id="fade-in">Fade In</h2>
-<p>与弹出动画类似，它可以用于按钮和视图创建。<br>
-<img src="https://shineyangpro.com/post-images/1611642742324.gif" alt="" loading="lazy"></p>
-<pre><code>let containerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 250, height: 400))
-containerView.backgroundColor = UIColor.white
-
-// Create the square and add it to container
-let squareBlue = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
-squareBlue.center = containerView.center
-squareBlue.layer.cornerRadius = 20.0
-squareBlue.backgroundColor = UIColor.blue
-containerView.addSubview(squareBlue)
-
-// Finally the animation!
-squareBlue.alpha = 0.0
-UIView.animate(withDuration: 0.5, delay: 1.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
-    squareBlue.alpha = 1
-}, completion: nil)
-</code></pre>
-<h2 id="fade-out">Fade Out</h2>
-<p>与弹出动画类似，它可用于按钮和视图的创建和消失。<br>
-<img src="https://shineyangpro.com/post-images/1611642790314.gif" alt="" loading="lazy"></p>
-<pre><code>// Create the container
-let containerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 250, height: 400))
-containerView.backgroundColor = UIColor.white
-
-// Create the square and add it to container
-let squareBlue = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
-squareBlue.center = containerView.center
-squareBlue.layer.cornerRadius = 20.0
-squareBlue.backgroundColor = UIColor.blue
-containerView.addSubview(squareBlue)
-
-// Finally the animation!
-squareBlue.alpha = 1
-UIView.animate(withDuration: 0.5, delay: 1.0, options: UIView.AnimationOptions.curveEaseIn, animations: {
-    squareBlue.alpha = 0.0
-}, completion: nil)
-</code></pre>
-<h2 id="card-flip">Card Flip</h2>
-<p>如果您使用的卡/信用卡/文档有两个部分（例如，正面和背面），这是一个非常酷的动画。<br>
-<img src="https://shineyangpro.com/post-images/1611642827300.gif" alt="" loading="lazy"></p>
-<pre><code>let containerView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 250, height: 400))
-containerView.backgroundColor = UIColor.white
-
-// Create the square and add it to container
-let squareBlue = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0))
-squareBlue.center = containerView.center
-squareBlue.layer.cornerRadius = 20.0
-squareBlue.backgroundColor = UIColor.blue
-containerView.addSubview(squareBlue)
-
-// Finally the animation!
-UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseInOut, animations: {
-    squareBlue.transform = CGAffineTransform(scaleX: -1, y: 1)
-}, completion: nil)
+}
 </code></pre>
 
                 </div>
@@ -276,8 +156,8 @@ UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseInOut, animatio
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyangpro.com/ios-ru-he-zai-bu-fen-zhong-bu-chong-fu-she-zhi-uitableviewcell-bei-jing-yan-se/" class="post-title gt-a-link">
-                    iOS- 如何在部分中不重复设置UITableViewCell背景颜色？
+                <a href="https://shineyangpro.com/ru-he-shi-uitableviewcell-fen-ge-fu-bian-yuan-dao-bian-yuan/" class="post-title gt-a-link">
+                    如何使UITableViewCell分隔符边缘到边缘
                 </a>
             </div>
         
