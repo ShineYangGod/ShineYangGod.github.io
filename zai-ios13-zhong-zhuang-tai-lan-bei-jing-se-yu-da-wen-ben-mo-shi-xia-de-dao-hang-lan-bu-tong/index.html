@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Swift 时间转换成今天、明天、昨天 | ShineYang</title>
+<title>在iOS13中，状态栏背景色与大文本模式下的导航栏不同 | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1615360218489">
 
@@ -97,11 +97,11 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    Swift 时间转换成今天、明天、昨天
+                    在iOS13中，状态栏背景色与大文本模式下的导航栏不同
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2020-10-20 ·
+                        · 2021-03-10 ·
                     </time>
                     
                         <a href="https://shineyangpro.com/3U6sZPuRZ/" class="post-tags">
@@ -110,23 +110,50 @@
                     
                 </div>
                 <div class="post-content">
-                    <pre><code>func dayDifference(from interval : TimeInterval) -&gt; String
-{
-    let calendar = NSCalendar.current
-    let date = Date(timeIntervalSince1970: interval)
-    if calendar.isDateInYesterday(date) { return &quot;Yesterday&quot; }
-    else if calendar.isDateInToday(date) { return &quot;Today&quot; }
-    else if calendar.isDateInTomorrow(date) { return &quot;Tomorrow&quot; }
-    else {
-        let startOfNow = calendar.startOfDay(for: Date())
-        let startOfTimeStamp = calendar.startOfDay(for: date)
-        let components = calendar.dateComponents([.day], from: startOfNow, to: startOfTimeStamp)
-        let day = components.day!
-        if day &lt; 1 { return &quot;\(abs(day)) days ago&quot; }
-        else { return &quot;In \(day) days&quot; }
-    }
+                    <figure data-type="image" tabindex="1"><img src="https://i.stack.imgur.com/L5bfJ.png" alt="" loading="lazy"></figure>
+<pre><code>if #available(iOS 13.0, *) {
+    let navBarAppearance = UINavigationBarAppearance()
+    navBarAppearance.configureWithOpaqueBackground()
+    navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+    navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+    navBarAppearance.backgroundColor = &lt;insert your color here&gt;
+    navigationBar.standardAppearance = navBarAppearance
+    navigationBar.scrollEdgeAppearance = navBarAppearance
 }
 </code></pre>
+<p><mark>backgroundColor 设置你想要的颜色</mark></p>
+<h4 id="或者你可以这样封装">或者你可以这样封装</h4>
+<pre><code>extension UIViewController {
+func configureNavigationBar(largeTitleColor: UIColor, backgoundColor: UIColor, tintColor: UIColor, title: String, preferredLargeTitle: Bool) {
+    if #available(iOS 13.0, *) {
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithOpaqueBackground()
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: largeTitleColor]
+        navBarAppearance.titleTextAttributes = [.foregroundColor: largeTitleColor]
+        navBarAppearance.backgroundColor = backgoundColor
+
+        navigationController?.navigationBar.standardAppearance = navBarAppearance
+        navigationController?.navigationBar.compactAppearance = navBarAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+
+        navigationController?.navigationBar.prefersLargeTitles = preferredLargeTitle
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.tintColor = tintColor
+        navigationItem.title = title
+
+    } else {
+        // Fallback on earlier versions
+        navigationController?.navigationBar.barTintColor = backgoundColor
+        navigationController?.navigationBar.tintColor = tintColor
+        navigationController?.navigationBar.isTranslucent = false
+        navigationItem.title = title
+    }
+}}
+</code></pre>
+<h3 id="使用如下">使用如下:</h3>
+<blockquote>
+<p>configureNavigationBar(largeTitleColor: .yourColor, backgoundColor: .yourColor, tintColor: .yourColor, title: &quot;YourTitle&quot;, preferredLargeTitle: true)</p>
+</blockquote>
 
                 </div>
             </article>
@@ -135,8 +162,8 @@
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyangpro.com/xcode11-yi-hou-xin-bian-hua-scenedelegate/" class="post-title gt-a-link">
-                    Xcode11以后新变化：SceneDelegate
+                <a href="https://shineyangpro.com/swift-uilabel-dai-you-liang-chong-bu-tong-yan-se-de-wen-ben/" class="post-title gt-a-link">
+                    Swift UILabel带有两种不同颜色的文本
                 </a>
             </div>
         
