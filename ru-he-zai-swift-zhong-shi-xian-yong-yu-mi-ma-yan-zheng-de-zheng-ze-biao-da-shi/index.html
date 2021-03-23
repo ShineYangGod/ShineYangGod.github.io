@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>iOS Siri 配置 | ShineYang</title>
+<title>如何在Swift中实现用于密码验证的正则表达式？ | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1616488326829">
 
@@ -97,113 +97,40 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    iOS Siri 配置
+                    如何在Swift中实现用于密码验证的正则表达式？
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2021-01-07 ·
+                        · 2021-03-17 ·
                     </time>
                     
-                        <a href="https://shineyangpro.com/vv3AfE45R/" class="post-tags">
-                            # Siri
-                        </a>
-                    
-                        <a href="https://shineyangpro.com/It5jHhk-w/" class="post-tags">
-                            # iOS
+                        <a href="https://shineyangpro.com/3U6sZPuRZ/" class="post-tags">
+                            # Swift
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <h3 id="登录苹果开发者账号">登录苹果开发者账号</h3>
-<p>1.1 登录Apple Member Center，选择<code>Certificates</code>, <code>IDs</code> &amp;<code>Profiles</code> 选项，如下图所示：<br>
-<img src="https://shineyangpro.com/post-images/1610003559102.png" alt="" loading="lazy"></p>
-<h3 id="新建-app-groups">新建 App Groups</h3>
-<blockquote>
-<p>（注意：若 App Groups 已存在并且 Group id 等于&quot;group.「包名」&quot;，可忽略此步骤，可直接进行下一步，将主 App ID 开启 siri 功能）</p>
-</blockquote>
-<p>App 需要新增 siri 功能，首先要为已有的 App（在以下操作中称为：主 App）创建一个 App 组（即 App Groups）</p>
-<p>2.1 点击左侧菜单<code>Identifiers</code>，然后点击+，选择<code>App Gourps</code>，然后点击右上角Continue；<br>
-<img src="https://shineyangpro.com/post-images/1610003620644.png" alt="" loading="lazy"><br>
-<img src="https://shineyangpro.com/post-images/1610003633284.png" alt="" loading="lazy"></p>
-<p>2.2 信息填写：</p>
-<ul>
-<li><code>Description</code>：为这个 App 组创建一个名称；</li>
-<li><code>ID</code>：填写主 App 包名，格式为「group.App 包名」（包名格式：com.xxx.xxx)，然后点击Continue：</li>
-</ul>
-<figure data-type="image" tabindex="1"><img src="https://shineyangpro.com/post-images/1610003688209.png" alt="" loading="lazy"></figure>
-<p>2.3 确认 App Groups 的信息，信息有误可以点击Back回到上一页修改；没有问题可以点击Register到下一步；<br>
-<img src="https://shineyangpro.com/post-images/1610003722846.png" alt="" loading="lazy"></p>
-<p>2.4 此时 App Group 已创建完成；</p>
-<h3 id="主-app-id-开启-siri-功能">主 App ID 开启 siri 功能</h3>
-<p>3.1 点击右侧<code>App Groups</code>菜单，选择<code>App IDs</code>；<br>
-<img src="https://shineyangpro.com/post-images/1610003773907.png" alt="" loading="lazy"></p>
-<p>3.2 找到 App 的主 Appid，点击进入配置页面；<br>
-<img src="https://shineyangpro.com/post-images/1610004418176.png" alt="" loading="lazy"><br>
-3.3 确认下是否有开启<code>App Groups</code>功能，如无开启，请勾选 ☑️ 开启该功能；点击右边<code>Congigure</code>勾选已创建的群主； 然后页面下拉，确认下是否有开启SiriKit功能，如无开启，请勾选 ☑️ 开启该功能；点击右上角<code>Save</code>;<br>
-<img src="https://shineyangpro.com/post-images/1610004474548.png" alt="" loading="lazy"><br>
-<img src="https://shineyangpro.com/post-images/1610004486355.png" alt="" loading="lazy"></p>
-<h3 id="新建-siri-app-id">新建 siri App ID</h3>
-<p>4.1 点击左侧菜单<code>Identifiers</code>，然后点击+，选择<code>App IDs</code>，然后点击右上角<code>Continue</code>；<br>
-<img src="https://shineyangpro.com/post-images/1610004536231.png" alt="" loading="lazy"><br>
-<img src="https://shineyangpro.com/post-images/1610004541546.png" alt="" loading="lazy"></p>
-<p>4.2 信息填写：</p>
-<ul>
-<li><code>Name：</code>填写 siri 的名称</li>
-<li><code>Bundle ID：</code>填写 siri 的包名，格式为「主 App 包名.SceneIntent」</li>
-<li>必须勾选 ☑️ App Groups功能，然后点击Continue</li>
-</ul>
-<figure data-type="image" tabindex="2"><img src="https://shineyangpro.com/post-images/1610004585640.png" alt="" loading="lazy"></figure>
-<p>4.3 点击创建好的 AppIDs，点击右边Congigure勾选这个 siri App ID，关联 App 组;<br>
-<img src="https://shineyangpro.com/post-images/1610004605856.png" alt="" loading="lazy"><br>
-<img src="https://shineyangpro.com/post-images/1610004618840.png" alt="" loading="lazy"></p>
-<h3 id="新建-siri-ui-app-id">新建 siri UI App ID</h3>
-<p>5.1 点击左侧菜单<code>Identifiers</code>，然后点击+，选择<code>App IDs</code>，然后点击右上角<code>Continue</code>；<br>
-<img src="https://shineyangpro.com/post-images/1610004665717.png" alt="" loading="lazy"><br>
-<img src="https://shineyangpro.com/post-images/1610004671465.png" alt="" loading="lazy"></p>
-<p>5.2 信息填写：</p>
-<ul>
-<li><code>Name：</code>填写 siri UI 的名称</li>
-<li><code>Bundle ID：</code>填写 siri UI 的包名，格式为「主 App 包名.SceneIntentUI」</li>
-<li>必须勾选 ☑️ App Groups功能，然后点击Continue</li>
-</ul>
-<figure data-type="image" tabindex="3"><img src="https://shineyangpro.com/post-images/1610004733341.png" alt="" loading="lazy"></figure>
-<p>5.3 点击创建好的 AppIDs，点击右边<code>Congigure</code>勾选这个 siri App ID，关联 App 组;<br>
-<img src="https://shineyangpro.com/post-images/1610004761679.png" alt="" loading="lazy"><br>
-<img src="https://shineyangpro.com/post-images/1610004774432.png" alt="" loading="lazy"></p>
-<h3 id="重新生成主-app-mobileprovision-文件">重新生成主 App mobileprovision 文件</h3>
-<p>由于主 App 新增了 siri 功能，修改了原配置项，所以需要重新生成 mobileprovision 文件<br>
-6.1 点击左侧菜单Profiles，点击主 App 信息点击后进入进行修改；<br>
-<img src="https://shineyangpro.com/post-images/1610004807052.png" alt="" loading="lazy"><br>
-6.2 Certificates:重新选择发布证书，此处有可能会出现多个相同的发布证书，先根据名称下方的到期时间来推算当时制作证书的时间选择；如无法确认时间，建议选择最后一个证书，然后点击Save；<br>
-<img src="https://shineyangpro.com/post-images/1610004826352.png" alt="" loading="lazy"></p>
-<p>6.3 此时主 App 的 mobileprovision 文件已配置完成，点击Download将文件下载后发送给相关的工作人员。<br>
-<img src="https://shineyangpro.com/post-images/1610004845604.png" alt="" loading="lazy"></p>
-<h3 id="生成-siri-mobileprovision-文件">生成 siri mobileprovision 文件</h3>
-<p>7.1 点击左侧菜单Profiles，然后点击+号；<br>
-<img src="https://shineyangpro.com/post-images/1610004872095.png" alt="" loading="lazy"></p>
-<p>7.2 选择<code>App Store</code>，点击<code>continue</code>；<br>
-<img src="https://shineyangpro.com/post-images/1610004895861.png" alt="" loading="lazy"></p>
-<p>7.3 在<code>App ID</code>处一定要选择到对应的 <code>App ID</code>，主要格式为<code>「主 App 包名.SceneIntent」</code>，然后点击<code>Continue</code><br>
-<img src="https://shineyangpro.com/post-images/1610004930134.png" alt="" loading="lazy"><br>
-7.4 选择主 App 对应的发布证书，检查第六步操作，选择同一个证书，然后点击<code>Continue</code>;<br>
-<img src="https://shineyangpro.com/post-images/1610004953471.png" alt="" loading="lazy"><br>
-7.5 Provisioning Profile Name：填写 siri mobileprovision 文件的名称<br>
-<img src="https://shineyangpro.com/post-images/1610004981349.png" alt="" loading="lazy"><br>
-7.6 此时 siri mobileprovision 文件已配置完成，点击Download将文件下载后发送给相关的工作人员。<br>
-<img src="https://shineyangpro.com/post-images/1610005036837.png" alt="" loading="lazy"></p>
-<h3 id="生成-siri-ui-mobileprovision-文件">生成 siri UI mobileprovision 文件</h3>
-<p>8.1 点击左侧菜单Profiles，然后点击+号；<br>
-<img src="https://shineyangpro.com/post-images/1610005072035.png" alt="" loading="lazy"><br>
-8.2 选择App Store，点击continue；<br>
-<img src="https://shineyangpro.com/post-images/1610005085236.png" alt="" loading="lazy"><br>
-8.3 在<code>App ID</code>处一定要选择到对应的 App ID，主要格式为「主 App 包名.SceneIntentUI」，然后点击<code>Continue</code><br>
-<img src="https://shineyangpro.com/post-images/1610005121862.png" alt="" loading="lazy"><br>
-8.4 选择主 App 对应的发布证书，检查第六步操作，选择同一个证书，然后点击Continue<br>
-<img src="https://shineyangpro.com/post-images/1610005139381.png" alt="" loading="lazy"><br>
-8.5 Provisioning Profile Name：填写 siri mobileprovision 文件的名称<br>
-<img src="https://shineyangpro.com/post-images/1610005158696.png" alt="" loading="lazy"><br>
-8.6 此时 siri Ui mobileprovision 文件已配置完成，点击Download将文件下载后发送给相关工作人员。<br>
-<img src="https://shineyangpro.com/post-images/1610005182185.png" alt="" loading="lazy"></p>
+                    <h3 id="至少8个字符至少1个字母和1个数字">至少8个字符，至少1个字母和1个数字：</h3>
+<pre><code>&quot;^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$&quot;
+</code></pre>
+<h3 id="至少8个字符至少1个字母1个数字和1个特殊字符">至少8个字符，至少1个字母，1个数字和1个特殊字符：</h3>
+<pre><code>&quot;^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&amp;])[A-Za-z\\d$@$!%*#?&amp;]{8,}$&quot;
+</code></pre>
+<h3 id="至少8个字符至少1个大写字母1个小写字母和1个数字">至少8个字符，至少1个大写字母，1个小写字母和1个数字：</h3>
+<pre><code>&quot;^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$&quot;
+</code></pre>
+<h3 id="至少8个字符至少1个大写字母1个小写字母1个数字和1个特殊字符">至少8个字符，至少1个大写字母，1个小写字母，1个数字和1个特殊字符：</h3>
+<pre><code>&quot;^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[d$@$!%*?&amp;#])[A-Za-z\\dd$@$!%*?&amp;#]{8,}&quot;
+</code></pre>
+<h3 id="最少8个字符最多10个字符至少1个大写字母1个小写字母1个数字和1个特殊字符">最少8个字符，最多10个字符，至少1个大写字母，1个小写字母，1个数字和1个特殊字符：</h3>
+<pre><code>&quot;^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&amp;#])[A-Za-z\\d$@$!%*?&amp;#]{8,10}&quot;
+</code></pre>
+<h3 id="如何使用">如何使用?</h3>
+<pre><code>public func isValidPassword() -&gt; Bool {
+    let passwordRegex = &quot;^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&amp;*()\\-_=+{}|?&gt;.&lt;,:;~`’]{8,}$&quot;
+    return NSPredicate(format: &quot;SELF MATCHES %@&quot;, passwordRegex).evaluate(with: self)
+}
+</code></pre>
 
                 </div>
             </article>
@@ -212,8 +139,8 @@
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyangpro.com/ru-he-wei-go-fu-wu-qi-ying-yong-cheng-xu-she-zhi-lets-encrypt/" class="post-title gt-a-link">
-                    如何为Go服务器应用程序设置Let&#39;s Encrypt
+                <a href="https://shineyangpro.com/swift-jian-dan-tong-yong-chuang-jian-dan-chu-chuang-kou/" class="post-title gt-a-link">
+                    Swift简单通用创建弹出窗口
                 </a>
             </div>
         
