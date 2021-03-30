@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Xcode11 使用终端上传ipa | ShineYang</title>
+<title>使用Golang发送电子邮件的不同方法 | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1617092926867">
 
@@ -97,36 +97,106 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    Xcode11 使用终端上传ipa
+                    使用Golang发送电子邮件的不同方法
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2020-10-19 ·
+                        · 2021-03-24 ·
                     </time>
+                    
+                        <a href="https://shineyangpro.com/4pLK1CS7A/" class="post-tags">
+                            # Go
+                        </a>
                     
                 </div>
                 <div class="post-content">
-                    <pre><code>    升级 Xcode 11 后, Xcode 删掉了 Application loader工具，使用 Xcode自带的上传功能，太卡，经常停留在进度条不动，于是便通过终端-&gt; xcrun altool上传。
-</code></pre>
-<p>整个过程5分钟内搞定，命令不多，就两个 校验 和 上传</p>
-<h3 id="校验-ipa">校验 ipa</h3>
-<pre><code>    xcrun altool --validate-app -f xxxx.ipa -t ios --apiKey xxxx --apiIssuer xxxx --verbose
-</code></pre>
-<h3 id="上传-ipa">上传 ipa</h3>
-<pre><code>    xcrun altool --upload-app -f xxxx.ipa -t ios --apiKey xxxxx --apiIssuer xxxxx--verbose
+                    <h3 id="包smtp">包smtp</h3>
+<p>smtp是Golang提供的内置软件包。它实现了简单邮件传输协议，并具有与之相关的多种功能。在这里发送电子邮件，我们将仅使用软件包中的两个功能PlainAuth和SendMail。</p>
+<ul>
+<li>PlainAuth：它使用给定的用户名和密码进行身份验证以托管并返回身份</li>
+<li>SendMail：它通过地址连接到服务器，并在可能的情况下切换到TLS，在可能的情况下使用可选机制进行身份验证，然后将电子邮件发送给发件人。</li>
+</ul>
+<p>以下是在golang中发送带有smtp软件包的纯文本电子邮件的完整代码。</p>
+<pre><code>package main
 
+import (
+  &quot;fmt&quot;
+  &quot;net/smtp&quot;
+)
 
-    上面一个命令，区别只在于， 校验是 validate-app , 上传是 upload-appxxxx.ipa 是 ipa文件的绝对路径 (以防万一，最好写绝对)apiKey xxxx 此处的 xxxx为 apiKey的值，获取方法见下面apiIssuer xxxx 此处的 xxxx为 apiIssuer的值，获取方法见下面
+func main() {
+
+  // Sender data.
+  from := &quot;from@gmail.com&quot;
+  password := &quot;&lt;Email Password&gt;&quot;
+
+  // Receiver email address.
+  to := []string{
+    &quot;sender@example.com&quot;,
+  }
+
+  // smtp server configuration.
+  smtpHost := &quot;smtp.gmail.com&quot;
+  smtpPort := &quot;587&quot;
+
+  // Message.
+  msg := []byte(&quot;To:&quot; + &quot;对方邮件&quot; + &quot;\r\n&quot; +     &quot;Subject: 标题\r\n&quot; +     &quot;\r\n&quot; +     内容 + &quot;\r\n&quot;)
+  
+  // Authentication.
+  auth := smtp.PlainAuth(&quot;&quot;, from, password, smtpHost)
+  
+  // Sending email.
+  err := smtp.SendMail(smtpHost+&quot;:&quot;+smtpPort, auth, from, to, msg)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(&quot;Email Sent Successfully!&quot;)
+}
 </code></pre>
-<h5 id="获取方式"><a href="https://www.jianshu.com/p/56d57eef81de">获取方式</a></h5>
-<p>1、进入<a href="https://idmsa.apple.com/IDMSWebAuth/signin?appIdKey=891bd3417a7776362562d2197f89480a8547b108fd934911bcbea0110d07f757&amp;path=%2Faccount%2F&amp;rv=1">开发者后台</a> -&gt; <a href="https://www.jianshu.com/p/56d57eef81de">用户和访问</a></p>
-<figure data-type="image" tabindex="1"><img src="https://shineyangpro.com/post-images/1603100571094.png" alt="" loading="lazy"></figure>
-<p>2、<a href="https://www.jianshu.com/p/56d57eef81de">apiKey</a> 即密钥ID</p>
-<p>3、 <a href="https://www.jianshu.com/p/56d57eef81de">apiIssuer</a> 即 Issuer ID<br>
-<img src="https://shineyangpro.com/post-images/1603100643086.png" alt="" loading="lazy"></p>
-<h3 id="上传成功">上传成功</h3>
-<figure data-type="image" tabindex="2"><img src="https://shineyangpro.com/post-images/1603100657401.png" alt="" loading="lazy"></figure>
-<p><mark>要把开发者中心的密钥文件下载到电脑上，最好是放到用户的目录下面/用户/xxx</mark></p>
+<h3 id="gomail软件包">Gomail软件包</h3>
+<pre><code>package main
+
+import (
+  &quot;crypto/tls&quot;
+  &quot;fmt&quot;
+
+  gomail &quot;gopkg.in/mail.v2&quot;
+)
+
+func main() {
+  m := gomail.NewMessage()
+
+  // Set E-Mail sender
+  m.SetHeader(&quot;From&quot;, &quot;from@gmail.com&quot;)
+
+  // Set E-Mail receivers
+  m.SetHeader(&quot;To&quot;, &quot;to@example.com&quot;)
+
+  // Set E-Mail subject
+  m.SetHeader(&quot;Subject&quot;, &quot;Gomail test subject&quot;)
+
+  // Set E-Mail body. You can set plain text or html with text/html
+  m.SetBody(&quot;text/plain&quot;, &quot;This is Gomail test body&quot;)
+
+  // Settings for SMTP server
+  d := gomail.NewDialer(&quot;smtp.gmail.com&quot;, 587, &quot;from@gmail.com&quot;, &quot;&lt;email_password&gt;&quot;)
+
+  // This is only needed when SSL/TLS certificate is not valid on server.
+  // In production this should be set to false.
+  d.TLSConfig = &amp;tls.Config{InsecureSkipVerify: true}
+
+  // Now send E-Mail
+  if err := d.DialAndSend(m); err != nil {
+    fmt.Println(err)
+    panic(err)
+  }
+
+  return
+}
+</code></pre>
+<h3 id="参考">参考</h3>
+<p><a href="https://gist.github.com/jpillora/cb46d183eca0710d909a">引用链接</a></p>
 
                 </div>
             </article>
@@ -135,8 +205,8 @@
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyangpro.com/swift-ba-1234656-zhuan-hua-cheng-123-wan-huo-123-yi-huo-1-wan-1-yi/" class="post-title gt-a-link">
-                    Swift 把 1234656转化成 1.23万 或1.23亿 或 1 万 ，1亿
+                <a href="https://shineyangpro.com/golang-de-aes-jia-mi-he-jie-mi-de-san-chong-mo-shi-cbc-ecb-cfb/" class="post-title gt-a-link">
+                    Golang的AES加密和解密的三种模式（CBC / ECB / CFB）
                 </a>
             </div>
         

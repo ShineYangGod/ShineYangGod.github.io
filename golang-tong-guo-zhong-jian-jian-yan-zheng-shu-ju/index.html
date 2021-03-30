@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Xcode11 使用终端上传ipa | ShineYang</title>
+<title>GoLang 通过中间件验证数据 | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1617092926867">
 
@@ -97,36 +97,52 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    Xcode11 使用终端上传ipa
+                    GoLang 通过中间件验证数据
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2020-10-19 ·
+                        · 2021-03-30 ·
                     </time>
+                    
+                        <a href="https://shineyangpro.com/CgM06XDhb/" class="post-tags">
+                            # Gin
+                        </a>
+                    
+                        <a href="https://shineyangpro.com/4pLK1CS7A/" class="post-tags">
+                            # Go
+                        </a>
                     
                 </div>
                 <div class="post-content">
-                    <pre><code>    升级 Xcode 11 后, Xcode 删掉了 Application loader工具，使用 Xcode自带的上传功能，太卡，经常停留在进度条不动，于是便通过终端-&gt; xcrun altool上传。
+                    <h4 id="结构体">结构体</h4>
+<pre><code>type User struct {
+    Username         string `json:&quot;username&quot; validate:&quot;required&quot;`
+    Email            string `json:&quot;email&quot;  validate:&quot;email&quot;`
+    Password         string `json:&quot;password&quot; validate:&quot;min=8,max=32,alphanum&quot;`
+    ConfirmPassword  string `json:&quot;confirm_password&quot; validate:&quot;eqfield=Password,required&quot;`
+}
 </code></pre>
-<p>整个过程5分钟内搞定，命令不多，就两个 校验 和 上传</p>
-<h3 id="校验-ipa">校验 ipa</h3>
-<pre><code>    xcrun altool --validate-app -f xxxx.ipa -t ios --apiKey xxxx --apiIssuer xxxx --verbose
+<h4 id="验证">验证</h4>
+<pre><code>func SignupValidator(c *gin.Context) gin.HandlerFunc {
+    return func(c *gin.Context) {
+       var user entity.User
+       if err := c.ShouldBindJSON(&amp;user); err == nil {           
+         validate := validator.New()
+         if err := validate.Struct(&amp;user); err != nil {
+              c.JSON(http.StatusBadRequest, gin.H{
+                 &quot;error&quot;: err.Error(),
+          })
+          c.Abort()
+          return
+         }
+       }
+       c.Next()
+    }
+}
 </code></pre>
-<h3 id="上传-ipa">上传 ipa</h3>
-<pre><code>    xcrun altool --upload-app -f xxxx.ipa -t ios --apiKey xxxxx --apiIssuer xxxxx--verbose
-
-
-    上面一个命令，区别只在于， 校验是 validate-app , 上传是 upload-appxxxx.ipa 是 ipa文件的绝对路径 (以防万一，最好写绝对)apiKey xxxx 此处的 xxxx为 apiKey的值，获取方法见下面apiIssuer xxxx 此处的 xxxx为 apiIssuer的值，获取方法见下面
-</code></pre>
-<h5 id="获取方式"><a href="https://www.jianshu.com/p/56d57eef81de">获取方式</a></h5>
-<p>1、进入<a href="https://idmsa.apple.com/IDMSWebAuth/signin?appIdKey=891bd3417a7776362562d2197f89480a8547b108fd934911bcbea0110d07f757&amp;path=%2Faccount%2F&amp;rv=1">开发者后台</a> -&gt; <a href="https://www.jianshu.com/p/56d57eef81de">用户和访问</a></p>
-<figure data-type="image" tabindex="1"><img src="https://shineyangpro.com/post-images/1603100571094.png" alt="" loading="lazy"></figure>
-<p>2、<a href="https://www.jianshu.com/p/56d57eef81de">apiKey</a> 即密钥ID</p>
-<p>3、 <a href="https://www.jianshu.com/p/56d57eef81de">apiIssuer</a> 即 Issuer ID<br>
-<img src="https://shineyangpro.com/post-images/1603100643086.png" alt="" loading="lazy"></p>
-<h3 id="上传成功">上传成功</h3>
-<figure data-type="image" tabindex="2"><img src="https://shineyangpro.com/post-images/1603100657401.png" alt="" loading="lazy"></figure>
-<p><mark>要把开发者中心的密钥文件下载到电脑上，最好是放到用户的目录下面/用户/xxx</mark></p>
+<h3 id="参考">参考</h3>
+<p><img src="https://pkg.go.dev/github.com/go-playground/validator#readme-package-validator" alt="package validator" loading="lazy"><br>
+<img src="https://pkg.go.dev/github.com/go-playground/validator#hdr-Required" alt="Required" loading="lazy"></p>
 
                 </div>
             </article>
@@ -135,8 +151,8 @@
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyangpro.com/swift-ba-1234656-zhuan-hua-cheng-123-wan-huo-123-yi-huo-1-wan-1-yi/" class="post-title gt-a-link">
-                    Swift 把 1234656转化成 1.23万 或1.23亿 或 1 万 ，1亿
+                <a href="https://shineyangpro.com/shi-yong-golang-fa-song-dian-zi-you-jian-de-bu-tong-fang-fa/" class="post-title gt-a-link">
+                    使用Golang发送电子邮件的不同方法
                 </a>
             </div>
         
