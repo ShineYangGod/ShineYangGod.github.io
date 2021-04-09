@@ -1,0 +1,431 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>iOS相关面试题(一) | ShineYang</title>
+
+<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1617959744395">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shineyangpro.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            ShineYang
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/friends" class="menu gt-a-link">
+                            友链
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1617959744395" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    iOS相关面试题(一)
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-04-03 ·
+                    </time>
+                    
+                </div>
+                <div class="post-content">
+                    <h3 id="1-事件响应链是如何传递的">1、事件响应链是如何传递的？</h3>
+<p>当你点击了屏幕会产生一个触摸事件，系统会将该事件加入到一个由UIApplication管理的事件队列中，UIApplication会从消息队列里取事件分发下去，首先传给UIWindow，UIWindow会使用hitTest:withEvent:方法找到此次触摸事件初始点所在的视图，找到这个视图之后他就会调用视图的touchesBegan:withEvent:方法来处理事件</p>
+<blockquote>
+<p>为什么是队列而不是栈？<br>
+因为队列的特定是先进先出，先产生的事件先处理才符合常理，所以把事件添加到队列。</p>
+</blockquote>
+<h3 id="2-nsnotificaiton-是同步还是异步的如果发通知时在子线程接收在哪个线程">2、NSNotificaiton 是同步还是异步的，如果发通知时在子线程，接收在哪个线程？</h3>
+<p>同步的<br>
+Notification的发送与接收处理都是在同一个线程中</p>
+<p>引用下官方文档:</p>
+<blockquote>
+<p>In a multithreaded application, notifications are always delivered in the thread in which the notification was posted, which may not be the same thread in which an observer registered itself.</p>
+</blockquote>
+<p>翻译过来就是:</p>
+<blockquote>
+<p>在多线程应用中，Notification在哪个线程中post，就在哪个线程中被转发，而不一定是在注册观察者的那个线程中。</p>
+</blockquote>
+<h3 id="3-什么是异步渲染">3、什么是异步渲染？</h3>
+<p>异步绘制，就是可以在子线程把需要绘制的图形，提前在子线程处理好。 将准备好的图像数据直接返给主线程使用，这样可以降低主线程的压力</p>
+<h3 id="4-layoutsubviews-调用时机">4、layoutSubviews 调用时机</h3>
+<p>1、init初始化不会触发layoutSubviews<br>
+2、addSubview会触发layoutSubviews,(如果添加的子控件没有Frame,不会调用;)<br>
+3、设置view的Frame会触发layoutSubviews，当然前提是frame的值设置前后发生了变化<br>
+4、滚动一个UIScrollView会触发layoutSubviews<br>
+5、旋转Screen会触发父UIView上的layoutSubviews事件<br>
+6、改变一个UIView大小的时候也会触发父UIView上的layoutSubviews事件</p>
+<h3 id="5-什么是离屏渲染什么情况会导致离屏渲染">5、什么是离屏渲染，什么情况会导致离屏渲染？</h3>
+<p><code>离屏渲染</code>：经过层叠加和处理后，再存储到帧缓存去中，然后绘制到屏幕上，这种处理方式叫做离屏渲染</p>
+<ul>
+<li>采用了光栅化的 layer (layer.shouldRasterize)</li>
+<li>使用了 mask 的 layer (layer.mask)</li>
+<li>需要进行裁剪的 layer (layer.masksToBounds /view.clipsToBounds)</li>
+<li>设置了组透明度为 YES，并且透明度不为 1 的layer (layer.allowsGroupOpacity/ layer.opacity)</li>
+<li>使用了高斯模糊</li>
+<li>添加了投影的 layer (layer.shadow*)</li>
+<li>绘制了文字的 layer (UILabel, CATextLayer, Core Text 等)</li>
+</ul>
+<h3 id="6-coreanimation-这个框架的作用什么它跟-uikit-的关系是什么">6、CoreAnimation 这个框架的作用什么，它跟 UIKit 的关系是什么？</h3>
+<p>Core Animation：核心动画；<br>
+Core Graphics：核心绘制 ；<br>
+UIkit：ios基础视图框架。</p>
+<p>1、UIkit继承自 Core Animation 和Core Graphics；可以看成是对两者的高度集成，方便开发者直接应用<br>
+2、uiview通过内部图层layer显示在屏幕上，本身并不能显示。当UIView需要显示到屏幕上时，会调用drawRect:方法进行绘图，并且会将所有内容绘制在自己的layer图层上，绘图完毕后，系统会将图层拷贝到屏幕上，于是就完成了UIView的显示。<br>
+3、layer层的重要性：Core Animation所有的动画都是操作的uiview的layer层，而所有的Core Graphics绘制的内容，都是绘制在layer层上。</p>
+<h3 id="7-如何代码实现监听僵尸对象">7、如何代码实现监听僵尸对象</h3>
+<p>1、 Zombie Object 有什么用?</p>
+<ul>
+<li>僵尸对象一种用来检测内存错误(EXC_BAD_ACCESS)的对象，它可以捕获任何对尝试访问坏内存的调用。</li>
+<li>如果给僵尸对象发送消息时，那么将在运行期间崩溃和输出错误日志。通过日志可以定位到野指针对象调用的方法和类名。</li>
+</ul>
+<p>2、 如何开启Zombie Object检测</p>
+<blockquote>
+<p>在Xcode中设置Edit Scheme -&gt; Diagnostics -&gt; Zombie Objects</p>
+</blockquote>
+<p>3、Zombie Object的生成过程是怎么样的</p>
+<pre><code>//1、获取到即将deallocted对象所属类（Class）
+Class cls = object_getClass(self);
+
+//2、获取类名
+const char *clsName = class_getName(cls)
+
+//3、生成僵尸对象类名
+const char *zombieClsName = &quot;_NSZombie_&quot; + clsName;
+
+//4、查看是否存在相同的僵尸对象类名，不存在则创建
+Class zombieCls = objc_lookUpClass(zombieClsName);
+if (!zombieCls) {
+//5、获取僵尸对象类 _NSZombie_
+Class baseZombieCls = objc_lookUpClass(“_NSZombie_&quot;);
+
+//6、创建 zombieClsName 类
+zombieCls = objc_duplicateClass(baseZombieCls, zombieClsName, 0);
+}
+//7、在对象内存未被释放的情况下销毁对象的成员变量及关联引用。
+objc_destructInstance(self);
+
+//8、修改对象的 isa 指针，令其指向特殊的僵尸类
+objc_setClass(self, zombieCls);
+</code></pre>
+<h3 id="8-imagewithname什么时候发生编解码在什么线程">8、imageWithName什么时候发生编解码，在什么线程</h3>
+<h5 id="图片的解码">图片的解码</h5>
+<p>当你用 UIImage 或 CGImageSource 的那几个方法创建图片时，图片数据并不会立刻解码。图片设置到 UIImageView 或者 CALayer.contents 中去，并且 CALayer 被提交到 GPU 前，CGImage 中的数据才会得到解码。这一步是发生在主线程的，并且不可避免。如果想要绕开这个机制，常见的做法是在后台线程先把图片绘制到 CGBitmapContext 中，然后从 Bitmap 直接创建图片。目前常见的网络图片库都自带这个功能。</p>
+<h5 id="图片的解码-2">图片的解码</h5>
+<p>图片被加载后需要解码，图片的解码是一个复杂耗时的过程，并且需要占用比原始图片还多的内存资源。</p>
+<p>为了节省内存，iOS 系统会延迟解码过程， 在图片被设置到 layer 的 contents 属性或者设置成 UIImageView 的 image 属性后才会执行解码过程，但是这两个操作都是在主线程进行，还是会带来性能问题。</p>
+<p>如果想要提前解码，可以使用 ImageIO 或者提前将图片绘制到 CGContext 中</p>
+<h5 id="uiimage-缓存是怎么回事">UIImage 缓存是怎么回事？</h5>
+<p>通过 imageNamed 创建 UIImage 时，系统实际上只是在 Bundle 内查找到文件名，然后把这个文件名放到 UIImage 里返回，并没有进行实际的文件读取和解码。当 UIImage 第一次显示到屏幕上时，其内部的解码方法才会被调用，同时解码结果会保存到一个全局缓存去。据我观察，在图片解码后，App 第一次退到后台和收到内存警告时，该图片的缓存才会被清空，其他情况下缓存会一直存在。</p>
+<h5 id="我要是用-imagewithdata-能不能避免缓存呢">我要是用 imageWithData 能不能避免缓存呢？</h5>
+<p>不能。通过数据创建 UIImage 时，UIImage 底层是调用 ImageIO 的 CGImageSourceCreateWithData() 方法。该方法有个参数叫 ShouldCache，在 64 位的设备上，这个参数是默认开启的。这个图片也是同样在第一次显示到屏幕时才会被解码，随后解码数据被缓存到 CGImage 内部。与 imageNamed 创建的图片不同，如果这个图片被释放掉，其内部的解码数据也会被立刻释放。</p>
+<h5 id="怎么能避免缓存呢">怎么能避免缓存呢？</h5>
+<ol>
+<li>
+<p>手动调用 CGImageSourceCreateWithData() 来创建图片，并把 ShouldCache 和 ShouldCacheImmediately 关掉。这么做会导致每次图片显示到屏幕时，解码方法都会被调用，造成很大的 CPU 占用。</p>
+</li>
+<li>
+<p>把图片用 CGContextDrawImage() 绘制到画布上，然后把画布的数据取出来当作图片。这也是常见的网络图片库的做法。</p>
+</li>
+</ol>
+<h3 id="9-isa指针里面有什么">9、isa指针里面有什么?</h3>
+<h4 id="类对象class">类对象(Class)</h4>
+<p>类对象是由程序员定义并在运行时由编译器创建的，它没有自己的实例变量，这里需要注意的是类的成员变量和实例方法列表是属于实例对象的，但其存储于类对象当中的</p>
+<p>Class的定义:</p>
+<pre><code> typedef struct objc_class *Class;
+</code></pre>
+<p>可以看到类是由Class类型来表示的，它是一个objc_class结构类型的指针。我们接着来看objc_class结构体的定义:</p>
+<pre><code>struct objc_class {
+    Class _Nonnull isa  OBJC_ISA_AVAILABILITY;
+
+#if !__OBJC2__
+    Class _Nullable super_class                              OBJC2_UNAVAILABLE;
+    const char * _Nonnull name                               OBJC2_UNAVAILABLE;
+    long version                                             OBJC2_UNAVAILABLE;
+    long info                                                OBJC2_UNAVAILABLE;
+    long instance_size                                       OBJC2_UNAVAILABLE;
+    struct objc_ivar_list * _Nullable ivars                  OBJC2_UNAVAILABLE;
+    struct objc_method_list * _Nullable * _Nullable methodLists                    OBJC2_UNAVAILABLE;
+    struct objc_cache * _Nonnull cache                       OBJC2_UNAVAILABLE;
+    struct objc_protocol_list * _Nullable protocols          OBJC2_UNAVAILABLE;
+#endif
+
+} OBJC2_UNAVAILABLE;
+/* Use `Class` instead of `struct objc_class *` */
+
+</code></pre>
+<ul>
+<li>isa指针是和Class同类型的objc_class结构指针，类对象的指针指向其所属的类，即元类。元类中存储着类对象的类方法，当访问某个类的类方法时会通过该isa指针从元类中寻找方法对应的函数指针</li>
+<li>super_class为该类所继承的父类对象，如果该类已经是最顶层的根类(如NSObject或NSProxy), 则 super_class为NULL</li>
+<li>ivars是一个指向objc_ivar_list类型的指针，用来存储每一个实例变量的地址</li>
+<li>info为运行期使用的一些位标识，比如:</li>
+<li>CLS_CLASS (0x1L)表示该类为普通类, CLS_META (0x2L)则表示该类为元类</li>
+<li>methodLists用来存放方法列表，根据info中的标识信息，当该类为普通类时，存储的方法为实例方法；如果是元类则存储的类方法</li>
+<li>cache用于缓存最近使用的方法。系统在调用方法时会先去cache中查找，在没有查找到时才会去methodLists中遍历获取需要的方法</li>
+</ul>
+<p>###10、 同一线程里面使用两个@synconize会怎么样，是递归锁还是非递归锁？</p>
+<p>1、synchronized中传入的object的内存地址，被用作key，通过hash map对应的一个系统维护的递归锁。所以不管是传入什么类型的object，只要是有内存地址，就能启动同步代码块的效果。<br>
+2、synchronized是使用的递归mutex来做同步。</p>
+<pre><code>    NSObject *obj = [[NSObject alloc]init];
+    @synchronized (obj) {
+        NSLog(@&quot;1st sync&quot;);
+        @synchronized (obj) {
+            NSLog(@&quot;2nd sync&quot;);
+        }
+    }
+</code></pre>
+<h3 id="11-如何增加按钮点击范围">11、如何增加按钮点击范围</h3>
+<p>UIButton分类<br>
+使用方法：button控件调用</p>
+<pre><code>button setHitTestEdgeInsets:UIEdgeInsetsMake(-50, - 50, -50, - 50)];
+
+
+#import &lt;UIKit/UIKit.h&gt;
+@interface UIButton (BigFream)
+@property(nonatomic, assign) UIEdgeInsets hitTestEdgeInsets;
+@end
+
+#import &quot;UIButton+BigFream.h&quot;
+#import &lt;objc/runtime.h&gt;
+@implementation UIButton (BigFream)
+@dynamic hitTestEdgeInsets;
+static const NSString *KEY_HIT_TEST_EDGE_INSETS =  @&quot;HitTestEdgeInsets&quot;;
+-(void)setHitTestEdgeInsets:(UIEdgeInsets)hitTestEdgeInsets {
+    NSValue *value = [NSValue value:&amp;hitTestEdgeInsets withObjCType:@encode(UIEdgeInsets)];
+    objc_setAssociatedObject(self, &amp;KEY_HIT_TEST_EDGE_INSETS, value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+-(UIEdgeInsets)hitTestEdgeInsets {
+    NSValue *value = objc_getAssociatedObject(self, &amp;KEY_HIT_TEST_EDGE_INSETS);
+    if(value) {
+        UIEdgeInsets edgeInsets;
+        [value getValue:&amp;edgeInsets];
+        return edgeInsets;
+    }else {
+       return UIEdgeInsetsZero;
+    }
+}
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    if(UIEdgeInsetsEqualToEdgeInsets(self.hitTestEdgeInsets, UIEdgeInsetsZero) ||       !self.enabled || self.hidden) {
+        return [super pointInside:point withEvent:event];
+}
+    CGRect relativeFrame = self.bounds;
+    CGRect hitFrame = UIEdgeInsetsInsetRect(relativeFrame, self.hitTestEdgeInsets);
+    return CGRectContainsPoint(hitFrame, point);
+}
+</code></pre>
+<h3 id="12-tcp如何保证数据传输完整性">12、TCP如何保证数据传输完整性</h3>
+<ul>
+<li>通过序列号和确认应答信号确保了数据不会重复发送和重复接收。</li>
+<li>同时通过超时重发控制保证即使数据包在传输过程中丢失，也能重发保持数据完整。</li>
+<li>通过三次握手，四次挥手建立和关闭连接的连接管理保证了端对端的通信可靠性。</li>
+<li>TCP还使用了滑动窗口控制提高了数据传输效率</li>
+</ul>
+<h3 id="13-class_copyivarlist-class_copypropertylist区别">13、class_copyIvarList &amp; class_copyPropertyList区别</h3>
+<p>class_copyPropertyList返回的仅仅是对象类的属性(@property申明的属性);<br>
+class_copyIvarList返回类的所有属性和变量(包括在@interface大括号中声明的变量);</p>
+<h3 id="14-class_ro_t-和-class_rw_t-的区别">14、class_ro_t 和 class_rw_t 的区别？</h3>
+<p>区别在于：class_ro_t存放的是编译期间就确定的；而class_rw_t是在runtime时才确定，它会先将class_ro_t的内容拷贝过去，然后再将当前类的分类的这些属性、方法等拷贝到其中。所以可以说class_rw_t是class_ro_t的超集，当然实际访问类的方法、属性等也都是访问的class_rw_t中的内容</p>
+<h3 id="15-category如何被加载的两个category的load方法的加载顺序两个category的同名方法的加载顺序">15、category如何被加载的,两个category的load方法的加载顺序，两个category的同名方法的加载顺序</h3>
+<p>category的加载是在运行时发生的，加载过程是，把category的实例方法、属性、协议添加到类对象上。把category的类方法、属性、协议添加到metaclass上。</p>
+<p>category的load方法执行顺序是根据类的编译顺序决定的，即：xcode中的Build Phases中的Compile Sources中的文件从上到下的顺序加载的。</p>
+<p>category并不会替换掉同名的方法的，也就是说如果 category 和原来类都有 methodA，那么 category 附加完成之后，类的方法列表里会有两个 methodA，并且category添加的methodA会排在原有类的methodA的前面，因此如果存在category的同名方法，那么在调用的时候，则会先找到最后一个编译的 category 里的对应方法。</p>
+<h3 id="16-category-extension区别能给nsobject添加extension吗结果如何">16、category &amp; extension区别，能给NSObject添加Extension吗，结果如何</h3>
+<p>category：分类</p>
+<p>给类添加新的方法<br>
+不能给类添加成员变量<br>
+通过@property定义的变量，只能生成对应的getter和setter的方法声明，但是不能实现getter和setter方法，同时也不能生成带下划线的成员属性<br>
+是运行期决定的<br>
+注意：为什么不能添加属性，原因就是category是运行期决定的，在运行期类的内存布局已经确定，如果添加实例变量会破坏类的内存布局，会产生意想不到的错误。</p>
+<p>extension：扩展</p>
+<p>可以给类添加成员变量，但是是私有的 可以給类添加方法，但是是私有的 添加的属性和方法是类的一部分，在编译期就决定的。在编译器和头文件的@interface和实现文件里的@implement一起形成了一个完整的类。 伴随着类的产生而产生，也随着类的消失而消失 必须有类的源码才可以给类添加extension，所以对于系统一些类，如nsstring，就无法添加类扩展 不能给NSObject添加Extension，因为在extension中添加的方法或属性必须在源类的文件的.m文件中实现才可以，即：你必须有一个类的源码才能添加一个类的extension。</p>
+<h3 id="17-ios-消息转发机制消息转发机制和其他语言的消息机制优劣对比">17、ios 消息转发机制，消息转发机制和其他语言的消息机制优劣对比</h3>
+<p>消息转发机制：</p>
+<p>消息转发机制是相对于消息传递机制而言的。</p>
+<p>1.消息(传递)机制</p>
+<p>RunTime简称运行时。就是系统在运行的时候的一些机制，其中最主要的是消息机制。</p>
+<p>对于C语言，函数的调用在编译的时候会决定调用哪个函数。编译完成之后直接顺序执行，无任何二义性。OC的函数调用称为消息发送。属于动态调用过程。在编译的时候并不能决定真正调用哪个函数（也就是说，在编译阶段，OC可以调用任何函数，即使这个函数并未实现，只要申明过就不会报错。而C语言在编译阶段就会报错）。只有在真正运行的时候才会根据函数的名称找 到对应的函数来调用。</p>
+<p>[obj makeText];</p>
+<p>首先，编译器将代码[obj makeText];转化为objc_msgSend(obj, @selector (makeText));，在objc_msgSend函数中。首先通过obj的isa指针找到obj对应的class。在Class中先去cache中 通过SEL查找对应函数method，若 cache中未找到。再去methodList中查找，若methodlist中未找到，则取superClass中查找。若能找到，则将method加入到cache中，以方便下次查找，并通过method中的函数指针跳转到对应的函数中去执行。</p>
+<p>2.消息转发机制（可以间接实现多重继承）</p>
+<p>当向someObject发送某消息，但runtime在当前类和父类中都找不到对应方法的实现时，runtime并不会立即报错使程序崩溃，而是依次执行下列步骤：</p>
+<p>1.动态方法解析：向当前类发送 resolveInstanceMethod: 信号，检查是否动态向该类添加了方法。（迷茫请搜索：@dynamic）</p>
+<p>2.快速消息转发：检查该类是否实现了 forwardingTargetForSelector: 方法，若实现了则调用这个方法。若该方法返回值对象非nil或非self，则向该返回对象重新发送消息。</p>
+<p>3.标准消息转发：runtime发送methodSignatureForSelector消息获取Selector对应的方法签名。返回值非空则通过forwardInvocation:转发消息，返回值为空则向当前对象发送doesNotRecognizeSelector:消息，程序崩溃退出。</p>
+<p>这样如果本类中没有的方法，就会去class中尝试查找，如果有，则返回class对象，让其执行，这样就实现了快速消息转发</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+
+        
+
+        
+            
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+<script>
+    // md5.min.js
+    !function(n){
+        "use strict";
+        function d(n,t){var r=(65535&n)+(65535&t);return(n>>16)+(t>>16)+(r>>16)<<16|65535&r}
+        function f(n,t,r,e,o,u){return d((c=d(d(t,n),d(e,u)))<<(f=o)|c>>>32-f,r);var c,f}
+        function l(n,t,r,e,o,u,c){return f(t&r|~t&e,n,t,o,u,c)}
+        function v(n,t,r,e,o,u,c){return f(t&e|r&~e,n,t,o,u,c)}
+        function g(n,t,r,e,o,u,c){return f(t^r^e,n,t,o,u,c)}
+        function m(n,t,r,e,o,u,c){return f(r^(t|~e),n,t,o,u,c)}
+        function i(n,t){var r,e,o,u,c;n[t>>5]|=128<<t%32,n[14+(t+64>>>9<<4)]=t;var f=1732584193,i=-271733879,a=-1732584194,h=271733878;for(r=0;r<n.length;r+=16)f=l(e=f,o=i,u=a,c=h,n[r],7,-680876936),h=l(h,f,i,a,n[r+1],12,-389564586),a=l(a,h,f,i,n[r+2],17,606105819),i=l(i,a,h,f,n[r+3],22,-1044525330),f=l(f,i,a,h,n[r+4],7,-176418897),h=l(h,f,i,a,n[r+5],12,1200080426),a=l(a,h,f,i,n[r+6],17,-1473231341),i=l(i,a,h,f,n[r+7],22,-45705983),f=l(f,i,a,h,n[r+8],7,1770035416),h=l(h,f,i,a,n[r+9],12,-1958414417),a=l(a,h,f,i,n[r+10],17,-42063),i=l(i,a,h,f,n[r+11],22,-1990404162),f=l(f,i,a,h,n[r+12],7,1804603682),h=l(h,f,i,a,n[r+13],12,-40341101),a=l(a,h,f,i,n[r+14],17,-1502002290),f=v(f,i=l(i,a,h,f,n[r+15],22,1236535329),a,h,n[r+1],5,-165796510),h=v(h,f,i,a,n[r+6],9,-1069501632),a=v(a,h,f,i,n[r+11],14,643717713),i=v(i,a,h,f,n[r],20,-373897302),f=v(f,i,a,h,n[r+5],5,-701558691),h=v(h,f,i,a,n[r+10],9,38016083),a=v(a,h,f,i,n[r+15],14,-660478335),i=v(i,a,h,f,n[r+4],20,-405537848),f=v(f,i,a,h,n[r+9],5,568446438),h=v(h,f,i,a,n[r+14],9,-1019803690),a=v(a,h,f,i,n[r+3],14,-187363961),i=v(i,a,h,f,n[r+8],20,1163531501),f=v(f,i,a,h,n[r+13],5,-1444681467),h=v(h,f,i,a,n[r+2],9,-51403784),a=v(a,h,f,i,n[r+7],14,1735328473),f=g(f,i=v(i,a,h,f,n[r+12],20,-1926607734),a,h,n[r+5],4,-378558),h=g(h,f,i,a,n[r+8],11,-2022574463),a=g(a,h,f,i,n[r+11],16,1839030562),i=g(i,a,h,f,n[r+14],23,-35309556),f=g(f,i,a,h,n[r+1],4,-1530992060),h=g(h,f,i,a,n[r+4],11,1272893353),a=g(a,h,f,i,n[r+7],16,-155497632),i=g(i,a,h,f,n[r+10],23,-1094730640),f=g(f,i,a,h,n[r+13],4,681279174),h=g(h,f,i,a,n[r],11,-358537222),a=g(a,h,f,i,n[r+3],16,-722521979),i=g(i,a,h,f,n[r+6],23,76029189),f=g(f,i,a,h,n[r+9],4,-640364487),h=g(h,f,i,a,n[r+12],11,-421815835),a=g(a,h,f,i,n[r+15],16,530742520),f=m(f,i=g(i,a,h,f,n[r+2],23,-995338651),a,h,n[r],6,-198630844),h=m(h,f,i,a,n[r+7],10,1126891415),a=m(a,h,f,i,n[r+14],15,-1416354905),i=m(i,a,h,f,n[r+5],21,-57434055),f=m(f,i,a,h,n[r+12],6,1700485571),h=m(h,f,i,a,n[r+3],10,-1894986606),a=m(a,h,f,i,n[r+10],15,-1051523),i=m(i,a,h,f,n[r+1],21,-2054922799),f=m(f,i,a,h,n[r+8],6,1873313359),h=m(h,f,i,a,n[r+15],10,-30611744),a=m(a,h,f,i,n[r+6],15,-1560198380),i=m(i,a,h,f,n[r+13],21,1309151649),f=m(f,i,a,h,n[r+4],6,-145523070),h=m(h,f,i,a,n[r+11],10,-1120210379),a=m(a,h,f,i,n[r+2],15,718787259),i=m(i,a,h,f,n[r+9],21,-343485551),f=d(f,e),i=d(i,o),a=d(a,u),h=d(h,c);return[f,i,a,h]}
+        function a(n){var t,r="",e=32*n.length;for(t=0;t<e;t+=8)r+=String.fromCharCode(n[t>>5]>>>t%32&255);return r}
+        function h(n){var t,r=[];for(r[(n.length>>2)-1]=void 0,t=0;t<r.length;t+=1)r[t]=0;var e=8*n.length;for(t=0;t<e;t+=8)r[t>>5]|=(255&n.charCodeAt(t/8))<<t%32;return r}
+        function e(n){var t,r,e="0123456789abcdef",o="";for(r=0;r<n.length;r+=1)t=n.charCodeAt(r),o+=e.charAt(t>>>4&15)+e.charAt(15&t);return o}
+        function r(n){return unescape(encodeURIComponent(n))}
+        function o(n){return a(i(h(t=r(n)),8*t.length));var t}
+        function u(n,t){return function(n,t){var r,e,o=h(n),u=[],c=[];for(u[15]=c[15]=void 0,16<o.length&&(o=i(o,8*n.length)),r=0;r<16;r+=1)u[r]=909522486^o[r],c[r]=1549556828^o[r];return e=i(u.concat(h(t)),512+8*t.length),a(i(c.concat(e),640))}(r(n),r(t))}
+        function t(n,t,r){return t?r?u(t,n):e(u(t,n)):r?o(n):e(o(n))}
+        "function"==typeof define&&define.amd?define(function(){return t}):"object"==typeof module&&module.exports?module.exports=t:n.md5=t;
+    }(this);
+</script>
+
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '195888eb6f21583b91e3',
+    clientSecret: '7b8d5bd89ce3c23d844751f2cec4e8eb92411d0c',
+    repo: 'ShineYangGod.github.io',
+    owner: 'ShineYangGod',
+    admin: ['ShineYangGod'],
+    id: md5(location.pathname),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false       // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+            
+
+            
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first"><i>the purpose of living is to change the world<i></div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/ShineYangGod" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Copyright 2021 &copy <a href="https://twitter.com/mei_samson" target="_blank">
+<span style="color:blue">ShineYang</span></a><br><br>
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shineyangpro.com/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>

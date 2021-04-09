@@ -1,0 +1,591 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>iOS面试题(二) | ShineYang</title>
+
+<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1617959744395">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://shineyangpro.com/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            ShineYang
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/archives" class="menu gt-a-link">
+                            归档
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/about" class="menu gt-a-link">
+                            关于
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/friends" class="menu gt-a-link">
+                            友链
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1617959744395" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    iOS面试题(二)
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2021-04-07 ·
+                    </time>
+                    
+                        <a href="https://shineyangpro.com/1pnPGiG8F/" class="post-tags">
+                            # ios面试题
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h3 id="1-在方法调用的时候方法查询-动态解析-消息转发-之前做了什么">1、在方法调用的时候，方法查询-&gt; 动态解析-&gt; 消息转发 之前做了什么</h3>
+<p>OC中的方法调用，编译后的代码最终都会转成objc_msgSend(id , SEL, ...)方法进行调用，这个方法第一个参数是一个消息接收者对象，runtime通过这个对象的isa指针找到这个对象的类对象，从类对象中的cache中查找是否存在SEL对应的IMP，若不存在，则会在 method_list中查找，如果还是没找到，则会到supper_class中查找，仍然没找到的话，就会调用_objc_msgForward(id, SEL, ...)进行消息转发</p>
+<h3 id="2-imp-sel-method的区别和使用场景">2、IMP、SEL、Method的区别和使用场景</h3>
+<p>SEL : 方法选择器,SEL是函数objc_msgSend第二个参数的数据类型，表示方法选择器 ，在ios开发中SEL就是可以根据一个SEL选择对应的方法IMP，更偏向于c里的函数声明 ;<br>
+Method : 就是一个指向objc_method结构体指针，它存储了方法名(method_name)、方法类型(method_types)和一个指向方法实现的函数指针(method_imp)等信息 ;<br>
+IMP : 本质上就是一个函数指针，指向方法的实现的地址,当你向某个对象发送一条信息，可以由这个函数指针来指定方法的实现，它最终就会执行那段代码，这样可以绕开消息传递阶段而去执行另一个方法实现。</p>
+<h3 id="3-load-initialize方法的区别什么在继承关系中他们有什么区别">3、load、initialize方法的区别什么？在继承关系中他们有什么区别？</h3>
+<ul>
+<li>+initialize和+load的一个很大区别是，+initialize是通过objc_msgSend进行调用；</li>
+<li>如果子类没有实现+initialize方法，会调用父类的+initialize(所以父类的+initialize方法可能会被调用多次)</li>
+<li>如果分类实现了+initialize，会覆盖类本身的+initialize调用。</li>
+<li>load方法是在runtime加载类和分类的时候调用。</li>
+<li>load方法的调用并不是objc_msgSend机制，它是直接找到类的load方法的地址，然后调用类的load方法，然后再找到分类的load方法的地址，再去调用它。</li>
+</ul>
+<h3 id="4-weak的实现原理sidetable的结构是什么样的">4、weak的实现原理？SideTable的结构是什么样的</h3>
+<p>weak：其实是一个hash表结构，其中的key是所指对象的地址，value是weak的指针数组，weak表示的是弱引用，不会对对象引用计数+1，当引用的对象被释放的时候，其值被自动设置为nil，一般用于解决循环引用的。</p>
+<p>weak的实现原理</p>
+<p>1、初始化时：runtime会调用objc_initWeak函数，初始化一个新的weak指针指向对象的地址。</p>
+<p>2、添加引用时：objc_initWeak函数会调用 objc_storeWeak() 函数， objc_storeWeak() 的作用是更新指针指向，创建对应的弱引用表。</p>
+<p>3、释放时，调用clearDeallocating函数。clearDeallocating函数首先根据对象地址获取所有weak指针地址的数组，然后遍历这个数组把其中的数据设为nil，最后把这个entry从weak表中删除，最后清理对象的记录。</p>
+<p>SideTable的结构如下：</p>
+<pre><code>struct SideTable {
+// 保证原子操作的自旋锁
+    spinlock_t slock;
+    // 引用计数的 hash 表
+    RefcountMap refcnts;
+    // weak 引用全局 hash 表
+    weak_table_t weak_table;
+}
+</code></pre>
+<h3 id="3-关联对象的应用系统如何实现关联对象的">3、关联对象的应用？系统如何实现关联对象的</h3>
+<p>实现关联对象技术的核心对象有</p>
+<p>AssociationsManager<br>
+AssociationsHashMap<br>
+ObjectAssociationMap<br>
+ObjcAssociation<br>
+其中Map同我们平时使用的字典类似。通过key-value一一对应存值。</p>
+<h3 id="4-关联对象的如何进行内存管理的关联对象如何实现weak属性">4、关联对象的如何进行内存管理的？关联对象如何实现weak属性</h3>
+<p>实现weak,用__weak修饰对象,并将其用block包裹,关联时,关联block对象</p>
+<pre><code>-(void)setWeakvalue:(NSObject *)weakvalue {
+    __weak typeof(weakvalue) weakObj = weakvalue;
+    typeof(weakvalue) (^block)() = ^(){
+        return weakObj;
+    };
+    objc_setAssociatedObject(self, weakValueKey, block, OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+-(NSObject *)weakvalue {
+    id (^block)() = objc_getAssociatedObject(self, weakValueKey);
+    return block();
+}
+</code></pre>
+<h3 id="5-autoreleasepool的原理所使用的的数据结构是什么">5、Autoreleasepool的原理？所使用的的数据结构是什么？</h3>
+<p>自动释放池是一个 AutoreleasePoolPage 组成的一个page是4096字节大小,每个 AutoreleasePoolPage 以双向链表连接起来形成一个自动释放池</p>
+<p>pop 时是传入边界对象,然后对page 中的对象发送release 的消息</p>
+<p>AutoreleasePool的释放有如下两种情况：</p>
+<p>一种是Autorelease对象是在当前的runloop迭代结束时释放的，而它能够释放的原因是系统在每个runloop迭代中都加入了自动释放池Push和Pop。</p>
+<p>手动调用AutoreleasePool的释放方法（drain方法）来销毁AutoreleasePool或者@autoreleasepool{}执行完释放</p>
+<h3 id="6-arc的实现原理arc下对retain-release做了哪些优化">6、ARC的实现原理？ARC下对retain &amp; release做了哪些优化</h3>
+<p>通过 retainCount 的机制来决定对象是否需要释放。每次 runloop 的时候，都会检查对象的 retainCount，如果retainCount 为 0，说明该对象没有地方需要继续使用了，可以释放掉了。</p>
+<p>ARC相对于MRC，不是在编译时添加retain/release/autorelease这么简单。应该是编译期和运行期两部分共同帮助开发者管理内存。</p>
+<p>在编译期，ARC用的是更底层的C接口实现的retain/release/autorelease，这样做性能更好，也是为什么不能在ARC环境下手动retain/release/autorelease，同时对同一上下文的同一对象的成对retain/release操作进行优化（即忽略掉不必要的操作）；ARC也包含运行期组件，这个地方做的优化比较复杂，但也不能被忽略</p>
+<p>1.ARC 会自动执行 retain 、release、autorelease等操作，在ARC下不能主动调用这些内存管理方法。</p>
+<p>2.ARC在调用这些方法时，并不通过objective-c的消息转发机制，而是直接调用其底层C语言版本API，这样做性能更好，因为保留及释放操作需要频繁的执行，直接调用其底层的函数能节省很多CPU周期，如ARC会调用与retain等价的底层函数objc_retain.</p>
+<p>3.在使用ARC时必须遵循方法命名规则，alloc，new，copy，mutablecopy。ARC通过命名约定将内存管理标准化。</p>
+<p>4.ARC管理对象生命期的办法是：在合适的地方，插入“保留”及“释放”操作。在方法中创建的对象，在方法中自动插入release；类中的对象，在dealloc方法中释放。</p>
+<p>5.ARC下，变量的内存管理语义可以通过修饰符指明。</p>
+<p>6.ARC只负责管理objective-c 对象的内存，CoreFoundation 对象不归ARC管理。</p>
+<h3 id="7-method-swizzling你应该注意的点">7、method swizzling你应该注意的点</h3>
+<ul>
+<li>避免交换父类方法</li>
+<li>交换方法应在+load方法</li>
+<li>交换方法应该放到dispatch_once中执行</li>
+<li>交换的分类方法应该添加自定义前缀，避免冲突</li>
+<li>交换的分类方法应调用原实现</li>
+</ul>
+<h3 id="8-属性修饰符atomic的内部实现是怎么样的能保证线程安全吗">8、属性修饰符atomic的内部实现是怎么样的?能保证线程安全吗?</h3>
+<p>atomic不是绝对的线程安全。 atomic的本意是指属性的存取方法是线程安全的，并不保证整个对象是线程安全的@property ( 在iOS中，atomic表示一个类的属性getter/setter具有原子性。</p>
+<h3 id="9-class-objc_getclass-object_getclass-方法有什么区别">9、class、objc_getClass、object_getclass 方法有什么区别?</h3>
+<p>对于 class 和 object_getClass 和 objc_getClass 三种方法，首先：全部返回 Class 类对象</p>
+<ul>
+<li>class 方法无论是类对象还是实例对象都可以调用，可以嵌套，返回永远是自身的类对象。</li>
+<li>object_getClass 和 class 同样可以嵌套，但是 object_getClass 得到的是他的 isa 指向的地址</li>
+<li>objc_getClass 无法嵌套，因为参数 是 char 类型，效果和 class 相同(因为不能嵌套，所以和class可以认为是相同的)</li>
+</ul>
+<h3 id="10-实现原理结构设计-通知如何存储的-nameobserversel之间的关系等">10、实现原理（结构设计、通知如何存储的、name&amp;observer&amp;SEL之间的关系等）</h3>
+<p>首先通知中心结构大概分为如下几个类</p>
+<ul>
+<li>NSNotification 通知的模型 name、object、userinfo.</li>
+<li>NSNotificationCenter通知中心 负责发送NSNotification</li>
+<li>NSNotificationQueue通知队列 负责在某些时机触发 调用NSNotificationCenter通知中心 post通知</li>
+</ul>
+<p>通知是结构体通过双向链表进行数据存储</p>
+<p>简单理解name&amp;observer&amp;SEL之间的关系就是name作为key, observer作为观察者对象,当合适时机触发就会调用observer的SEL.</p>
+<h3 id="11-通知的发送时同步的还是异步的">11、通知的发送时同步的，还是异步的</h3>
+<p>同步发送.因为要调用消息转发.所谓异步，指的是非实时发送而是在合适的时机发送，并没有开启异步线程.</p>
+<h3 id="12-nsnotificationcenter接受消息和发送消息是在一个线程里吗如何异步发送消息">12、NSNotificationCenter接受消息和发送消息是在一个线程里吗？如何异步发送消息</h3>
+<p>是的, 异步线程发送通知则响应函数也是在异步线程.<br>
+异步发送通知可以开启异步线程发送即可.</p>
+<h3 id="13-nsnotificationqueue是异步还是同步发送在哪个线程响应">13、NSNotificationQueue是异步还是同步发送？在哪个线程响应?</h3>
+<p>NSNotificationCenter都是同步发送的，NSNotificationQueue的异步发送，从线程的角度看并不是真正的异步发送，或可称为延时发送，它是利用了runloop的时机来触发的.</p>
+<p>异步线程发送通知则响应函数也是在异步线程,主线程发送则在主线程.</p>
+<h3 id="14-nsnotificationqueue和runloop的关系">14、NSNotificationQueue和runloop的关系</h3>
+<p>NSNotificationQueue依赖runloop. 因为通知队列要在runloop回调的某个时机调用通知中心发送通知.从下面的枚举值就能看出来</p>
+<pre><code>// 表示通知的发送时机
+typedef NS_ENUM(NSUInteger, NSPostingStyle) {
+    NSPostWhenIdle = 1, // runloop空闲时发送通知
+    NSPostASAP = 2, // 尽快发送，这种时机是穿插在每次事件完成期间来做的
+    NSPostNow = 3 // 立刻发送或者合并通知完成之后发送
+};
+</code></pre>
+<h3 id="15-如何保证通知接收的线程在主线程">15、如何保证通知接收的线程在主线程</h3>
+<ul>
+<li>系统接受通知的API指定队列</li>
+<li>NSMachPort的方式 通过在主线程的runloop中添加machPort，设置这个port的delegate，通过这个Port其他线程可以跟主线程通信，在这个port的代理回调中执行的代码肯定在主线程中运行，所以，在这里调用NSNotificationCenter发送通知即可</li>
+</ul>
+<h3 id="16-页面销毁时不移除通知会崩溃吗">16、页面销毁时不移除通知会崩溃吗?</h3>
+<p>iOS9.0之前，会crash，原因：通知中心对观察者的引用是unsafe_unretained，导致当观察者释放的时候，观察者的指针值并不为nil，出现野指针.<br>
+iOS9.0之后，不会crash，原因：通知中心对观察者的引用是weak。</p>
+<h3 id="17-多次添加同一个通知会是什么结果多次移除通知呢">17、多次添加同一个通知会是什么结果？多次移除通知呢</h3>
+<p>多次添加同一个通知，会导致发送一次这个通知的时候，响应多次通知回调。 多次移除通知不会产生crash。</p>
+<h3 id="18-下面的方式能接收到通知吗为什么">18、下面的方式能接收到通知吗？为什么？</h3>
+<pre><code>// 发送通知
+[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:@&quot;TestNotification&quot; object:@1];
+// 接收通知
+[NSNotificationCenter.defaultCenter postNotificationName:@&quot;TestNotification&quot; object:nil];
+</code></pre>
+<p>不能<br>
+首先我们看下通知中心存储通知观察者的结构</p>
+<pre><code>// 根容器，NSNotificationCenter持有
+typedef struct NCTbl {
+  Observation  *wildcard;    /* 链表结构，保存既没有name也没有object的通知 */
+  GSIMapTable nameless;    /* 存储没有name但是有object的通知    */
+  GSIMapTable named;        /* 存储带有name的通知，不管有没有object    */
+    ...
+} NCTable;
+
+// Observation 存储观察者和响应结构体，基本的存储单元
+typedef struct Obs {
+  id observer;    /* 观察者，接收通知的对象    */
+  SEL selector;    /* 响应方法        */
+  struct Obs *next;        /* Next item in linked list.    */
+  ...
+} Observation;
+</code></pre>
+<p>当添加通知监听的时候，我们传入了name和object，所以，观察者的存储链表是这样的：</p>
+<blockquote>
+<p>named表：key(name) : value-&gt;key(object) : value(Observation)</p>
+</blockquote>
+<p>因此在发送通知的时候，如果只传入name而并没有传入object，是找不到Observation的，也就不能执行观察者回调.</p>
+<h3 id="19-app如何接收到触摸事件的">19、app如何接收到触摸事件的</h3>
+<ul>
+<li>首先，手机中处理触摸事件的是硬件系统进程 ，当硬件系统进程识别到触摸事件后，会将这个事件进行封装，并通过machPort,将封装的事件发送给当前活跃的APP进程。</li>
+<li>由于APP的主线程中runloop注册了这个machPort端口，就是用于接收处理这个事件的，所以这里APP收到这个消息后，开始寻找响应链。</li>
+<li>寻找到响应链后，开始分发事件，它会优先发送给手势集合，来过滤这个事件，一旦手势集合中其中一个手势识别了这个事件，那么这个事件将不会发送给响应链对象。</li>
+<li>手势没有识别到这个事件，事件将会发送给响应链对象UIResponser。</li>
+</ul>
+<h3 id="20-为什么只在主线程刷新ui">20、为什么只在主线程刷新UI</h3>
+<ul>
+<li>因为UIKit框架不是线程安全的，当多个线程同时操作UI的时候，抢夺资源，导致崩溃，UI异常等问题。 假如在两个线程中设置了同一张背景图片，很有可能就会由于背景图片被释放两次，使得程序崩溃。 或者某一个线程中遍历找寻某个subView，然而在另一个线程中删除了该subView，那么就会造成错乱。</li>
+<li>另一方面因为整个程序的起点UIApplication是在主线程进行初始化，所有的用户事件都是在主线程上进行传递（如点击、拖动），所以view只能在主线程上才能对事件进行响应。而在渲染方面由于图像的渲染需要以60帧的刷新率在屏幕上 同时更新，在非主线程异步化的情况下无法确定这个处理过程能够实现同步更新。</li>
+</ul>
+<h3 id="21-为什么只有主线程的runloop是开启的">21、为什么只有主线程的runloop是开启的？</h3>
+<p>app启动前会调用main函数，具体如下：</p>
+<pre><code>int main(int argc, char * argv[]) {
+    NSString * appDelegateClassName;
+    @autoreleasepool {
+        // Setup code that might create autoreleased objects goes here.
+        appDelegateClassName = NSStringFromClass([AppDelegate class]);
+    }
+    return UIApplicationMain(argc, argv, nil, appDelegateClassName);
+}
+</code></pre>
+<p>mian函数中调用UIApplicationMain，这里会创建一个主线程，用于UI处理，为了让程序可以一直运行，所以在主线程中开启一个runloop，让主线程常驻。</p>
+<h3 id="22-performselector和runloop的关系">22、PerformSelector和runloop的关系</h3>
+<p>当调用 NSObject 的 performSelecter:afterDelay: 后，实际上其内部会创建一个 Timer 并添加到当前线程的 RunLoop 中。所以如果当前线程没有 RunLoop，则这个方法会失效。</p>
+<p>当调用 performSelector:onThread: 时，实际上其会创建一个 Timer 加到对应的线程去，同样的，如果对应线程没有 RunLoop 该方法也会失效。</p>
+<h3 id="23-如何使线程保活">23、如何使线程保活?</h3>
+<p>向RunLoop中添加port、source等来保证RunLoop不退出</p>
+<h3 id="24-kvo实现原理">24、KVO实现原理</h3>
+<p>当一个对象使用了KVO监听，iOS系统会修改这个对象的isa指针，改为指向一个全新的通过Runtime动态创建的子类，子类拥有自己的set方法实现，set方法实现内部会顺序调用willChangeValueForKey方法、原来的setter方法实现、didChangeValueForKey方法，而didChangeValueForKey方法内部又会调用监听器的observeValueForKeyPath:ofObject:change:context:监听方法。</p>
+<h3 id="25-如何手动关闭kvo">25、如何手动关闭kvo？</h3>
+<p>重写被观察对象的automaticallyNotifiesObserversForKey方法，返回NO</p>
+<h3 id="26-通过kvc修改属性会触发kvo么">26、通过KVC修改属性会触发KVO么?</h3>
+<p>会触发KVO<br>
+KVC在赋值时候,内部会触发监听器（Oberser）的监听方法(observeValueForKeyPath:ofObject:change:context:） 发送通知.</p>
+<h3 id="27-哪些情况下使用kvo会崩溃怎么防护崩溃">27、哪些情况下使用kvo会崩溃，怎么防护崩溃？</h3>
+<p>removeObserver一个未注册的keyPath，导致错误：Cannot remove an observer A for the key path &quot;str&quot;，because it is not registered as an observer. 解决办法：根据实际情况，增加一个添加keyPath的标记，在dealloc中根据这个标记，删除观察者。</p>
+<h3 id="28-kvo优缺点">28、KVO优缺点</h3>
+<p>优点:</p>
+<ul>
+<li>能够提供一种简单的方法实现两个对象间的同步。例如：model和view之间同；</li>
+<li>能够提供观察的属性的最新值以及先前值；</li>
+<li>用key paths来观察属性，因此也可以观察嵌套对象；</li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li>我们观察的属性必须使用strings来定义。因此在编译器不会出现警告以及检查</li>
+<li>对属性重构将导致我们的观察代码不再可用</li>
+</ul>
+<h3 id="29-block的内部实现结构体是什么样的">29、block的内部实现，结构体是什么样的？</h3>
+<pre><code>struct Block_literal_1 {
+    void *isa; // initialized to &amp;_NSConcreteStackBlock or &amp;_NSConcreteGlobalBlock
+    int flags;
+    int reserved;
+    void (*invoke)(void *, ...);
+    struct Block_descriptor_1 {
+    unsigned long int reserved;         // NULL
+        unsigned long int size;         // sizeof(struct Block_literal_1)
+        // optional helper functions
+        void (*copy_helper)(void *dst, void *src);     // IFF (1&lt;&lt;25)
+        void (*dispose_helper)(void *src);             // IFF (1&lt;&lt;25)
+        // required ABI.2010.3.16
+        const char *signature;                         // IFF (1&lt;&lt;30)
+    } *descriptor;
+    // imported variables
+};
+</code></pre>
+<ul>
+<li>isa：由此可知，block也是一个对象类型，具体类型包括_NSConcreteGlobalBlock、_NSConcreteStackBlock、_NSConcreteMallocBlock。</li>
+<li>flags：block 的负载信息（引用计数和类型信息），按位存储</li>
+<li>invoke：是block具体实现函数指针地址，可以通过此地址直接调用block</li>
+<li>Block_descriptor_1：block的描述文内容</li>
+</ul>
+<h3 id="30-block是类吗有哪些类型">30、block是类吗，有哪些类型?</h3>
+<p>从block的结构体中可知，block同样也有一个isa指针，所以block也是一个类，它的类型包括：</p>
+<p>_NSConcreteGlobalBlock _NSConcreteStackBlock _NSConcreteMallocBlock</p>
+<h3 id="31-一个int变量被-__block-修饰与否的区别block的变量截获">31、一个int变量被 __block 修饰与否的区别？block的变量截获</h3>
+<p>没有被__block修饰的int，block体中对这个变量的引用是值拷贝，在block中是不能被修改的。</p>
+<p>通过__block修饰的int，block体中对这个变量的引用是指针拷贝，它会生成一个结构体，复制这个变量的指针引用，从而达到可以修改变量的作用。</p>
+<p>关于block的变量截获：</p>
+<p>block会将block体内引用外部变量的变量进行拷贝，将其拷贝到block的数据结构中，从而可以在block体内访问或修改外部变量。</p>
+<p>外部变量未被__block修饰时，block数据结构中捕获的是外部变量的值，通过__block修饰时，则捕获的是对外部变量的指针引用。</p>
+<p>注意：block内部访问全局变量时，全局变量不会被捕获到block数据结构中。</p>
+<h3 id="32-block在修改nsmutablearray需不需要添加__block">32、block在修改NSMutableArray，需不需要添加__block？</h3>
+<ul>
+<li>如果是操作 NSMutableArray 对象不需要,因为 block 内部拷贝了 NSMutableArray对象的内存地址,实际是通过内存地址操作的</li>
+<li>如果 NSMutableArray 对象要重新赋值,就需要加__block</li>
+</ul>
+<h3 id="33-block可以用strong修饰吗">33、block可以用strong修饰吗？</h3>
+<p>block可以用strong修饰吗？ 在MRC环境中，是不可以的，strong修饰符会对修饰的变量进行retain操作，这样并不会将栈中的block拷贝到堆内存中，而执行的block是在堆内存中，所以用strong修饰的block会导致在执行的时候因为错误的内存地址，导致闪退。</p>
+<h3 id="34-解决循环引用时为什么要用__strong-__weak修饰">34、解决循环引用时为什么要用__strong、__weak修饰？</h3>
+<p>__weak修饰的变量，不会出现引用计数+1，也就不会造成block强持有外部变量，这样也就不会出现循环引用的问题了。</p>
+<p>但是，我们的block内部执行的代码中，有可能是一个异步操作，或者延迟操作，此时引用的外部变量可能会变成nil，导致意想不到的问题，而我们在block内部通过__strong修饰这个变量时，block会在执行过程中强持有这个变量，此时这个变量也就不会出现nil的情况，当block执行完成后，这个变量也就会随之释放了。</p>
+<h3 id="35-block发生copy时机">35、block发生copy时机</h3>
+<p>一般情况在ARC环境中，编译器将创建在栈中的block会自动拷贝到堆内存中，而block作为方法或函数的参数传递时，编译器不会做copy操作。</p>
+<ul>
+<li>block作为方法或函数的返回值时，编译器会自动完成copy操作。</li>
+<li>当block赋值给通过strong或copy修饰的id或block类型的成员变量时。</li>
+<li>当 block 作为参数被传入方法名带有 usingBlock 的 Cocoa Framework 方法或 GCD 的 API 时。</li>
+</ul>
+<h3 id="36-block访问对象类型的auto变量时在arc和mrc下有什么区别">36、Block访问对象类型的auto变量时，在ARC和MRC下有什么区别？</h3>
+<p>在ARC下，由于block被自动copy到了堆区，从而对外部的对象进行强引用，如果这个对象同样强引用这个block，就会形成循环引用。</p>
+<p>在MRC下，由于访问的外部变量是auto修饰的，所以这个block属于栈区的，如果不对block手动进行copy操作，在运行完block的定义代码段后，block就会被释放，而由于没有进行copy操作，所以这个变量也不会经过Block_object_assign处理，也就不会对变量强引用。</p>
+<p>简单说就是：</p>
+<p>ARC下会对这个对象强引用，MRC下不会。</p>
+<h3 id="36-gcd有哪些队列默认提供哪些队列">36、GCD有哪些队列，默认提供哪些队列？</h3>
+<ul>
+<li>并发队列（Concurrent Dispatch Queue）<br>
+可以让多个任务并发（同时）执行（自动开启多个线程同时执行任务）<br>
+并发功能只有在异步（dispatch_async）函数下才有效</li>
+<li>串行队列（Serial Dispatch Queue）<br>
+让任务一个接着一个地执行（一个任务执行完毕后，再执行下一个任务）</li>
+</ul>
+<h3 id="37-gcd有哪些方法api">37、GCD有哪些方法api？</h3>
+<ul>
+<li>dispatch_queue_create</li>
+<li>Main Dispatch Queue/Global Dispatch Queue</li>
+<li>dispatch_set_target_queue</li>
+<li>dispatch_after</li>
+<li>Dispatch Group</li>
+<li>dispatch_barrier_async</li>
+<li>dispatch_sync</li>
+<li>dispatch_once</li>
+</ul>
+<h3 id="38-gcd主线程-主队列的关系">38、GCD主线程 &amp; 主队列的关系</h3>
+<p>#####队列和线程的关系：<br>
+在一个线程内可能有多个队列，这些队列可能是串行的或者是并行的，按照同步或者异步的方式工作<br>
+异步的，则会开启新的线程工作<br>
+同步的，会在当前线程内工作，不会创建新的线程<br>
+####### 注意：并行同步队列，不会创建新的线程而且会是顺序执行相当于串行同步队列</p>
+<h5 id="主线程和主队列的关系">主线程和主队列的关系：</h5>
+<ul>
+<li>主队列是主线中的一个串行队列</li>
+<li>所有的和UI的操作(刷新或者点击按钮)都必须在主线程中的主队列中去执行<br>
+否则无法更新UI</li>
+<li>每一个应用程序只有唯一的一个主队列用来update UI</li>
+</ul>
+<ul>
+<li>主线程并行队列同步执行<br>
+任务会在主线中执行，不会创建新的线程，并且是顺序执行的</li>
+<li>主线程并行队列异步执行<br>
+任务会异步无顺序的执行，并且创建新的多个线程</li>
+<li>主线程串行队列同步执行<br>
+主线程中 顺序执行 不会创建新的线程</li>
+<li>主线程串行队列异步执行<br>
+只创建一个线程 顺序执行</li>
+<li>主线程 主队列 同步执行<br>
+会导致死锁，程序卡死</li>
+<li>主线程主队列异步执行<br>
+不会创建新的线程，但是却是异步的，先执行完队列中已经添加的任务，然后再执行队列中添加的 自定义任务</li>
+</ul>
+<h3 id="39-如何实现同步有多少方式就说多少">39、如何实现同步，有多少方式就说多少</h3>
+<p>1.串行队列 2.并行队列 3.分组 4.信号量</p>
+<h3 id="40-dispatch_once实现原理">40、dispatch_once实现原理</h3>
+<p>dispatch_once  封装并执行了 dispatch_once_f  函数，其内部使用原子性操作进行标记，以此来配合信号量来决定是否唤醒其他等待的线程，而信号量则用来确保同一时间只有一个线程可以执行回调。</p>
+<h3 id="41-有哪些类型的线程锁分别介绍下作用和使用场景">41、有哪些类型的线程锁，分别介绍下作用和使用场景</h3>
+<ul>
+<li>OSSpinLock ios10 废弃</li>
+<li>dispatch_semaphore 建议使用,性能也比较好</li>
+<li>dispatch_mutex+</li>
+<li>dispatch_queue 串行</li>
+<li>NSLock 对 mutex 封装</li>
+<li>@synchronized 性能最差</li>
+</ul>
+<h3 id="42-nsoperationqueue中的maxconcurrentoperationcount默认值">42、NSOperationQueue中的maxConcurrentOperationCount默认值</h3>
+<p>默认的最大操作数由NSOperationQueue对象根据当前系统条件动态确定。</p>
+<h3 id="43-nstimer-cadisplaylink-dispatch_source_t-的优劣">43、NSTimer、CADisplayLink、dispatch_source_t 的优劣</h3>
+<p>NSTimer</p>
+<ul>
+<li>计时不精确：不管是一次性的还是周期性的timer的实际触发事件的时间，都会与所加入的RunLoop和RunLoop Mode有关，如果此RunLoop正在执行一个连续性的运算，timer就会被延时出发。重复性的timer遇到这种情况，如果延迟超过了一个周期，则会在延时结束后立刻执行，并按照之前指定的周期继续执行。</li>
+</ul>
+<p>CADisplayLink</p>
+<ul>
+<li>优点： 依托于设备屏幕刷新频率触发事件，所以其触发时间上是最准确的。也是最适合做UI不断刷新的事件，过渡相对流畅，无卡顿感。</li>
+<li>缺点：由于依托于屏幕刷新频率，若果CPU不堪重负而影响了屏幕刷新，那么我们的触发事件也会受到相应影响。<br>
+selector触发的时间间隔只能是duration的整倍数<br>
+selector事件如果大于其触发间隔就会造成掉帧现象。</li>
+</ul>
+<p>dispatch_source_t</p>
+<ul>
+<li>优点：不受当前runloopMode的影响。</li>
+<li>缺点：虽然不受runloopMode的影响，但是其计时效应仍不是百分之百准确的。</li>
+</ul>
+<h3 id="44-autolayout的原理性能如何">44、AutoLayout的原理，性能如何</h3>
+<p>AutoLayout用到了布局算法Cassowar算法和一整套布局引擎Layout Engine<br>
+当约束变化，添加、删除视图、设置constant和priority会触发约束变化<br>
+每个视图在得到它的布局之前，Layout Engine会将视图、约束、优先级、固定大小通过计算转换成最终的位置和大小。<br>
+Layout Engine碰到约束变化时会重新计算布局<br>
+获取到新约束后，调用superview.setNeedLayout()</p>
+<h3 id="45-uiview-calayer的区别">45、UIView &amp; CALayer的区别</h3>
+<ul>
+<li>创建UIView时，UIView会自动生成一个layer图层，通过UIView的drawRect将内容绘制到图层上，绘制完成后将图层拷贝到屏幕上。</li>
+<li>UIView本身不具备显示功能，拥有显示功能的是它内部图层。</li>
+<li>UIView从UIKit继承，继承UIResponder可以进行事项响应，layer没有，只是显示.</li>
+<li>UIView主要是对显示内容的管理而 CALayer 主要侧重显示内容的绘制。</li>
+</ul>
+<h3 id="46-uiview的layoutsubviews和drawrect方法何时调用">46、UIView的layoutSubviews和drawRect方法何时调用</h3>
+<p>layoutSubviews在以下情况下会被调用：</p>
+<p>1、init初始化不会触发layoutSubviews。<br>
+2、addSubview会触发layoutSubviews。<br>
+3、设置view的Frame会触发layoutSubviews，当然前提是frame的值设置前后发生了变化。<br>
+4、滚动一个UIScrollView会触发layoutSubviews。<br>
+5、旋转Screen会触发父UIView上的layoutSubviews事件。<br>
+6、改变一个UIView大小的时候也会触发父UIView上的layoutSubviews事件。<br>
+7、直接调用setLayoutSubviews。<br>
+drawRect在以下情况下会被调用：</p>
+<p>1、如果在UIView初始化时没有设置rect大小，将直接导致drawRect不被自动调用。drawRect 掉用是在Controller-&gt;loadView, Controller-&gt;viewDidLoad 两方法之后掉用的.<br>
+2、该方法在调用sizeToFit后被调用，所以可以先调用sizeToFit计算出size。然后系统自动调用drawRect:方法。</p>
+<h3 id="47-ui的刷新原理">47、UI的刷新原理</h3>
+<p>由于主线程的runloop 一直在回调,我们的UI就得到了刷新的窗口,是渲染还是处理事件都是因为runloop不断工作的结果.前几篇我们学过 main线程的runloop默认是启动的.因为我们响应交互.</p>
+<h3 id="48-隐式动画-显示动画区别">48、隐式动画 &amp; 显示动画区别</h3>
+<p>只需要观察动画执行完成的结果 比如: 一个简单UIView的frame移动 如果从A点移动到B点 移动完成 回到原始位置就是隐式动画</p>
+<p>Core Animation 是显式动画.因为它既可以直接对其layer属性做动画，也可以覆盖默认的图层行为.</p>
+<h3 id="49-imagename-imagewithcontentsoffile区别">49、imageName &amp; imageWithContentsOfFile区别</h3>
+<ul>
+<li>用imageNamed的方式加载时，系统会把图像Cache到内存。如果图像比较大，或者图像比较多，用这种方式会消耗很大的内存，而且释放图像的内存是一件相对来说比较麻烦的事情</li>
+<li>mageWithContentsOfFile 仅加载图片，图像数据不会缓存。因此对于较大的图片以及使用情况较少时，那就可以用该方法，降低内存消耗。</li>
+</ul>
+<h3 id="50-图片是什么时候解码的如何优化">50、图片是什么时候解码的，如何优化</h3>
+<p>当我们调用[UIImage imageNamed:@&quot;xxx&quot;]后，UIImage 中存储的是未解码的图片，而调用 [UIImageView setImage:image]后，会在主线程进行图片的解码工作并且将图片显示到 UI 上，这时候，UIImage 中存储的是解码后的 bitmap 数据。</p>
+<ul>
+<li>对不常用的大图片，使用 imageWithContentsOfFile 代替 imageNamed 方法，避免内存缓存（相应的使用imageNamed要避免载入大量的图片造成内存暴增）</li>
+<li>使用 ImageIO 方法，对大图片进行缩放，减少图片解码占用内存大小。</li>
+<li>绘制图片，用 UIGraphicsImageRenderer 代替 UIGraphicsBeginImageContextWithOptions，自动管理颜色格式</li>
+<li>网络图片加载方式：使用SDwebImage等三方库</li>
+</ul>
+<h3 id="51-12如果gpu的刷新率超过了ios屏幕60hz刷新率是什么现象怎么解决">51、12.如果GPU的刷新率超过了iOS屏幕60Hz刷新率是什么现象，怎么解决</h3>
+<p>现象是 图形清晰,场景逼真,但是一般arm芯片的GPU 刷新超过60Hz一定会超级费电,手机发热导致降频.FPS降低,因为低能耗电量不足,无法支持GPU高刷新率</p>
+<p>解决办法只能用xcode自带工具检测,看渲染过程哪里可以优化.</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+
+        
+
+        
+            
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+<script>
+    // md5.min.js
+    !function(n){
+        "use strict";
+        function d(n,t){var r=(65535&n)+(65535&t);return(n>>16)+(t>>16)+(r>>16)<<16|65535&r}
+        function f(n,t,r,e,o,u){return d((c=d(d(t,n),d(e,u)))<<(f=o)|c>>>32-f,r);var c,f}
+        function l(n,t,r,e,o,u,c){return f(t&r|~t&e,n,t,o,u,c)}
+        function v(n,t,r,e,o,u,c){return f(t&e|r&~e,n,t,o,u,c)}
+        function g(n,t,r,e,o,u,c){return f(t^r^e,n,t,o,u,c)}
+        function m(n,t,r,e,o,u,c){return f(r^(t|~e),n,t,o,u,c)}
+        function i(n,t){var r,e,o,u,c;n[t>>5]|=128<<t%32,n[14+(t+64>>>9<<4)]=t;var f=1732584193,i=-271733879,a=-1732584194,h=271733878;for(r=0;r<n.length;r+=16)f=l(e=f,o=i,u=a,c=h,n[r],7,-680876936),h=l(h,f,i,a,n[r+1],12,-389564586),a=l(a,h,f,i,n[r+2],17,606105819),i=l(i,a,h,f,n[r+3],22,-1044525330),f=l(f,i,a,h,n[r+4],7,-176418897),h=l(h,f,i,a,n[r+5],12,1200080426),a=l(a,h,f,i,n[r+6],17,-1473231341),i=l(i,a,h,f,n[r+7],22,-45705983),f=l(f,i,a,h,n[r+8],7,1770035416),h=l(h,f,i,a,n[r+9],12,-1958414417),a=l(a,h,f,i,n[r+10],17,-42063),i=l(i,a,h,f,n[r+11],22,-1990404162),f=l(f,i,a,h,n[r+12],7,1804603682),h=l(h,f,i,a,n[r+13],12,-40341101),a=l(a,h,f,i,n[r+14],17,-1502002290),f=v(f,i=l(i,a,h,f,n[r+15],22,1236535329),a,h,n[r+1],5,-165796510),h=v(h,f,i,a,n[r+6],9,-1069501632),a=v(a,h,f,i,n[r+11],14,643717713),i=v(i,a,h,f,n[r],20,-373897302),f=v(f,i,a,h,n[r+5],5,-701558691),h=v(h,f,i,a,n[r+10],9,38016083),a=v(a,h,f,i,n[r+15],14,-660478335),i=v(i,a,h,f,n[r+4],20,-405537848),f=v(f,i,a,h,n[r+9],5,568446438),h=v(h,f,i,a,n[r+14],9,-1019803690),a=v(a,h,f,i,n[r+3],14,-187363961),i=v(i,a,h,f,n[r+8],20,1163531501),f=v(f,i,a,h,n[r+13],5,-1444681467),h=v(h,f,i,a,n[r+2],9,-51403784),a=v(a,h,f,i,n[r+7],14,1735328473),f=g(f,i=v(i,a,h,f,n[r+12],20,-1926607734),a,h,n[r+5],4,-378558),h=g(h,f,i,a,n[r+8],11,-2022574463),a=g(a,h,f,i,n[r+11],16,1839030562),i=g(i,a,h,f,n[r+14],23,-35309556),f=g(f,i,a,h,n[r+1],4,-1530992060),h=g(h,f,i,a,n[r+4],11,1272893353),a=g(a,h,f,i,n[r+7],16,-155497632),i=g(i,a,h,f,n[r+10],23,-1094730640),f=g(f,i,a,h,n[r+13],4,681279174),h=g(h,f,i,a,n[r],11,-358537222),a=g(a,h,f,i,n[r+3],16,-722521979),i=g(i,a,h,f,n[r+6],23,76029189),f=g(f,i,a,h,n[r+9],4,-640364487),h=g(h,f,i,a,n[r+12],11,-421815835),a=g(a,h,f,i,n[r+15],16,530742520),f=m(f,i=g(i,a,h,f,n[r+2],23,-995338651),a,h,n[r],6,-198630844),h=m(h,f,i,a,n[r+7],10,1126891415),a=m(a,h,f,i,n[r+14],15,-1416354905),i=m(i,a,h,f,n[r+5],21,-57434055),f=m(f,i,a,h,n[r+12],6,1700485571),h=m(h,f,i,a,n[r+3],10,-1894986606),a=m(a,h,f,i,n[r+10],15,-1051523),i=m(i,a,h,f,n[r+1],21,-2054922799),f=m(f,i,a,h,n[r+8],6,1873313359),h=m(h,f,i,a,n[r+15],10,-30611744),a=m(a,h,f,i,n[r+6],15,-1560198380),i=m(i,a,h,f,n[r+13],21,1309151649),f=m(f,i,a,h,n[r+4],6,-145523070),h=m(h,f,i,a,n[r+11],10,-1120210379),a=m(a,h,f,i,n[r+2],15,718787259),i=m(i,a,h,f,n[r+9],21,-343485551),f=d(f,e),i=d(i,o),a=d(a,u),h=d(h,c);return[f,i,a,h]}
+        function a(n){var t,r="",e=32*n.length;for(t=0;t<e;t+=8)r+=String.fromCharCode(n[t>>5]>>>t%32&255);return r}
+        function h(n){var t,r=[];for(r[(n.length>>2)-1]=void 0,t=0;t<r.length;t+=1)r[t]=0;var e=8*n.length;for(t=0;t<e;t+=8)r[t>>5]|=(255&n.charCodeAt(t/8))<<t%32;return r}
+        function e(n){var t,r,e="0123456789abcdef",o="";for(r=0;r<n.length;r+=1)t=n.charCodeAt(r),o+=e.charAt(t>>>4&15)+e.charAt(15&t);return o}
+        function r(n){return unescape(encodeURIComponent(n))}
+        function o(n){return a(i(h(t=r(n)),8*t.length));var t}
+        function u(n,t){return function(n,t){var r,e,o=h(n),u=[],c=[];for(u[15]=c[15]=void 0,16<o.length&&(o=i(o,8*n.length)),r=0;r<16;r+=1)u[r]=909522486^o[r],c[r]=1549556828^o[r];return e=i(u.concat(h(t)),512+8*t.length),a(i(c.concat(e),640))}(r(n),r(t))}
+        function t(n,t,r){return t?r?u(t,n):e(u(t,n)):r?o(n):e(o(n))}
+        "function"==typeof define&&define.amd?define(function(){return t}):"object"==typeof module&&module.exports?module.exports=t:n.md5=t;
+    }(this);
+</script>
+
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '195888eb6f21583b91e3',
+    clientSecret: '7b8d5bd89ce3c23d844751f2cec4e8eb92411d0c',
+    repo: 'ShineYangGod.github.io',
+    owner: 'ShineYangGod',
+    admin: ['ShineYangGod'],
+    id: md5(location.pathname),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false       // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+            
+
+            
+        
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first"><i>the purpose of living is to change the world<i></div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/ShineYangGod" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Copyright 2021 &copy <a href="https://twitter.com/mei_samson" target="_blank">
+<span style="color:blue">ShineYang</span></a><br><br>
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://shineyangpro.com/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
