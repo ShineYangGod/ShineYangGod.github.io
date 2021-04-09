@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Go框架-Gin里获取http请求的参数 | ShineYang</title>
+<title>iOS面试题(三) | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1617960258645">
 
@@ -97,189 +97,24 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    Go框架-Gin里获取http请求的参数
+                    iOS面试题(三)
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2020-11-22 ·
+                        · 2021-04-09 ·
                     </time>
-                    
-                        <a href="https://shineyangpro.com/CgM06XDhb/" class="post-tags">
-                            # Gin
-                        </a>
                     
                 </div>
                 <div class="post-content">
-                    <h4 id="1-query-defaultquery-单个接收get参数">1、 Query / DefaultQuery 单个接收get参数</h4>
-<pre><code>package main
-
-import (
-   &quot;bytes&quot;
-   &quot;encoding/json&quot;
-   &quot;fmt&quot;
-   &quot;log&quot;
-   &quot;strconv&quot;
-   &quot;github.com/gin-gonic/gin&quot;
-)
-func main() {
-     engine := gin.Default()
-   // Query / DefaultQuery 单个接收get参数
-   //http://localhost:8080/hello?name=haima
-        engine.GET(&quot;/hello&quot;, func(context *gin.Context) {
-        fmt.Println(context.FullPath())
-
-         //获取字符串参数
-        username := context.Query(&quot;name&quot;) //方法一
-        fmt.Println(username)
-        //name := context.DefaultQuery(&quot;name&quot;, &quot;&quot;) //方法二
-        //fmt.Println(name)
-         context.Writer.Write([]byte(&quot;Hello,&quot; + username)) //Hello,go
-   })
-}
-</code></pre>
-<h4 id="2-shouldbindquery-批量接收get参数">2、ShouldBindQuery 批量接收get参数</h4>
-<pre><code>type Student struct {
-      Name    string `form:&quot;name&quot;`
-      Classes string `form:&quot;classes&quot;`
-}
-// http://localhost:8080/hello2?name=davie&amp;classes=软件工程
-   engine.GET(&quot;/hello2&quot;, func(context *gin.Context) {
-      fmt.Println(context.FullPath())
-      var student Student
-      err := context.ShouldBindQuery(&amp;student)
-      if err != nil {
-         log.Fatal(err.Error())
-      }
-
-      fmt.Println(student.Name)    //davie
-      fmt.Println(student.Classes) //软件工程
-      context.Writer.Write([]byte(&quot;hello,&quot; + student.Name))
-
-   })
-</code></pre>
-<h4 id="3-单个接收post过来的参数">3、单个接收post过来的参数</h4>
-<pre><code> //http://localhost:8080/login
-engine.POST(&quot;/login&quot;, func(context *gin.Context) {
-
-   fmt.Println(context.FullPath()) // /login
-   username := context.PostForm(&quot;username&quot;) //方法一
-   //username, exist := context.GetPostForm(&quot;username&quot;) //方法二
-   userId, _ := strconv.ParseInt(context.Query(&quot;user_id&quot;), 10, 64)
-
-   //if !exist {
-   // fmt.Println(username) //adf
-   //}
-
-   //password := context.PostForm(&quot;pwd&quot;)
-   password, exists := context.GetPostForm(&quot;pwd&quot;) //12323
-   //password:= com.StrTo(context.GetPostForm(&quot;pwd&quot;)).MustInt()
-
-   if !exists {
-      fmt.Println(password) //12323
-   }
-   fmt.Printf(&quot;%T %s\n&quot;, username,username)  //string adf
-   fmt.Printf(&quot;%T %d\n&quot;, userId,userId) //int64 0
-   fmt.Printf(&quot;%T %s\n&quot;, password,password) //string 12323
-   context.Writer.Write([]byte(&quot;Hello  &quot; + username + &quot;, pwd:&quot; + password)) //Hello  go, pwd:123
-})
-</code></pre>
-<h4 id="4-shouldbind-批量接收post数据-from-data">4、ShouldBind 批量接收post数据 from-data</h4>
-<pre><code>type Register struct {
-     UserName string `form:&quot;name&quot;`
-     Phone    string `form:&quot;phone&quot;`
-     Password string `form:&quot;pwd&quot;`
-}
-//http://localhost:8080/register
-engine.POST(&quot;/register&quot;, func(context *gin.Context) {
-     fmt.Println(context.FullPath())
-     var register Register
-     if err := context.ShouldBind(&amp;register); err != nil {
-         log.Fatal(err.Error())
-         return
-     }
-
-     fmt.Println(register.UserName)
-     fmt.Println(register.Phone)
-     context.Writer.Write([]byte(register.UserName + &quot; Register &quot;))
-
-})
-</code></pre>
-<h4 id="5-bindjson-批量接收-post-raw-json-数据-方法一">5、BindJSON 批量接收 post raw json 数据 方法一</h4>
-<pre><code>//http://localhost:8080/testpost
-
-engine.POST(&quot;/testpost&quot;, func(ctx *gin.Context) {
-      fmt.Println(ctx.FullPath())
-
-      type delInfo struct {
-         UserID     int    `from:&quot;user_id&quot;`
-         LinkbookID string `from:&quot;linkbook_id&quot;`
-         Type       string `from:&quot;type&quot;`
-         ID         int    `from:&quot;id&quot;`
-      }
-      var delInfoParam delInfo
-      if err := ctx.BindJSON(&amp;delInfoParam); err != nil {
-         log.Fatal(err.Error())
-         return
-      }
-
-      ctx.Writer.Write([]byte(&quot;Hello,&quot; + delInfoParam.Type)) //Hello,go
-   })
-</code></pre>
-<h4 id="6-bindjson-批量接收-post-raw-json-数据-方法二">6、 BindJSON 批量接收 post raw json 数据 方法二</h4>
-<pre><code>   //http://localhost:8080/test
-engine.POST(&quot;/test&quot;, func(context *gin.Context) {
-     fullPath := &quot;请求路径:&quot; + context.FullPath()
-     fmt.Println(fullPath)
-     SetBodyJson(context, &quot;json&quot;)
-     var delInfo map[string]interface{}
-     err := getRequestBody(context, &amp;delInfo)
-     fmt.Println(err)
-     fmt.Println(delInfo)
-})
-
-
-//http://localhost:8080/user/22
-engine.DELETE(&quot;/user/:id&quot;, DeleteHandle)
-
-engine.Run(&quot;:8090&quot;)
-
-//http://localhost:8080/user/adf
-func DeleteHandle(context *gin.Context) {
-     fmt.Println(context.FullPath()) //  /user/:id
-     userID := context.Param(&quot;id&quot;)
-     fmt.Println(userID) //adf
-     context.Writer.Write([]byte(&quot;Delete user's id : &quot; + userID)) //Delete user's id : adf
-}
-
-func getRequestBody(context *gin.Context, s interface{}) error {
-         body, _ := context.Get(&quot;json&quot;)
-         reqBody, _ := body.(string)
-         decoder := json.NewDecoder(bytes.NewReader([]byte(reqBody)))
-         decoder.UseNumber()
-         err := decoder.Decode(&amp;s)
-         return err
-}
-
-// @desc 通过上下文获取body内容并将内容写到指定key中
-func SetBodyJson(context *gin.Context, key string) {
-         body := make([]byte, 1048576)
-         n, _ := context.Request.Body.Read(body)
-         fmt.Println(&quot;request body:&quot;, n)
-         context.Set(key, string(body[0:n]))
-}
-</code></pre>
+                    <h3 id="1-单例的弊端">1、单例的弊端</h3>
+<p>缺点： 1.不适用于变化的对象，如果同一类型的对象总是要在不同的用例场景发生变化，单例就会引起数据的错误，不能保存彼此的状态。<br>
+2.由于单利模式中没有抽象层，因此单例类的扩展有很大的困难。<br>
+3.单例类的职责过重，在一定程度上违背了“单一职责原则”。</p>
 
                 </div>
             </article>
         </div>
 
-        
-            <div class="next-post">
-                <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyangpro.com/shi-yong-editormd-zuo-wei-hou-tai-fu-wen-ben-bian-ji-qi-yi-ji-qian-tai-markdown-wen-dang-zhan-shi/" class="post-title gt-a-link">
-                    使用editor.md作为后台富文本编辑器以及前台Markdown文档展示
-                </a>
-            </div>
         
 
         
