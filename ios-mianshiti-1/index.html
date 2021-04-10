@@ -6,7 +6,7 @@
 
 <title>iOS面试题(一) | ShineYang</title>
 
-<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618030054209">
+<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618039089228">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://shineyangpro.com/styles/main.css">
@@ -85,7 +85,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1618030054209" action="/search/index.html">
+            <form id="gridea-search-form" style="position: relative" data-update="1618039089228" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
             </form>
@@ -240,7 +240,7 @@ objc_setClass(self, zombieCls);
 <li>methodLists用来存放方法列表，根据info中的标识信息，当该类为普通类时，存储的方法为实例方法；如果是元类则存储的类方法</li>
 <li>cache用于缓存最近使用的方法。系统在调用方法时会先去cache中查找，在没有查找到时才会去methodLists中遍历获取需要的方法</li>
 </ul>
-<p>###10、 同一线程里面使用两个@synconize会怎么样，是递归锁还是非递归锁？</p>
+<h3 id="10-同一线程里面使用两个synconize会怎么样是递归锁还是非递归锁">10、 同一线程里面使用两个@synconize会怎么样，是递归锁还是非递归锁？</h3>
 <p>1、synchronized中传入的object的内存地址，被用作key，通过hash map对应的一个系统维护的递归锁。所以不管是传入什么类型的object，只要是有内存地址，就能启动同步代码块的效果。<br>
 2、synchronized是使用的递归mutex来做同步。</p>
 <pre><code>    NSObject *obj = [[NSObject alloc]init];
