@@ -6,7 +6,7 @@
 
 <title>iOS面试题(二) | ShineYang</title>
 
-<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618048216173">
+<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618056883244">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://shineyangpro.com/styles/main.css">
@@ -85,7 +85,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1618048216173" action="/search/index.html">
+            <form id="gridea-search-form" style="position: relative" data-update="1618056883244" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
             </form>
@@ -385,11 +385,11 @@ KVC在赋值时候,内部会触发监听器（Oberser）的监听方法(observeV
 <li>dispatch_once</li>
 </ul>
 <h3 id="38-gcd主线程-主队列的关系">38、GCD主线程 &amp; 主队列的关系</h3>
-<p>#####队列和线程的关系：<br>
-在一个线程内可能有多个队列，这些队列可能是串行的或者是并行的，按照同步或者异步的方式工作<br>
+<h5 id="队列和线程的关系">队列和线程的关系：</h5>
+<p>在一个线程内可能有多个队列，这些队列可能是串行的或者是并行的，按照同步或者异步的方式工作<br>
 异步的，则会开启新的线程工作<br>
-同步的，会在当前线程内工作，不会创建新的线程<br>
-####### 注意：并行同步队列，不会创建新的线程而且会是顺序执行相当于串行同步队列</p>
+同步的，会在当前线程内工作，不会创建新的线程</p>
+<h6 id="注意并行同步队列不会创建新的线程而且会是顺序执行相当于串行同步队列">注意：并行同步队列，不会创建新的线程而且会是顺序执行相当于串行同步队列</h6>
 <h5 id="主线程和主队列的关系">主线程和主队列的关系：</h5>
 <ul>
 <li>主队列是主线中的一个串行队列</li>
