@@ -6,7 +6,7 @@
 
 <title>iOS面试题(三) | ShineYang</title>
 
-<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618278976309">
+<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618292680271">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://shineyangpro.com/styles/main.css">
@@ -85,7 +85,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1618278976309" action="/search/index.html">
+            <form id="gridea-search-form" style="position: relative" data-update="1618292680271" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
             </form>
@@ -176,6 +176,30 @@
 3）左、右子树也分别为二叉排序树<br>
 4）没有键值相等的节点（？可能是因为不好处理键值相等的节点到底是左节点还是右节点吧）<br>
 概念就介绍这么多，都是来自网上，下面主要看算法和具体实现代码。</p>
+<h3 id="12-面向协议面向接口与面向对象的区别">12、面向协议（面向接口）与面向对象的区别</h3>
+<ul>
+<li>面向对象和面向协议的的最明显区别是对抽象数据的使用方式，面向对象采用的是继承，而面向协议采用的是遵守协议</li>
+<li>面向协议相对于面向对象来说更具有可伸缩性和可重用性，并且在编程的过程中更加模块化，通过协议以及协议扩展替代一个庞大的基类，这在大规模系统编程中会有很大的便捷之处。</li>
+</ul>
+<h3 id="13-objective-c与swift的异同">13、Objective-C与Swift的异同</h3>
+<h5 id="相同">相同:</h5>
+<ul>
+<li>OC出现过的绝大多数概念，比如引用计数、ARC（自动引用计数）、属性、协议、接口、初始化、扩展类、命名参数、匿名函数等，在Swift中继续有效（可能最多换个术语）</li>
+<li>Swift和Objective-C共用一套运行时环境，Swift的类型可以桥接到Objective-C（下面我简称OC），反之亦然</li>
+</ul>
+<h5 id="不同">不同</h5>
+<ul>
+<li>swift注重安全，OC注重灵活</li>
+<li>swift注重面向协议编程、函数式编程、面向对象编程，OC注重面向对象编程</li>
+<li>swift注重值类型，OC注重指针和引用</li>
+<li>swift是静态类型语言，OC是动态类型语言</li>
+<li>swift容易阅读，文件结构和大部分语法简易化，只有.swift文件，结尾不需要分号</li>
+<li>swift中的可选类型，是用于所有数据类型，而不仅仅局限于类。相比于OC中的nil更加安全和简明</li>
+<li>swift中的泛型类型更加方便和通用，而非OC中只能为集合类型添加泛型</li>
+<li>swift中各种方便快捷的高阶函数（函数式编程） (Swift的标准数组支持三个高阶函数：map，filter和reduce,以及map的扩展flatMap)</li>
+<li>swift新增了两种权限，细化权限。open &gt; public &gt; internal(默认) &gt; fileprivate &gt; private</li>
+<li>swift中独有的元组类型(tuples)，把多个值组合成复合值。元组内的值可以是任何类型，并不要求是相同类型的。</li>
+</ul>
 
                 </div>
             </article>
