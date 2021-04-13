@@ -6,7 +6,7 @@
 
 <title>iOS面试题(二) | ShineYang</title>
 
-<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618190582061">
+<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618278976309">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://shineyangpro.com/styles/main.css">
@@ -85,7 +85,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1618190582061" action="/search/index.html">
+            <form id="gridea-search-form" style="position: relative" data-update="1618278976309" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
             </form>
@@ -471,8 +471,13 @@ drawRect在以下情况下会被调用：</p>
 <h3 id="47-ui的刷新原理">47、UI的刷新原理</h3>
 <p>由于主线程的runloop 一直在回调,我们的UI就得到了刷新的窗口,是渲染还是处理事件都是因为runloop不断工作的结果.前几篇我们学过 main线程的runloop默认是启动的.因为我们响应交互.</p>
 <h3 id="48-隐式动画-显示动画区别">48、隐式动画 &amp; 显示动画区别</h3>
-<p>只需要观察动画执行完成的结果 比如: 一个简单UIView的frame移动 如果从A点移动到B点 移动完成 回到原始位置就是隐式动画</p>
-<p>Core Animation 是显式动画.因为它既可以直接对其layer属性做动画，也可以覆盖默认的图层行为.</p>
+<ul>
+<li>隐式动画一直存在 如需关闭需设置；显式动画是不存在，如需显式 要开启(创建)。</li>
+<li>显式动画是指用户自己通过beginAnimations:context:和commitAnimations创建的动画。<br>
+隐式动画是指通过UIView的animateWithDuration:animations:方法创建的动画。</li>
+<li>隐式动画是系统框架自动完成的</li>
+<li>Core Animation 是显式动画.因为它既可以直接对其layer属性做动画，也可以覆盖默认的图层行为.</li>
+</ul>
 <h3 id="49-imagename-imagewithcontentsoffile区别">49、imageName &amp; imageWithContentsOfFile区别</h3>
 <ul>
 <li>用imageNamed的方式加载时，系统会把图像Cache到内存。如果图像比较大，或者图像比较多，用这种方式会消耗很大的内存，而且释放图像的内存是一件相对来说比较麻烦的事情</li>
@@ -486,7 +491,7 @@ drawRect在以下情况下会被调用：</p>
 <li>绘制图片，用 UIGraphicsImageRenderer 代替 UIGraphicsBeginImageContextWithOptions，自动管理颜色格式</li>
 <li>网络图片加载方式：使用SDwebImage等三方库</li>
 </ul>
-<h3 id="51-12如果gpu的刷新率超过了ios屏幕60hz刷新率是什么现象怎么解决">51、12.如果GPU的刷新率超过了iOS屏幕60Hz刷新率是什么现象，怎么解决</h3>
+<h3 id="51-如果gpu的刷新率超过了ios屏幕60hz刷新率是什么现象怎么解决">51、如果GPU的刷新率超过了iOS屏幕60Hz刷新率是什么现象，怎么解决</h3>
 <p>现象是 图形清晰,场景逼真,但是一般arm芯片的GPU 刷新超过60Hz一定会超级费电,手机发热导致降频.FPS降低,因为低能耗电量不足,无法支持GPU高刷新率</p>
 <p>解决办法只能用xcode自带工具检测,看渲染过程哪里可以优化.</p>
 

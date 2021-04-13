@@ -6,7 +6,7 @@
 
 <title>iOS面试题(三) | ShineYang</title>
 
-<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618190582061">
+<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618278976309">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://shineyangpro.com/styles/main.css">
@@ -85,7 +85,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1618190582061" action="/search/index.html">
+            <form id="gridea-search-form" style="position: relative" data-update="1618278976309" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
             </form>
@@ -117,10 +117,12 @@
 <h3 id="3-线程与进程的区别">3、线程与进程的区别</h3>
 <ul>
 <li>进程是运行中的程序，线程是进程的内部的一个执行序列</li>
-<li>进程是资源分配的单元，线程是执行行单元</li>
+<li>进程是资源分配的基本单位，线程是调度的基本单位</li>
 <li>进程间切换代价大，线程间切换代价小</li>
 <li>进程拥有资源多，线程拥有资源少</li>
 <li>多个线程共享进程的资源</li>
+<li>一个进程可以拥有多个线程，但最少要有一个主线程</li>
+<li>线程不能够独立执行，必须依存在应用程序中</li>
 </ul>
 <h3 id="4-堆和栈区的区别谁的占用内存空间大">4、堆和栈区的区别？谁的占用内存空间大</h3>
 <ul>
