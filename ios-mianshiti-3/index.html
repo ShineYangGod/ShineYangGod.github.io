@@ -6,7 +6,7 @@
 
 <title>iOS面试题(三) | ShineYang</title>
 
-<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618381049104">
+<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618391086405">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://shineyangpro.com/styles/main.css">
@@ -85,7 +85,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1618381049104" action="/search/index.html">
+            <form id="gridea-search-form" style="position: relative" data-update="1618391086405" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
             </form>
@@ -242,6 +242,30 @@
 <li>它们都有数据域（data(p)）和指针域(next(p))，但是从图中可以看出双链表有两个指针域，一个指向它的前节点，一个指向它的后节点。</li>
 <li>单链表最后一个节点的指针域为空，没有后继节点；循环链表和双链表最后一个节点的指针域指向头节点，下一个结点为头节点，构成循环；</li>
 <li>单链表和循环链表只可向一个方向遍历；双链表和循环链表，首节点和尾节点被连接在一起，可视为“无头无尾”；双链表可以向两个方向移动，灵活度更大。</li>
+</ul>
+<h3 id="17-iskindof-和-ismemberof-区别">17、isKindOf 和 isMemberOf 区别</h3>
+<p>isKindOfClass：判断消息接收者obj是否是x类的实例或x类子类的实例.<br>
+isMemberOfClass：判断消息接收者obj是否是x类的实例.</p>
+<h3 id="18-关联对象是线程安全的么">18、关联对象是线程安全的么</h3>
+<p>AssociationsManager维护了 spinlock_t 和 AssociationsHashMap 的单例，初始化它的时候会调用 lock.lock() 方法，在析构时会调用 lock.unlock()，而 associations 方法用于取得一个全局的 AssociationsHashMap 单例；<br>
+也就是说 AssociationsManager 通过持有一个自旋锁 spinlock_t 保证对 AssociationsHashMap 的操作是<code>线程安全的</code>，即每次只会有一个线程对 AssociationsHashMap 进行操作；</p>
+<h3 id="19-runtime-是怎么实现weak置nil的">19、runtime 是怎么实现weak置nil的</h3>
+<p>runtime对注册的类， 会进行布局，对于weak对象会放入一个hash表中。 用weak指向的对象内存地址作为key，当此对象的引用计数为0的时候会dealloc，假如weak指向的对象内存地址是a，那么就会以a为键， 在这个weak表中搜索，找到所有以a为键的weak对象，从而设置为nil</p>
+<h3 id="20-xcode从开始编译到app出现第一个界面中之间进行了哪些工作分成xcode编译成功和app启动讲的">20、xcode从开始编译到app出现第一个界面中之间进行了哪些工作（分成xcode编译成功和app启动讲的）</h3>
+<ul>
+<li>优先编译cocopods里面的所有依赖文件</li>
+<li>编译信息写入辅助信息，创建编译后的文件架构</li>
+<li>处理打包信息,例如development环境下处理xxxx.entitlements的打包信息</li>
+<li>执行cocopods编译前脚本 checkPods Manifest.lock</li>
+<li>.编译包内所有m文件 （使用Compilec和Clang的几个主要命令）</li>
+<li>链接需要的framework，例如AFNetworking.framework，Masonry.framework等信息</li>
+<li>编译xib文件</li>
+<li>copy Xib文件，图片等资源文件放到结果目录</li>
+<li>编译imageAsserts</li>
+<li>处理infoplist</li>
+<li>执行Cocoapods脚本</li>
+<li>.copy标准库</li>
+<li>创建.app文件和签名</li>
 </ul>
 
                 </div>
