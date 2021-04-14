@@ -6,7 +6,7 @@
 
 <title>iOS面试题(二) | ShineYang</title>
 
-<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618368806256">
+<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618371662595">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://shineyangpro.com/styles/main.css">
@@ -85,7 +85,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1618368806256" action="/search/index.html">
+            <form id="gridea-search-form" style="position: relative" data-update="1618371662595" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
             </form>
@@ -141,26 +141,25 @@ IMP : 本质上就是一个函数指针，指向方法的实现的地址,当你�
 }
 </code></pre>
 <h3 id="3-关联对象的应用系统如何实现关联对象的">3、关联对象的应用？系统如何实现关联对象的</h3>
-<p>实现关联对象技术的核心对象有</p>
-<p>AssociationsManager<br>
-AssociationsHashMap<br>
-ObjectAssociationMap<br>
-ObjcAssociation<br>
-其中Map同我们平时使用的字典类似。通过key-value一一对应存值。</p>
+<h5 id="应用">应用</h5>
+<p>可以在不改变类的源码的情况下，为类添加实例变量（注意：这里指的实例变量，并不是真正的属于类的实例变量，而是一个关联值变量）<br>
+结合category使用，为类扩展存储属性。</p>
+<h5 id="实现原理">实现原理</h5>
+<p>关联对象的值实际上是通过AssociationsManager对象负责管理的，这个对象里有个AssociationsHashMap静态表，用来存储对象的关联值的，关于AssociationsHashMap存储的数据结构如下：<br>
+AssociationsHashMap：<br>
+------添加属性对象的指针地址（key）：ObjectAssociationMap（value：所有关联值对象）<br>
+ObjectAssociationMap：<br>
+------关联值的key：关联值的value</p>
 <h3 id="4-关联对象的如何进行内存管理的关联对象如何实现weak属性">4、关联对象的如何进行内存管理的？关联对象如何实现weak属性</h3>
-<p>实现weak,用__weak修饰对象,并将其用block包裹,关联时,关联block对象</p>
-<pre><code>-(void)setWeakvalue:(NSObject *)weakvalue {
-    __weak typeof(weakvalue) weakObj = weakvalue;
-    typeof(weakvalue) (^block)() = ^(){
-        return weakObj;
-    };
-    objc_setAssociatedObject(self, weakValueKey, block, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
--(NSObject *)weakvalue {
-    id (^block)() = objc_getAssociatedObject(self, weakValueKey);
-    return block();
-}
+<pre><code>typedef OBJC_ENUM(uintptr_t, objc_AssociationPolicy) {
+    OBJC_ASSOCIATION_ASSIGN = 0,  // 指定一个弱引用相关联的对象
+    OBJC_ASSOCIATION_RETAIN_NONATOMIC = 1, // 指定相关对象的强引用，非原子性
+    OBJC_ASSOCIATION_COPY_NONATOMIC = 3,  // 指定相关的对象被复制，非原子性
+    OBJC_ASSOCIATION_RETAIN = 01401,  // 指定相关对象的强引用，原子性
+    OBJC_ASSOCIATION_COPY = 01403     // 指定相关的对象被复制，原子性   
 </code></pre>
+<p>内存管理方面是通过在赋值的时候设置一个<code>policy</code>，根据这个policy的类型对设置的对象进行retain/copy等操作。<br>
+当<code>policy</code>为OBJC_ASSOCIATION_ASSIGN的时候，设置的关联值将是以弱引用的方式进行内存管理的。</p>
 <h3 id="5-autoreleasepool的原理所使用的的数据结构是什么">5、Autoreleasepool的原理？所使用的的数据结构是什么？</h3>
 <p>自动释放池是一个 AutoreleasePoolPage 组成的,每个page的大小是4096字节,每个 AutoreleasePoolPage 以双向链表连接起来形成一个自动释放池</p>
 <p>pop 时是传入边界对象,然后对page 中的对象发送release 的消息</p>
