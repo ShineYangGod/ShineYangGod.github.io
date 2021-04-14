@@ -6,7 +6,7 @@
 
 <title>iOS面试题(三) | ShineYang</title>
 
-<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618391086405">
+<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618392397485">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://shineyangpro.com/styles/main.css">
@@ -85,7 +85,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1618391086405" action="/search/index.html">
+            <form id="gridea-search-form" style="position: relative" data-update="1618392397485" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
             </form>
@@ -267,6 +267,16 @@ isMemberOfClass：判断消息接收者obj是否是x类的实例.</p>
 <li>.copy标准库</li>
 <li>创建.app文件和签名</li>
 </ul>
+<h3 id="21-runloop和线程的关系">21、runloop和线程的关系？</h3>
+<ul>
+<li>每条线程都有唯一的一个与之对应的RunLoop对象</li>
+<li>RunLoop保存在一个全局的Dictionary里，线程作为key，RunLoop作为value</li>
+<li>线程刚创建时并没有RunLoop对象，RunLoop会在第一次获取它时创建</li>
+<li>RunLoop会在线程结束时销毁</li>
+<li>主线程的RunLoop已经自动获取（创建），子线程默认没有开启RunLoop</li>
+</ul>
+<h3 id="22-block-出现循环引用的原因">22、block 出现循环引用的原因</h3>
+<p>一个对象A有Block类型的属性，从而持有这个Block，如果Block的代码块中使用到这个对象A，或者仅仅是用用到A对象的属性，会使Block也持有A对象，导致两者互相持有，不能在作用域结束后正常释放</p>
 
                 </div>
             </article>
