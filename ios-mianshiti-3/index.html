@@ -6,7 +6,7 @@
 
 <title>iOS面试题(三) | ShineYang</title>
 
-<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618371662595">
+<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618381049104">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://shineyangpro.com/styles/main.css">
@@ -85,7 +85,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1618371662595" action="/search/index.html">
+            <form id="gridea-search-form" style="position: relative" data-update="1618381049104" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
             </form>
@@ -103,6 +103,10 @@
                     <time class="post-time gt-c-content-color-first">
                         · 2021-04-09 ·
                     </time>
+                    
+                        <a href="https://shineyangpro.com/1pnPGiG8F/" class="post-tags">
+                            # ios面试题
+                        </a>
                     
                 </div>
                 <div class="post-content">
@@ -232,6 +236,12 @@
 <ul>
 <li>一个是客户端降低发送速度，可以等待回包，或者加一些延迟</li>
 <li>服务器部分单独开一个线程，去接收UDP数据，存放在一个缓冲区中，又另外的线程去处理收到的数据，尽量减少因为处理数据延时造成的丢包</li>
+</ul>
+<h3 id="16-单链表和双链表-循环链表的区别">16、单链表和双链表、循环链表的区别</h3>
+<ul>
+<li>它们都有数据域（data(p)）和指针域(next(p))，但是从图中可以看出双链表有两个指针域，一个指向它的前节点，一个指向它的后节点。</li>
+<li>单链表最后一个节点的指针域为空，没有后继节点；循环链表和双链表最后一个节点的指针域指向头节点，下一个结点为头节点，构成循环；</li>
+<li>单链表和循环链表只可向一个方向遍历；双链表和循环链表，首节点和尾节点被连接在一起，可视为“无头无尾”；双链表可以向两个方向移动，灵活度更大。</li>
 </ul>
 
                 </div>
