@@ -6,7 +6,7 @@
 
 <title>iOS面试题(三) | ShineYang</title>
 
-<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618453587753">
+<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618454553848">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://shineyangpro.com/styles/main.css">
@@ -85,7 +85,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1618453587753" action="/search/index.html">
+            <form id="gridea-search-form" style="position: relative" data-update="1618454553848" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
             </form>
@@ -284,6 +284,18 @@ isMemberOfClass：判断消息接收者obj是否是x类的实例.</p>
 <h3 id="24-常见的音频压缩方式">24、常见的音频压缩方式</h3>
 <p>有损压缩：其实我们都比较熟悉，目前流行的有损格式主要有MP3、WMA、OGG、MP3pro、AAC、VQF、ASF等。<br>
 无损压缩：PE、FLAC、WavPack、LPAC、WMALossless、AppleLossless、La、OptimFOG、Shoten</p>
+<h3 id="25-遇到崩溃问题怎么查找解决">25、遇到崩溃问题怎么查找解决</h3>
+<ul>
+<li>崩溃日志（crash log）<br>
+xcode-&gt;Window-&gt;Organizer-&gt;Crashes</li>
+<li>根据符号表来监测奔溃位置(.dSYM)</li>
+<li>野指针分析方法(Enable Malloc Scribble)</li>
+<li>僵尸模式(NSZombieEnabled)</li>
+<li>Static Analyzer（静态分析）<br>
+Xcode-&gt;Product-Analyze</li>
+<li>unrecognized selector send to instancd 快速定位</li>
+<li>Signal和EXC_BAD_ACCESS错误分析</li>
+</ul>
 
                 </div>
             </article>
