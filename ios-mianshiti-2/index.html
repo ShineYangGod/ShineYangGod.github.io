@@ -6,7 +6,7 @@
 
 <title>iOS面试题(二) | ShineYang</title>
 
-<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618454553848">
+<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618466692062">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://shineyangpro.com/styles/main.css">
@@ -85,7 +85,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1618454553848" action="/search/index.html">
+            <form id="gridea-search-form" style="position: relative" data-update="1618466692062" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
             </form>
@@ -171,9 +171,9 @@ ObjectAssociationMap：<br>
 <p>ARC相对于MRC，不是在编译时添加retain/release/autorelease这么简单。应该是编译期和运行期两部分共同帮助开发者管理内存。</p>
 <p>在编译期，ARC用的是更底层的C接口实现的retain/release/autorelease，这样做性能更好，也是为什么不能在ARC环境下手动retain/release/autorelease，同时对同一上下文的同一对象的成对retain/release操作进行优化（即忽略掉不必要的操作）；ARC也包含运行期组件，这个地方做的优化比较复杂，但也不能被忽略</p>
 <p>1.ARC 会自动执行 retain 、release、autorelease等操作，在ARC下不能主动调用这些内存管理方法。</p>
-<p>2.ARC在调用这些方法时，并不通过objective-c的消息转发机制，而是直接调用其底层C语言版本API，这样做性能更好，因为保留及释放操作需要频繁的执行，直接调用其底层的函数能节省很多CPU周期，如ARC会调用与retain等价的底层函数objc_retain.</p>
+<p>2.ARC在调用这些方法时，并不通过objective-c的消息转发机制，而是直接调用其底层C语言版本API，这样做性能更好，因为retain及release操作需要频繁的执行，直接调用其底层的函数能节省很多CPU周期，如ARC会调用与retain等价的底层函数objc_retain.</p>
 <p>3.在使用ARC时必须遵循方法命名规则，alloc，new，copy，mutablecopy。ARC通过命名约定将内存管理标准化。</p>
-<p>4.ARC管理对象生命期的办法是：在合适的地方，插入“保留”及“释放”操作。在方法中创建的对象，在方法中自动插入release；类中的对象，在dealloc方法中释放。</p>
+<p>4.ARC管理对象生命期的办法是：在合适的地方，插入“retain”及“release”操作。在方法中创建的对象，在方法中自动插入release；类中的对象，在dealloc方法中释放。</p>
 <p>5.ARC下，变量的内存管理语义可以通过修饰符指明。</p>
 <p>6.ARC只负责管理objective-c 对象的内存，CoreFoundation 对象不归ARC管理。</p>
 <h3 id="7-method-swizzling你应该注意的点">7、method swizzling你应该注意的点</h3>
