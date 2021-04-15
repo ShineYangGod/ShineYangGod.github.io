@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>使用editor.md作为后台富文本编辑器以及前台Markdown文档展示 | ShineYang</title>
+<title>iOS 直播类APP开发流程解析(记录) | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618453587753">
 
@@ -97,177 +97,52 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    使用editor.md作为后台富文本编辑器以及前台Markdown文档展示
+                    iOS 直播类APP开发流程解析(记录)
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2020-11-18 ·
+                        · 2021-04-15 ·
                     </time>
                     
-                        <a href="https://shineyangpro.com/5A5TyGu7X/" class="post-tags">
-                            # editor.md
+                        <a href="https://shineyangpro.com/51sehJmp0/" class="post-tags">
+                            # 视频
+                        </a>
+                    
+                        <a href="https://shineyangpro.com/It5jHhk-w/" class="post-tags">
+                            # iOS
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <h2 id="整个流程">整个流程</h2>
-<ul>
-<li>首先需要在后台管理页插入富文本编辑器</li>
-<li>然后拿到编辑好的html代码并把它存入数据库，为了在前台展示时加载页面。同时还应拿到对应md源代码（也存入数据库），为了让文章在必要的时候可以重新编辑修改。</li>
-<li>前端拿到html代码后，引入editor.md相应的css和js文件，对页面进行正确的加载。</li>
-</ul>
-<h2 id="1下载安装">1.下载安装</h2>
-<p>在github上把项目clone下来<a href="https://github.com/pandao/editor.md">传送门</a><br>
-或者在官网上直接下载安装<a href="https://pandao.github.io/editor.md/">传送门</a></p>
-<h2 id="2基本研究思路">2.基本研究思路</h2>
-<p><mark>不感兴趣的可以直接跳到实战部分</mark></p>
-<p>a.打开项目文件件下面的examples文件夹中的full.html或者use-zepto文件，可以看到需要引入的css和js文件如下：</p>
-<pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;css/style.css&quot; /&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;../css/editormd.css&quot; /&gt;   
-&lt;script src=&quot;js/jquery.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;../editormd.js&quot;&gt;&lt;/script&gt;   
-</code></pre>
-<p>editor.md的基本配置项以及可以使用的函数：</p>
-<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
-var testEditor;
-$(function() {
-    $.get('test.md', function(md){
-        testEditor = editormd(&quot;test-editormd&quot;, {
-            width: &quot;90%&quot;,
-            height: 740,
-            path : '../lib/',
-            theme : &quot;dark&quot;,
-            previewTheme : &quot;dark&quot;,
-            editorTheme : &quot;pastel-on-dark&quot;,
-            markdown : md,
-            codeFold : true,
-            //syncScrolling : false,
-            saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
-            searchReplace : true,
-            //watch : false,                // 关闭实时预览
-            htmlDecode : &quot;style,script,iframe|on*&quot;,            // 开启 HTML 标签解析，为了安全性，默认不开启    
-            //toolbar  : false,             //关闭工具栏
-            //previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
-            emoji : true,
-            taskList : true,
-            tocm            : true,         // Using [TOCM]
-            tex : true,                   // 开启科学公式TeX语言支持，默认关闭
-            flowChart : true,             // 开启流程图支持，默认关闭
-            sequenceDiagram : true,       // 开启时序/序列图支持，默认关闭,
-            //dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为true
-            //dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为true
-            //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为true
-            //dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为0.1
-            //dialogMaskBgColor : &quot;#000&quot;, // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
-            imageUpload : true,
-            imageFormats : [&quot;jpg&quot;, &quot;jpeg&quot;, &quot;gif&quot;, &quot;png&quot;, &quot;bmp&quot;, &quot;webp&quot;],
-            imageUploadURL : &quot;./php/upload.php&quot;,
-            onload : function() {
-                console.log('onload', this);
-                //this.fullscreen();
-                //this.unwatch();
-                //this.watch().fullscreen();
-                //this.setMarkdown(&quot;#PHP&quot;);
-                //this.width(&quot;100%&quot;);
-                //this.height(480);
-                //this.resize(&quot;100%&quot;, 640);
-            }
-        });
-    });
-    $(&quot;#goto-line-btn&quot;).bind(&quot;click&quot;, function(){
-        testEditor.gotoLine(90);
-    });
-    $(&quot;#show-btn&quot;).bind('click', function(){
-        testEditor.show();
-    });
-    $(&quot;#hide-btn&quot;).bind('click', function(){
-        testEditor.hide();
-    });
-    $(&quot;#get-md-btn&quot;).bind('click', function(){
-        alert(testEditor.getMarkdown());
-    });
-    $(&quot;#get-html-btn&quot;).bind('click', function() {
-        alert(testEditor.getHTML());
-    });                
-    $(&quot;#watch-btn&quot;).bind('click', function() {
-        testEditor.watch();
-    });                 
-    $(&quot;#unwatch-btn&quot;).bind('click', function() {
-        testEditor.unwatch();
-    });              
-    $(&quot;#preview-btn&quot;).bind('click', function() {
-        testEditor.previewing();
-    });
-    $(&quot;#fullscreen-btn&quot;).bind('click', function() {
-        testEditor.fullscreen();
-    });
-    $(&quot;#show-toolbar-btn&quot;).bind('click', function() {
-        testEditor.showToolbar();
-    });
-    $(&quot;#close-toolbar-btn&quot;).bind('click', function() {
-        testEditor.hideToolbar();
-    });
-    $(&quot;#toc-menu-btn&quot;).click(function(){
-        testEditor.config({
-            tocDropdown   : true,
-            tocTitle      : &quot;目录 Table of Contents&quot;,
-        });
-    });
-    $(&quot;#toc-default-btn&quot;).click(function() {
-        testEditor.config(&quot;tocDropdown&quot;, false);
-    });
-});
-&lt;/script&gt;
-</code></pre>
-<p>对于配置项只说明一点，就是主题theme的设置:</p>
-<p>打开同一目录下的theme.html（用浏览器打开），这时候你可以看到不同主题的呈现效果，选定你想要的主题，对配置项进行相应的修改。</p>
-<p>例如我修改的配置项如下：</p>
-<pre><code>theme : &quot;default&quot;,
-previewTheme : &quot;default&quot;,
-editorTheme : &quot;base16-light&quot;,
-</code></pre>
-<p>对于函数，只有两个函数与我们的需求相关，那就是getHtml()还有getMarkDown()函数，这两个函数是否符合我们的需求的。</p>
-<h2 id="3开始实战">3.开始实战</h2>
-<p>清空example文件夹下的所有html文件,并建立两个html文件，admin.html是后台管理页，user.html用于前台展示页</p>
-<p>两个文件分别引入相关的css和js文件</p>
-<pre><code> &lt;link rel=&quot;stylesheet&quot; href=&quot;css/style.css&quot; /&gt;
- &lt;link rel=&quot;stylesheet&quot; href=&quot;../css/editormd.css&quot; /&gt;
- &lt;script src=&quot;js/zepto.min.js&quot;&gt;&lt;/script&gt;
- &lt;script src=&quot;../editormd.js&quot;&gt;&lt;/script&gt;
-</code></pre>
-<p>admin.html</p>
-<pre><code>&lt;div id=&quot;layout&quot;&gt;
-    &lt;div class=&quot;editormd&quot; id=&quot;test-editormd&quot;&gt;   
-        &lt;textarea&gt;&lt;/textarea&gt;             
-    &lt;/div&gt;
-    &lt;br/&gt;&lt;input id=&quot;submit&quot; type=&quot;button&quot; name=&quot;submit&quot; value=&quot;Submit&quot; class=&quot;btn&quot; style=&quot;margin-left: 5%;&quot; /&gt;
-    &lt;button id=&quot;preview-btn&quot;&gt;Preview HTML (Press Shift + ESC cancel)&lt;/button&gt;
-&lt;/div&gt;     
-</code></pre>
-<p>js部分新建一个editormd对象：</p>
-<pre><code>testEditor = editormd();
-</code></pre>
-<p>submit函数用于获取html代码和markdown源代码：</p>
-<pre><code>document.getElementById(&quot;submit&quot;).onclick = function(){
-    let htmlCode = document.getElementsByClassName(&quot;editormd-preview-container&quot;)[0].innerHTML;
-    let mdCode = testEditor.getMarkdown();
-    console.log(htmlCode);
-}
-</code></pre>
-<p>模拟用户从数据库拿到md源代码，可以修改文章:</p>
-<pre><code> document.getElementsByTagName('textarea')[0].innerHTML = &quot;##HELLO keke&quot;;
-</code></pre>
-<p>user.html</p>
-<pre><code>&lt;div class=&quot;markdown-body editormd-preview-container&quot;&gt;&lt;/div&gt;
-</code></pre>
-<p>模拟从后台获取数据</p>
-<p>编辑后台管理（admin.html)md编辑器，按submit按钮，把控制台打印出来的代码贴到（user.html)markdowm-body标签里面：</p>
-<pre><code>&lt;div class=&quot;markdown-body editormd-preview-container&quot;&gt;
-     &lt;h2 id=&quot;h2-kek&quot;&gt;&lt;a name=&quot;kek&quot; class=&quot;reference-link&quot;&gt;&lt;/a&gt;&lt;span class=&quot;header-link octicon octicon-link&quot;&gt;&lt;/span&gt;kek&lt;/h2&gt;&lt;p&gt;Wad&lt;/p&gt;
-     &lt;div class=&quot;markdown-toc editormd-markdown-toc&quot;&gt;&lt;ul class=&quot;markdown-toc-list&quot;&gt;&lt;li&gt;&lt;a class=&quot;toc-level-2&quot; href=&quot;#kek&quot; level=&quot;2&quot;&gt;kek&lt;/a&gt;&lt;ul&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;pre class=&quot;prettyprint linenums prettyprinted&quot;&gt;&lt;ol class=&quot;linenums&quot;&gt;&lt;li class=&quot;L0&quot;&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;kwd&quot;&gt;var&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt; i &lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt; &lt;/span&gt;&lt;span class=&quot;lit&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/pre&gt;
-&lt;/div&gt; 
-</code></pre>
-<p><mark>注意：关键点就在于获取容器editormd-preview-container里面的html代码了</mark></p>
+                    <h2 id="音视频处理的一般流程">音视频处理的一般流程：</h2>
+<blockquote>
+<p>数据采集→数据编码→数据传输(流媒体服务器) →解码数据→播放显示</p>
+</blockquote>
+<h3 id="1-数据采集">1、数据采集：</h3>
+<p>摄像机及拾音器收集视频及音频数据，此时得到的为原始数据<br>
+涉及技术或协议：<br>
+摄像机：CCD、CMOS<br>
+拾音器：声电转换装置（咪头）、音频放大电路</p>
+<h3 id="2-数据编码">2、数据编码：</h3>
+<p>使用相关硬件或软件对音视频原始数据进行编码处理（数字化）及加工（如音视频混合、打包封装等），得到可用的音视频数据<br>
+涉及技术或协议：<br>
+编码方式：CBR、VBR<br>
+编码格式<br>
+视频：H.265、H.264、MPEG-4等，封装容器有TS、MKV、AVI、MP4等<br>
+音频：G.711μ、AAC、Opus等，封装有MP3、OGG、AAC等</p>
+<h3 id="3-数据传输">3、数据传输：</h3>
+<p>将编码完成后的音视频数据进行传输，早期的音视频通过同轴电缆之类的线缆进行传输，IP网络发展后，使用IP网络优传输<br>
+涉及技术或协议：<br>
+传输协议：RTP与RTCP、RTSP、RTMP、HTTP、HLS（HTTP Live Streaming）等<br>
+控制信令：SIP和SDP、SNMP等</p>
+<h3 id="4-解码数据">4、解码数据：</h3>
+<p>使用相关硬件或软件对接收到的编码后的音视频数据进行解码，得到可以直接显示的图像/声音<br>
+涉及技术或协议：<br>
+一般对应的编码器都会带有相应的解码器，也有一些第三方解码插件等</p>
+<h3 id="5-播放显示">5、播放显示：</h3>
+<p>在显示器（电视、监视屏等）或扬声器（耳机、喇叭等）里，显示相应的图像画面或声音<br>
+涉及技术或协议：<br>
+显示器、扬声器、3D眼镜等</p>
 
                 </div>
             </article>
@@ -276,8 +151,8 @@ editorTheme : &quot;base16-light&quot;,
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyangpro.com/jquery-ru-he-ul-dong-tai-tian-jia-li-biao-qian/" class="post-title gt-a-link">
-                    JQuery 如何ul动态添加li标签
+                <a href="https://shineyangpro.com/you-liao-er-cha-cha-zhao-shu-ping-heng-shu-wei-sha-huan-xu-yao-hong-hei-shu-ji-lu/" class="post-title gt-a-link">
+                    有了二叉查找树、平衡树为啥还需要红黑树？(记录)
                 </a>
             </div>
         

@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>使用editor.md作为后台富文本编辑器以及前台Markdown文档展示 | ShineYang</title>
+<title>视频推流与视频拉流的工作过程解析(记录) | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618453587753">
 
@@ -97,177 +97,117 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    使用editor.md作为后台富文本编辑器以及前台Markdown文档展示
+                    视频推流与视频拉流的工作过程解析(记录)
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2020-11-18 ·
+                        · 2021-04-15 ·
                     </time>
                     
-                        <a href="https://shineyangpro.com/5A5TyGu7X/" class="post-tags">
-                            # editor.md
+                        <a href="https://shineyangpro.com/NuUM3fi2b/" class="post-tags">
+                            # 音视频
+                        </a>
+                    
+                        <a href="https://shineyangpro.com/It5jHhk-w/" class="post-tags">
+                            # iOS
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <h2 id="整个流程">整个流程</h2>
-<ul>
-<li>首先需要在后台管理页插入富文本编辑器</li>
-<li>然后拿到编辑好的html代码并把它存入数据库，为了在前台展示时加载页面。同时还应拿到对应md源代码（也存入数据库），为了让文章在必要的时候可以重新编辑修改。</li>
-<li>前端拿到html代码后，引入editor.md相应的css和js文件，对页面进行正确的加载。</li>
-</ul>
-<h2 id="1下载安装">1.下载安装</h2>
-<p>在github上把项目clone下来<a href="https://github.com/pandao/editor.md">传送门</a><br>
-或者在官网上直接下载安装<a href="https://pandao.github.io/editor.md/">传送门</a></p>
-<h2 id="2基本研究思路">2.基本研究思路</h2>
-<p><mark>不感兴趣的可以直接跳到实战部分</mark></p>
-<p>a.打开项目文件件下面的examples文件夹中的full.html或者use-zepto文件，可以看到需要引入的css和js文件如下：</p>
-<pre><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;css/style.css&quot; /&gt;
-&lt;link rel=&quot;stylesheet&quot; href=&quot;../css/editormd.css&quot; /&gt;   
-&lt;script src=&quot;js/jquery.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;../editormd.js&quot;&gt;&lt;/script&gt;   
-</code></pre>
-<p>editor.md的基本配置项以及可以使用的函数：</p>
-<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
-var testEditor;
-$(function() {
-    $.get('test.md', function(md){
-        testEditor = editormd(&quot;test-editormd&quot;, {
-            width: &quot;90%&quot;,
-            height: 740,
-            path : '../lib/',
-            theme : &quot;dark&quot;,
-            previewTheme : &quot;dark&quot;,
-            editorTheme : &quot;pastel-on-dark&quot;,
-            markdown : md,
-            codeFold : true,
-            //syncScrolling : false,
-            saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
-            searchReplace : true,
-            //watch : false,                // 关闭实时预览
-            htmlDecode : &quot;style,script,iframe|on*&quot;,            // 开启 HTML 标签解析，为了安全性，默认不开启    
-            //toolbar  : false,             //关闭工具栏
-            //previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
-            emoji : true,
-            taskList : true,
-            tocm            : true,         // Using [TOCM]
-            tex : true,                   // 开启科学公式TeX语言支持，默认关闭
-            flowChart : true,             // 开启流程图支持，默认关闭
-            sequenceDiagram : true,       // 开启时序/序列图支持，默认关闭,
-            //dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为true
-            //dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为true
-            //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为true
-            //dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为0.1
-            //dialogMaskBgColor : &quot;#000&quot;, // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
-            imageUpload : true,
-            imageFormats : [&quot;jpg&quot;, &quot;jpeg&quot;, &quot;gif&quot;, &quot;png&quot;, &quot;bmp&quot;, &quot;webp&quot;],
-            imageUploadURL : &quot;./php/upload.php&quot;,
-            onload : function() {
-                console.log('onload', this);
-                //this.fullscreen();
-                //this.unwatch();
-                //this.watch().fullscreen();
-                //this.setMarkdown(&quot;#PHP&quot;);
-                //this.width(&quot;100%&quot;);
-                //this.height(480);
-                //this.resize(&quot;100%&quot;, 640);
-            }
-        });
-    });
-    $(&quot;#goto-line-btn&quot;).bind(&quot;click&quot;, function(){
-        testEditor.gotoLine(90);
-    });
-    $(&quot;#show-btn&quot;).bind('click', function(){
-        testEditor.show();
-    });
-    $(&quot;#hide-btn&quot;).bind('click', function(){
-        testEditor.hide();
-    });
-    $(&quot;#get-md-btn&quot;).bind('click', function(){
-        alert(testEditor.getMarkdown());
-    });
-    $(&quot;#get-html-btn&quot;).bind('click', function() {
-        alert(testEditor.getHTML());
-    });                
-    $(&quot;#watch-btn&quot;).bind('click', function() {
-        testEditor.watch();
-    });                 
-    $(&quot;#unwatch-btn&quot;).bind('click', function() {
-        testEditor.unwatch();
-    });              
-    $(&quot;#preview-btn&quot;).bind('click', function() {
-        testEditor.previewing();
-    });
-    $(&quot;#fullscreen-btn&quot;).bind('click', function() {
-        testEditor.fullscreen();
-    });
-    $(&quot;#show-toolbar-btn&quot;).bind('click', function() {
-        testEditor.showToolbar();
-    });
-    $(&quot;#close-toolbar-btn&quot;).bind('click', function() {
-        testEditor.hideToolbar();
-    });
-    $(&quot;#toc-menu-btn&quot;).click(function(){
-        testEditor.config({
-            tocDropdown   : true,
-            tocTitle      : &quot;目录 Table of Contents&quot;,
-        });
-    });
-    $(&quot;#toc-default-btn&quot;).click(function() {
-        testEditor.config(&quot;tocDropdown&quot;, false);
-    });
-});
-&lt;/script&gt;
-</code></pre>
-<p>对于配置项只说明一点，就是主题theme的设置:</p>
-<p>打开同一目录下的theme.html（用浏览器打开），这时候你可以看到不同主题的呈现效果，选定你想要的主题，对配置项进行相应的修改。</p>
-<p>例如我修改的配置项如下：</p>
-<pre><code>theme : &quot;default&quot;,
-previewTheme : &quot;default&quot;,
-editorTheme : &quot;base16-light&quot;,
-</code></pre>
-<p>对于函数，只有两个函数与我们的需求相关，那就是getHtml()还有getMarkDown()函数，这两个函数是否符合我们的需求的。</p>
-<h2 id="3开始实战">3.开始实战</h2>
-<p>清空example文件夹下的所有html文件,并建立两个html文件，admin.html是后台管理页，user.html用于前台展示页</p>
-<p>两个文件分别引入相关的css和js文件</p>
-<pre><code> &lt;link rel=&quot;stylesheet&quot; href=&quot;css/style.css&quot; /&gt;
- &lt;link rel=&quot;stylesheet&quot; href=&quot;../css/editormd.css&quot; /&gt;
- &lt;script src=&quot;js/zepto.min.js&quot;&gt;&lt;/script&gt;
- &lt;script src=&quot;../editormd.js&quot;&gt;&lt;/script&gt;
-</code></pre>
-<p>admin.html</p>
-<pre><code>&lt;div id=&quot;layout&quot;&gt;
-    &lt;div class=&quot;editormd&quot; id=&quot;test-editormd&quot;&gt;   
-        &lt;textarea&gt;&lt;/textarea&gt;             
-    &lt;/div&gt;
-    &lt;br/&gt;&lt;input id=&quot;submit&quot; type=&quot;button&quot; name=&quot;submit&quot; value=&quot;Submit&quot; class=&quot;btn&quot; style=&quot;margin-left: 5%;&quot; /&gt;
-    &lt;button id=&quot;preview-btn&quot;&gt;Preview HTML (Press Shift + ESC cancel)&lt;/button&gt;
-&lt;/div&gt;     
-</code></pre>
-<p>js部分新建一个editormd对象：</p>
-<pre><code>testEditor = editormd();
-</code></pre>
-<p>submit函数用于获取html代码和markdown源代码：</p>
-<pre><code>document.getElementById(&quot;submit&quot;).onclick = function(){
-    let htmlCode = document.getElementsByClassName(&quot;editormd-preview-container&quot;)[0].innerHTML;
-    let mdCode = testEditor.getMarkdown();
-    console.log(htmlCode);
-}
-</code></pre>
-<p>模拟用户从数据库拿到md源代码，可以修改文章:</p>
-<pre><code> document.getElementsByTagName('textarea')[0].innerHTML = &quot;##HELLO keke&quot;;
-</code></pre>
-<p>user.html</p>
-<pre><code>&lt;div class=&quot;markdown-body editormd-preview-container&quot;&gt;&lt;/div&gt;
-</code></pre>
-<p>模拟从后台获取数据</p>
-<p>编辑后台管理（admin.html)md编辑器，按submit按钮，把控制台打印出来的代码贴到（user.html)markdowm-body标签里面：</p>
-<pre><code>&lt;div class=&quot;markdown-body editormd-preview-container&quot;&gt;
-     &lt;h2 id=&quot;h2-kek&quot;&gt;&lt;a name=&quot;kek&quot; class=&quot;reference-link&quot;&gt;&lt;/a&gt;&lt;span class=&quot;header-link octicon octicon-link&quot;&gt;&lt;/span&gt;kek&lt;/h2&gt;&lt;p&gt;Wad&lt;/p&gt;
-     &lt;div class=&quot;markdown-toc editormd-markdown-toc&quot;&gt;&lt;ul class=&quot;markdown-toc-list&quot;&gt;&lt;li&gt;&lt;a class=&quot;toc-level-2&quot; href=&quot;#kek&quot; level=&quot;2&quot;&gt;kek&lt;/a&gt;&lt;ul&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;pre class=&quot;prettyprint linenums prettyprinted&quot;&gt;&lt;ol class=&quot;linenums&quot;&gt;&lt;li class=&quot;L0&quot;&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;kwd&quot;&gt;var&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt; i &lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;pln&quot;&gt; &lt;/span&gt;&lt;span class=&quot;lit&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;pun&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/pre&gt;
-&lt;/div&gt; 
-</code></pre>
-<p><mark>注意：关键点就在于获取容器editormd-preview-container里面的html代码了</mark></p>
+                    <h2 id="一-视频推流端">一、视频推流端</h2>
+<p>推流，就是将采集到的音频，视频数据通过流媒体协议发送到流媒体服务器。</p>
+<h3 id="一-选择流媒体协议">一、选择流媒体协议</h3>
+<p>现在直播应用，采用RTMP协议居多，也有部分使用HLS协议。</p>
+<p>采用RTMP协议，就要看下它与流媒体服务器交互的过程，RTMP协议的默认端口是1935，采用TCP协议。并且需要了解FLV的封装格式。</p>
+<p>采用HLS协议，因为涉及到切片，延时会比较大，需要了解TS流。</p>
+<h3 id="二-采集音视频数据">二、采集音视频数据</h3>
+<p>做直播，数据的来源不可缺少，就是采集摄像头，麦克风的数据。</p>
+<p>iOS平台上采集音视频数据，需要使用AVFoundation.Framework框架，从captureSession会话的回调中获取音频，视频数据。</p>
+<h3 id="三-硬编码软编码音视频数据">三、硬编码，软编码音视频数据</h3>
+<p>软编码就是利用CPU资源来压缩音视频数据，硬编码与之相反。</p>
+<p>软编码的话，现在广泛采用FFmpeg库结合编码库来实现，FFmpeg+X624来编码视频数据YUV/RGB输出H264数据，<br>
+FFmpeg+fdk_aac来编码音频数据PCM输出AAC数据。</p>
+<h3 id="四-根据所选流媒体协议封包音视频数据">四、根据所选流媒体协议封包音视频数据</h3>
+<p>将音频，视频打包成packet。</p>
+<h3 id="五-与服务器交互发送封包数据">五、与服务器交互发送封包数据</h3>
+<p>根据所选流媒体协议，发送相应指令连接服务器，连接服务器成功后，就可以发送packet数据了。</p>
+<h2 id="二-拉流端">二、 拉流端</h2>
+<p>拉流，就是从流媒体服务器获取音频，视频数据。</p>
+<h4 id="一-解析协议">一、解析协议</h4>
+<p>播放器端根据URL解析所用的流媒体协议（RTMP，HLS）。</p>
+<h4 id="二-解封装">二、解封装</h4>
+<p>解封装，就是demux的过程，从容器格式（FLV，TS）中，分离出音视频数据。</p>
+<h4 id="三-解码">三、解码</h4>
+<p>解码，就是把获取到的数据解压缩，恢复成原始数据。解码就是将H264变成YUV，AAC变成PCM。</p>
+<p>解码可以使用软解码，硬解码。</p>
+<p>软解码就是利用CPU资源去解压缩数据，采用的方式是FFmpeg解码。</p>
+<p>硬解码，对于iOS平台来说，可以使用VideoToolbox.Framework（该框架只能在iOS 8.0及以上系统使用）<br>
+硬解码视频数据。Android平台上，可以使用MediaCodec来硬解码视频数据。</p>
+<h4 id="四-渲染数据">四、渲染数据</h4>
+<p>采用OpenGL渲染YUV数据，呈现视频画面。将PCM送入设备的硬件资源播放，产生声音。</p>
+<p>iOS播放流式音频，使用Audio Queue 的方式，即，利用AudioToolbox.Framework 框架。</p>
+<h2 id="三-ios开发之ios直播平台有用的第三方资源共享">三、 iOS开发之iOS直播平台有用的第三方资源共享：</h2>
+<ol>
+<li>
+<p>实时美颜参考网址：http://altitudelabs.com/blog/real-time-filter/</p>
+</li>
+<li>
+<p>直播测试地址：</p>
+</li>
+</ol>
+<p>HLS：http://live.3gv.ifeng.com/live/hongkong.m3u8凤凰卫视香港台</p>
+<p>SMTP：rtmp://live.hkstv.hk.lxdns.com/live/hks香港卫视</p>
+<p>RSTP：rtsp://rtsp.vdowowza.tvb.com/tvblive/mobileinews200.stream互动新闻台1</p>
+<ol start="3">
+<li>HLS streaming工具下载，用于处理m3u8音、视频源的HLS Streaming Tool Download</li>
+</ol>
+<p>4.直播相关SDK</p>
+<p>1.VideoCore在新浪云上有文档说明，可阅读iOS推流SDK使用文档</p>
+<p>2.网易云信直播SDK好像是收费的，价格还不便宜，一般公司可能也不会用，不过可以尝试看看，了解一下，有助于学习！</p>
+<ol start="3">
+<li>
+<p>暴风云直播 http://www.baofengcloud.com/apisdk/sdk/live/iossdk.html</p>
+</li>
+<li>
+<p>融云直播 http://www.rongcloud.cn/live</p>
+</li>
+<li>
+<p>腾讯直播SDK https://www.qcloud.com/solution/video.html</p>
+</li>
+<li>
+<p>直播相关开源库</p>
+</li>
+</ol>
+<p>1.BeautifyFaceDemo基于GPUImage的图片处理，做美颜方面可以参考一下</p>
+<ol start="2">
+<li>
+<p>lf.swift开源RTMP Swift版的，可以学习一下！好像作者是日本的，或者是在日本工作的，写了不少日文！</p>
+</li>
+<li>
+<p>PLPlayerKit一个不依赖FFmpeg的播放器，支持RTMP</p>
+</li>
+<li>
+<p>HLS-Demohttps://github.com/yangchao0033/HLS-Demo HLS播放demo</p>
+</li>
+</ol>
+<p>5.SmarterStreaminghttps://github.com/daniulive/SmarterStreaming 直播SDK（支持私有协议和RTMP推流，如windows推流/android推流/iOS推流/windows播放器/android播放器/iOS播放器）</p>
+<h2 id="四-ios开发之-ios-直播平台常见的视频直播相关协议详解">四、 iOS开发之 iOS 直播平台常见的视频直播相关协议详解</h2>
+<p>1、 RTMP(Real Time Messaging Protocol，实时消息传送协议)</p>
+<p>RTMP是Adobe Systems公司为Flash播放器和服务器之间音频、视频和数据传输开发的开放协议。它有三种变种：</p>
+<p>1）、工作在TCP之上的明文协议，使用端口1935；</p>
+<p>2）、RTMPT封装在HTTP请求之中，可穿越防火墙；</p>
+<p>3）、RTMPS类似RTMPT，但使用的是HTTPS连接；</p>
+<p>RTMP协议是被Flash用于对象、视频、音频的传输。这个协议建立在TCP协议或者轮询HTTP协议之上。RTMP协议就像一个用来装数据包的容器，这些数据既可以是AMF格式的数据，也可以是FLV中的视音频数据。一个单一的连接可以通过不同的通道传输多路网络流，这些通道中的包都是按照固定大小的包传输的。</p>
+<p>2、RTSP(Real Time Streaming Protocol，实时流传输协议)</p>
+<p>RTSP定义了一对多应用程序如何有效地通过IP网络传送多媒体数据。RTSP提供了一个可扩展框架，数据源可以包括实时数据与已有的存储的数据。该协议目的在于控制多个数据发送连接，为选择发送通道如UDP、组播UDP与TCP提供途径，并为选择基于RTP上发送机制提供方法。</p>
+<p>RTSP语法和运作跟HTTP/1.1类似，但并不特别强调时间同步，所以比较能容忍网络延迟。代理服务器的缓存功能也同样适用于RTSP，并且因为RTSP具有重新导向功能，可根据实际负载情况来切换提供服务的服务器，以避免过大的负载集中于同一服务器而造成延迟。</p>
+<p>3、RTP(Real-time Transport Protocol，实时传输协议)</p>
+<p>RTP是针对多媒体数据流的一种传输层协议，详细说明了在互联网上传递音频和视频的标准数据包格式。RTP协议常用于流媒体系统（配合RTCP协议），视频会议和一键通系统（配合H.323或SIP），使它成为IP电话产业的技术基础。</p>
+<p>RTP是建立在UDP协议上的，常与RTCP一起使用，其本身并没有提供按时发送机制或其它服务质量（QoS）保证，它依赖于低层服务去实现这一过程。</p>
+<p>RTP 并不保证传送或防止无序传送，也不确定底层网络的可靠性，只管发送，不管传输是否丢包，也不管接收方是否有收到包。RTP 实行有序传送，RTP中的序列号允许接收方重组发送方的包序列，同时序列号也能用于决定适当的包位置，如在视频解码中，就不需要顺序解码。</p>
+<p>4、RTCP(Real-time Transport Control Protocol，实时传输控制协议）</p>
+<p>RTCP是RTP的配套协议，为RTP媒体流提供信道外的控制。RTCP和RTP一起协作将多媒体数据打包和发送，定期在多媒体流会话参与者之间传输控制数据。</p>
+<p>RTCP的主要功能是为RTP所提供的服务质量（QoS）提供反馈，收集相关媒体连接的统计信息，例如传输字节数，传输分组数，丢失分组数，单向和双向网络延迟等等。网络应用程序可以利用RTCP所提供的信息来提高服务质量，比如限制流量或改用压缩比小的编解码器。</p>
 
                 </div>
             </article>
@@ -276,8 +216,8 @@ editorTheme : &quot;base16-light&quot;,
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyangpro.com/jquery-ru-he-ul-dong-tai-tian-jia-li-biao-qian/" class="post-title gt-a-link">
-                    JQuery 如何ul动态添加li标签
+                <a href="https://shineyangpro.com/ios-zhi-bo-lei-app-kai-fa-liu-cheng-jie-xi/" class="post-title gt-a-link">
+                    iOS 直播类APP开发流程解析(记录)
                 </a>
             </div>
         
