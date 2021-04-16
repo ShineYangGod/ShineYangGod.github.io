@@ -6,7 +6,7 @@
 
 <title>iOS面试题(一) | ShineYang</title>
 
-<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618539961278">
+<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618562295045">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://shineyangpro.com/styles/main.css">
@@ -85,7 +85,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1618539961278" action="/search/index.html">
+            <form id="gridea-search-form" style="position: relative" data-update="1618562295045" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
             </form>
@@ -137,7 +137,7 @@ Notification的发送与接收处理都是在同一个线程中</p>
 5、旋转Screen会触发父UIView上的layoutSubviews事件<br>
 6、改变一个UIView大小的时候也会触发父UIView上的layoutSubviews事件</p>
 <h3 id="5-什么是离屏渲染什么情况会导致离屏渲染">5、什么是离屏渲染，什么情况会导致离屏渲染？</h3>
-<p><code>离屏渲染</code>：经过层叠加和处理后，再存储到帧缓存去中，然后绘制到屏幕上，这种处理方式叫做离屏渲染</p>
+<p><code>离屏渲染</code>：经过层叠加和处理后，再存储到帧缓存去中，然后绘制到屏幕上或者在当前屏幕缓冲区以外新开辟一个缓冲区进行渲染操作，这种处理方式叫做离屏渲染</p>
 <ul>
 <li>采用了光栅化的 layer (layer.shouldRasterize)</li>
 <li>使用了 mask 的 layer (layer.mask)</li>
