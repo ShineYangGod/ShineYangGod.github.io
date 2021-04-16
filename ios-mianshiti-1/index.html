@@ -6,7 +6,7 @@
 
 <title>iOS面试题(一) | ShineYang</title>
 
-<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618562295045">
+<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618564732925">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://shineyangpro.com/styles/main.css">
@@ -85,7 +85,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1618562295045" action="/search/index.html">
+            <form id="gridea-search-form" style="position: relative" data-update="1618564732925" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
             </form>
@@ -316,7 +316,7 @@ class_copyIvarList返回类的所有属性和变量(包括在@interface大括号
 不能给类添加成员变量<br>
 通过@property定义的变量，只能生成对应的getter和setter的方法声明，但是不能实现getter和setter方法，同时也不能生成带下划线的成员属性<br>
 是运行期决定的<br>
-注意：为什么不能添加属性，原因就是category是运行期决定的，在运行期类的内存布局已经确定，如果添加实例变量会破坏类的内存布局，会产生意想不到的错误。</p>
+注意：为什么不能添加成员变量，原因就是category是运行期决定的，在运行期类的内存布局已经确定，如果添加实例变量会破坏类的内存布局，会产生意想不到的错误。</p>
 <p>extension：扩展</p>
 <p>可以给类添加成员变量，但是是私有的 可以給类添加方法，但是是私有的 添加的属性和方法是类的一部分，在编译期就决定的。在编译器和头文件的@interface和实现文件里的@implement一起形成了一个完整的类。 伴随着类的产生而产生，也随着类的消失而消失 必须有类的源码才可以给类添加extension，所以对于系统一些类，如nsstring，就无法添加类扩展 不能给NSObject添加Extension，因为在extension中添加的方法或属性必须在源类的文件的.m文件中实现才可以，即：你必须有一个类的源码才能添加一个类的extension。</p>
 <h3 id="17-ios-消息转发机制消息转发机制和其他语言的消息机制优劣对比">17、ios 消息转发机制，消息转发机制和其他语言的消息机制优劣对比</h3>
