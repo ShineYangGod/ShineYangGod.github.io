@@ -6,7 +6,7 @@
 
 <title>iOS面试题(一) | ShineYang</title>
 
-<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618564732925">
+<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618729450127">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://shineyangpro.com/styles/main.css">
@@ -85,7 +85,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1618564732925" action="/search/index.html">
+            <form id="gridea-search-form" style="position: relative" data-update="1618729450127" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
             </form>
@@ -129,13 +129,10 @@ Notification的发送与接收处理都是在同一个线程中</p>
 </blockquote>
 <h3 id="3-什么是异步渲染">3、什么是异步渲染？</h3>
 <p>异步绘制，就是可以在子线程把需要绘制的图形，提前在子线程处理好。 将准备好的图像数据直接返给主线程使用，这样可以降低主线程的压力</p>
-<h3 id="4-layoutsubviews-调用时机">4、layoutSubviews 调用时机</h3>
-<p>1、init初始化不会触发layoutSubviews<br>
-2、addSubview会触发layoutSubviews,(如果添加的子控件没有Frame,不会调用;)<br>
-3、设置view的Frame会触发layoutSubviews，当然前提是frame的值设置前后发生了变化<br>
-4、滚动一个UIScrollView会触发layoutSubviews<br>
-5、旋转Screen会触发父UIView上的layoutSubviews事件<br>
-6、改变一个UIView大小的时候也会触发父UIView上的layoutSubviews事件</p>
+<h3 id="4-leaks如何检测内存泄漏原理">4、Leaks如何检测内存泄漏(原理)</h3>
+<blockquote>
+<p>leaks搜索所有可能包含指向malloc内存块指针的内存区域，比如全局数据内存块，寄存器和所有的栈。如果malloc内存块的地址被直接或者间接引用，则是reachable的，反之，则是leaks</p>
+</blockquote>
 <h3 id="5-什么是离屏渲染什么情况会导致离屏渲染">5、什么是离屏渲染，什么情况会导致离屏渲染？</h3>
 <p><code>离屏渲染</code>：经过层叠加和处理后，再存储到帧缓存去中，然后绘制到屏幕上或者在当前屏幕缓冲区以外新开辟一个缓冲区进行渲染操作，这种处理方式叫做离屏渲染</p>
 <ul>
