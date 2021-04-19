@@ -6,7 +6,7 @@
 
 <title>iOS面试题(一) | ShineYang</title>
 
-<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618729450127">
+<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618810711432">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://shineyangpro.com/styles/main.css">
@@ -85,7 +85,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1618729450127" action="/search/index.html">
+            <form id="gridea-search-form" style="position: relative" data-update="1618810711432" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
             </form>
@@ -330,6 +330,13 @@ class_copyIvarList返回类的所有属性和变量(包括在@interface大括号
 <p>2.快速消息转发：检查该类是否实现了 forwardingTargetForSelector: 方法，若实现了则调用这个方法。若该方法返回值对象非nil或非self，则向该返回对象重新发送消息。</p>
 <p>3.标准消息转发：runtime发送methodSignatureForSelector消息获取Selector对应的方法签名。返回值非空则通过forwardInvocation:转发消息，返回值为空则向当前对象发送doesNotRecognizeSelector:消息，程序崩溃退出。</p>
 <p>这样如果本类中没有的方法，就会去class中尝试查找，如果有，则返回class对象，让其执行，这样就实现了快速消息转发</p>
+<h3 id="18-http和https的区别">18、http和https的区别</h3>
+<ul>
+<li>https协议需要到ca申请证书，一般免费证书较少，因而需要一定费用、</li>
+<li>http是超文本传输协议，信息是明文传输，https则是具有安全性的ssl加密传输协议</li>
+<li>http和https使用的是完全不同的连接方式，用的端口也不一样，前者是80，后者是443</li>
+<li>http的连接很简单，是无状态的；HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，比http协议安全</li>
+</ul>
 
                 </div>
             </article>
