@@ -6,7 +6,7 @@
 
 <title>iOS面试题(一) | ShineYang</title>
 
-<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618825553060">
+<link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1618912050632">
 
 <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://shineyangpro.com/styles/main.css">
@@ -85,7 +85,7 @@
             
         </div>
         <div style="text-align: center">
-            <form id="gridea-search-form" style="position: relative" data-update="1618825553060" action="/search/index.html">
+            <form id="gridea-search-form" style="position: relative" data-update="1618912050632" action="/search/index.html">
                 <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
                 <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
             </form>
@@ -114,7 +114,7 @@
 <p>当你点击了屏幕会产生一个触摸事件，系统会将该事件加入到一个由UIApplication管理的事件队列中，UIApplication会从消息队列里取事件分发下去，首先传给UIWindow，UIWindow会使用hitTest:withEvent:方法找到此次触摸事件初始点所在的视图，找到这个视图之后他就会调用视图的touchesBegan:withEvent:方法来处理事件</p>
 <blockquote>
 <p>为什么是队列而不是栈？<br>
-因为队列的特定是先进先出，先产生的事件先处理才符合常理，所以把事件添加到队列。</p>
+因为队列的特点是先进先出，先产生的事件先处理才符合常理，所以把事件添加到队列。</p>
 </blockquote>
 <h3 id="2-nsnotificaiton-是同步还是异步的如果发通知时在子线程接收在哪个线程">2、NSNotificaiton 是同步还是异步的，如果发通知时在子线程，接收在哪个线程？</h3>
 <p>同步的<br>
@@ -145,11 +145,11 @@ Notification的发送与接收处理都是在同一个线程中</p>
 <li>绘制了文字的 layer (UILabel, CATextLayer, Core Text 等)</li>
 </ul>
 <h3 id="6-coreanimation-这个框架的作用什么它跟-uikit-的关系是什么">6、CoreAnimation 这个框架的作用什么，它跟 UIKit 的关系是什么？</h3>
-<p>Core Animation：核心动画；<br>
-Core Graphics：核心绘制 ；<br>
-UIkit：ios基础视图框架。</p>
+<p>Core Animation：核心动画<br>
+Core Graphics：核心绘制<br>
+UIkit：ios基础视图框架</p>
 <p>1、UIkit继承自 Core Animation 和Core Graphics；可以看成是对两者的高度集成，方便开发者直接应用<br>
-2、uiview通过内部图层layer显示在屏幕上，本身并不能显示。当UIView需要显示到屏幕上时，会调用drawRect:方法进行绘图，并且会将所有内容绘制在自己的layer图层上，绘图完毕后，系统会将图层拷贝到屏幕上，于是就完成了UIView的显示。<br>
+2、UIView通过内部图层layer显示在屏幕上，本身并不能显示。当UIView需要显示到屏幕上时，会调用drawRect:方法进行绘图，并且会将所有内容绘制在自己的layer图层上，绘图完毕后，系统会将图层拷贝到屏幕上，于是就完成了UIView的显示。<br>
 3、layer层的重要性：Core Animation所有的动画都是操作的uiview的layer层，而所有的Core Graphics绘制的内容，都是绘制在layer层上。</p>
 <h3 id="7-如何代码实现监听僵尸对象">7、如何代码实现监听僵尸对象</h3>
 <p>1、 Zombie Object 有什么用?</p>
