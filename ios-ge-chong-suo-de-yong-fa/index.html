@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>在iOS13中，状态栏背景色与大文本模式下的导航栏不同 | ShineYang</title>
+<title>iOS 各种锁的用法 | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1619058426547">
 
@@ -97,63 +97,156 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    在iOS13中，状态栏背景色与大文本模式下的导航栏不同
+                    iOS 各种锁的用法
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2021-03-10 ·
+                        · 2021-04-22 ·
                     </time>
                     
-                        <a href="https://shineyangpro.com/3U6sZPuRZ/" class="post-tags">
-                            # Swift
+                        <a href="https://shineyangpro.com/RGlMWjcck/" class="post-tags">
+                            # IOS
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <figure data-type="image" tabindex="1"><img src="https://i.stack.imgur.com/L5bfJ.png" alt="" loading="lazy"></figure>
-<pre><code>if #available(iOS 13.0, *) {
-    let navBarAppearance = UINavigationBarAppearance()
-    navBarAppearance.configureWithOpaqueBackground()
-    navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-    navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-    navBarAppearance.backgroundColor = &lt;insert your color here&gt;
-    navigationBar.standardAppearance = navBarAppearance
-    navigationBar.scrollEdgeAppearance = navBarAppearance
+                    <p>常见的有以下几种:</p>
+<ul>
+<li>@synchronized  互斥锁</li>
+<li>NSLock 对象锁</li>
+<li>dispatch_semaphore 信号量</li>
+<li>NSCondition 条件锁</li>
+<li>NSConditionLock</li>
+<li>NSRecursiveLock 是递归锁</li>
+</ul>
+<h3 id="synchronized">synchronized</h3>
+<p>synchronized是互斥锁，在这里主要考虑的是线程安全的问题，使用这个关键字，可以将一段代码限制在一个线程内使用，如果有一个线程正在使用这块资源，那么别的线程想要使用的时候就必须等待这快线程执行完毕！</p>
+<p>首先 @synchronized() 小括号内需要一个参数，这个参数就表示信号量。这个参数可以是任何对象，包括 self，或者是自定义的信号量。针对不同的操作应该定义不同的信号量。</p>
+<p>@synchronized() {…} 大括号中就是要加锁执行的代码，代码会操作一些数据。当开始执行代码时，意味着当前线程对其加锁了，当代码执行完后，自动解锁，其他线程才允许执行此段代码。</p>
+<h5 id="优缺点">优缺点</h5>
+<p>优点：能有效防止因多线程抢夺资源造成的数据安全问题。<br>
+缺点：需要消耗大量的CUP资源。</p>
+<pre><code>- (void)sellTicketsWithSynchronized
+{
+    while (true) {
+        @synchronized(self){
+            if (self.ticketNumber &gt; 0) {
+                self.ticketNumber --;
+                NSThread *thread = [NSThread currentThread];
+                NSLog(@&quot;%@卖了一张票,还剩%ld张票&quot;,[thread name],self.ticketNumber);
+            }else{
+                // 退出当前线程
+                [NSThread exit];
+            }
+        }
+    }
 }
 </code></pre>
-<p><mark>backgroundColor 设置你想要的颜色</mark></p>
-<h4 id="或者你可以这样封装">或者你可以这样封装</h4>
-<pre><code>extension UIViewController {
-func configureNavigationBar(largeTitleColor: UIColor, backgoundColor: UIColor, tintColor: UIColor, title: String, preferredLargeTitle: Bool) {
-    if #available(iOS 13.0, *) {
-        let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.configureWithOpaqueBackground()
-        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: largeTitleColor]
-        navBarAppearance.titleTextAttributes = [.foregroundColor: largeTitleColor]
-        navBarAppearance.backgroundColor = backgoundColor
-
-        navigationController?.navigationBar.standardAppearance = navBarAppearance
-        navigationController?.navigationBar.compactAppearance = navBarAppearance
-        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-
-        navigationController?.navigationBar.prefersLargeTitles = preferredLargeTitle
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.tintColor = tintColor
-        navigationItem.title = title
-
-    } else {
-        // Fallback on earlier versions
-        navigationController?.navigationBar.barTintColor = backgoundColor
-        navigationController?.navigationBar.tintColor = tintColor
-        navigationController?.navigationBar.isTranslucent = false
-        navigationItem.title = title
+<h3 id="nslock">NSLock</h3>
+<p>NSLock 遵循 NSLocking 协议，lock 方法是加锁，unlock 是解锁，tryLock 是尝试加锁，如果失败的话返回 NO，lockBeforeDate: 是在指定Date之前尝试加锁，如果在指定时间之前都不能加锁，则返回NO。</p>
+<pre><code>- (void)sellTicketsWithNSLock
+{
+    while (true) {
+        [self.lock lock];
+        if (self.ticketNumber &gt; 0) {
+            self.ticketNumber --;
+            NSThread *thread = [NSThread currentThread];
+            NSLog(@&quot;%@卖了一张票,还剩%ld张票&quot;,[thread name],self.ticketNumber);
+        }else{
+            // 退出当前线程
+            [NSThread exit];
+        }
+         [self.lock unlock]; // 解锁
     }
-}}
+}
 </code></pre>
-<h3 id="使用如下">使用如下:</h3>
-<blockquote>
-<p>configureNavigationBar(largeTitleColor: .yourColor, backgoundColor: .yourColor, tintColor: .yourColor, title: &quot;YourTitle&quot;, preferredLargeTitle: true)</p>
-</blockquote>
+<h3 id="dispatch_semaphore">dispatch_semaphore</h3>
+<p>dispatch_semaphore是GCD用来同步的一种方式，与他相关的共有三个函数，分别是</p>
+<pre><code>//创建信号量，参数：信号量的初值，如果小于0则会返回NULL
+dispatch_semaphore_create（信号量值）
+
+//提高信号量
+dispatch_semaphore_signal(信号量)
+
+//等待降低信号量
+dispatch_semaphore_wait（信号量，等待时间）
+</code></pre>
+<p>(1）dispatch_semaphore_create的声明为：<br>
+dispatch_semaphore_t dispatch_semaphore_create(long value);<br>
+传入的参数为long，输出一个dispatch_semaphore_t类型且值为value的信号量。<br>
+值得注意的是，这里的传入的参数value必须大于或等于0，否则dispatch_semaphore_create会返回NULL。</p>
+<p>(2）dispatch_semaphore_signal的声明为：<br>
+dispatch_semaphore_signal(semaphore);<br>
+这个函数会使传入的信号量semaphore的值加1；</p>
+<p>(3) dispatch_semaphore_wait的声明为：<br>
+dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);<br>
+这个函数会使传入的信号量semaphore的值减1；这个函数的作用是这样的，如果semaphore信号量的值大于0，该函数所处线程就继续执行下面的语句，并且将信号量的值减1；如果semaphore的值为0，那么这个函数就阻塞当前线程等待timeout</p>
+<pre><code>-(void)dispatchSignal{
+   //crate的value表示，最多几个资源可访问
+   dispatch_semaphore_t semaphore = dispatch_semaphore_create(1);
+   dispatch_queue_t quene = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+
+   //任务1
+   dispatch_async(quene, ^{
+       dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+       NSLog(@&quot;run task 1&quot;);
+       sleep(1);
+       NSLog(@&quot;complete task 1&quot;);
+       dispatch_semaphore_signal(semaphore);
+   });
+   //任务2
+   dispatch_async(quene, ^{
+       dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+       NSLog(@&quot;run task 2&quot;);
+       sleep(1);
+       NSLog(@&quot;complete task 2&quot;);
+       dispatch_semaphore_signal(semaphore);
+   });
+   //任务3
+   dispatch_async(quene, ^{
+       dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+       NSLog(@&quot;run task 3&quot;);
+       sleep(1);
+       NSLog(@&quot;complete task 3&quot;);
+       dispatch_semaphore_signal(semaphore);
+   });
+}
+
+</code></pre>
+<h3 id="nscondition">NSCondition</h3>
+<p>NSCondition 的对象实际上作为一个锁和一个线程检查器：锁主要为了当检测条件时保护数据源，执行条件引发的任务；线程检查器主要是根据条件决定是否继续运行线程，即线程是否被阻塞。</p>
+<pre><code>NSConditon *condition =[ [NSCondition alloc]]init;
+
+[condition lock];//一般用于多线程同时访问、修改同一个数据源，保证在同一时间内数据源只被访问、修改一次，其他线程的命令需要在lock 外等待，只到unlock ，才可访问
+
+[condition unlock];//与lock 同时使用
+
+[condition wait];//让当前线程处于等待状态
+
+[condition signal];//CPU发信号告诉线程不用在等待，可以继续执行
+</code></pre>
+<pre><code>NSCondition *lock = [[NSCondition alloc] init];
+NSMutableArray *array = [[NSMutableArray alloc] init];
+  //线程1
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+      [lock lock];
+      while (!array.count) {
+          [lock wait];
+      }
+      [array removeAllObjects];
+      NSLog(@&quot;array removeAllObjects&quot;);
+      [lock unlock];
+  });
+  
+  //线程2
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+      [lock lock];
+      [array addObject:@1];
+      NSLog(@&quot;array addObject:@1&quot;);
+      [lock signal];
+      [lock unlock];
+  });
+</code></pre>
 
                 </div>
             </article>
@@ -162,8 +255,8 @@ func configureNavigationBar(largeTitleColor: UIColor, backgoundColor: UIColor, t
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyangpro.com/swift-uilabel-dai-you-liang-chong-bu-tong-yan-se-de-wen-ben/" class="post-title gt-a-link">
-                    Swift UILabel带有两种不同颜色的文本
+                <a href="https://shineyangpro.com/shi-pin-tui-liu-yu-shi-pin-la-liu-de-gong-zuo-guo-cheng-jie-xi-ji-lu/" class="post-title gt-a-link">
+                    视频推流与视频拉流的工作过程解析(记录)
                 </a>
             </div>
         
