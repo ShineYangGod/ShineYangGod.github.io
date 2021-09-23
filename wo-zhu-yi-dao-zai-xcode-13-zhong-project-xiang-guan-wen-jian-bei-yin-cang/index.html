@@ -4,7 +4,7 @@
 <meta name="description" content=""/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>清理Xcode占用的Mac硬盘空间 | ShineYang</title>
+<title>我注意到在 Xcode 13 中，Project相关文件被隐藏 | ShineYang</title>
 
 <link rel="shortcut icon" href="https://shineyangpro.com/favicon.ico?v=1632404071809">
 
@@ -97,39 +97,30 @@
         <div class="post-detail gt-bg-theme-color-second">
             <article class="gt-post-content">
                 <h2 class="post-title">
-                    清理Xcode占用的Mac硬盘空间
+                    我注意到在 Xcode 13 中，Project相关文件被隐藏
                 </h2>
                 <div class="post-info">
                     <time class="post-time gt-c-content-color-first">
-                        · 2020-09-25 ·
+                        · 2021-09-23 ·
                     </time>
                     
-                        <a href="https://shineyangpro.com/fRADVONCB/" class="post-tags">
-                            # Mac整理
+                        <a href="https://shineyangpro.com/OKXCCJNCd/" class="post-tags">
+                            # iOS15
+                        </a>
+                    
+                        <a href="https://shineyangpro.com/3U6sZPuRZ/" class="post-tags">
+                            # Swift
                         </a>
                     
                 </div>
                 <div class="post-content">
-                    <p>主要是操作两个目录下的文件 ~/Library/Developer/Xcode 和 ~/Library/Developer/CoreSimulator</p>
-<h3 id="~librarydeveloperxcode">~/Library/Developer/Xcode</h3>
-<h4 id="1-deriveddata">1、DerivedData</h4>
-<pre><code>此文件夹内的每个目录是Xcode运行每个APP时生成的缓存文件，删除之后再运行APP会重新生成该APP对应的文件，只是编译时间变长了。
-可保留近期运行的APP相关的文件夹，对于以前运行过近期不再使用的APP，例如网上下载的demo，建议清理。
-Archives
-此文件夹中的内容对应Xcode-&gt;Window-&gt;Organizer-&gt;Archives中列出的打包文件。
-可保留有用的打包文件，其它删除。
-iOS DeviceSupport
-此文件夹存放的是Xcode对你所连接真机的版本支持，每个文件夹几乎都是几个G的大小（我个人的情况是11个目录占了26G空间），手机每升级一个版本，再次连接Xcode时，这里都会生成一个目录。
-建议保留你手机当前版本的文件夹。全部删除也没关系，手机再次连接Xcode时会重新生成。
-</code></pre>
-<h4 id="2-~librarydevelopercoresimulator">2. ~/Library/Developer/CoreSimulator</h4>
-<pre><code>Devices
-此文件夹下的目录是以模拟器的UDID命名的，运行模拟器时每安装一个新的APP，相应的文件夹内容也会增大，就像手机上安装应用会占用手机空间一样。
-</code></pre>
-<p>可删除全部文件夹。再次运行模拟器，会重新生成。<br>
-删除后开启Xcode运行模拟器，可能会出现下面的错误，不要惊慌，重启Xcode就好了。<br>
-<img src="https://shineyangpro.com/post-images/1600997815748.png" alt="" loading="lazy"></p>
-<p><mark>建议在退出Xcode后进行清理，清理后重启电脑</mark></p>
+                    <blockquote>
+<p>That's just how Xcode 13 works. In a new project created in Xcode 13, there is no Products category (group) visible in the Project navigator any longer. This is covered in the release notes:</p>
+</blockquote>
+<h3 id="解决办法">解决办法:</h3>
+<blockquote>
+<p>The project navigator hides the Products group when it’s in the default location. <code>The Product &gt; Show Build Folder in Finder</code> menu item replaces the most common use. (71561549)</p>
+</blockquote>
 
                 </div>
             </article>
@@ -138,8 +129,8 @@ iOS DeviceSupport
         
             <div class="next-post">
                 <div class="next gt-c-content-color-first">下一篇</div>
-                <a href="https://shineyangpro.com/ios-13swift-yi-bian-cheng-fang-shi-she-zhi-ying-yong-cheng-xu-gen-shi-tu-kong-zhi-qi-bu-qi-zuo-yong/" class="post-title gt-a-link">
-                    iOS 13：Swift以编程方式设置应用程序根视图控制器不起作用
+                <a href="https://shineyangpro.com/ios-15-ru-he-yin-cang-uinavigationbar-1px-di-xian/" class="post-title gt-a-link">
+                    iOS 15 如何隐藏 UINavigationBar 1px 底线
                 </a>
             </div>
         
